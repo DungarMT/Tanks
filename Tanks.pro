@@ -14,8 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     player.cpp \
-    bullet.cpp
+    bullet.cpp \
+    game.cpp
 
 HEADERS  += \
     player.h \
-    bullet.h
+    bullet.h \
+    game.h
