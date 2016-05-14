@@ -18,6 +18,6 @@ QGraphicsRectItem *Block::getBlock()
 Block::Block(int xPos, int yPos, QWidget *parent, QGraphicsScene *scene)
     : QGraphicsRectItem()
 {
-    this->setRect(xPos, yPos, 32, 32);
+    this->setRect(xPos, yPos, 16, 16);
     scene->addItem(this);
 }

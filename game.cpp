@@ -19,5 +19,15 @@ Game::Game()
     screen->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     screen->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     screen->show();
+    setBlock(300,300, game_screen);
+    setBlock(400,400, game_screen);
 
+}
+
+void Game::setBlock(int xPos, int yPos, QGraphicsScene *game_screen)
+{
+    Block *block_one = new Block(xPos,yPos,NULL,game_screen);
+    Block *block_two = new Block(xPos+16,yPos,NULL,game_screen);
+    Block *block_three = new Block(xPos,yPos+16,NULL,game_screen);
+    Block *block_four = new Block(xPos+16,yPos+16,NULL,game_screen);
 }
