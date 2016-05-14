@@ -23,11 +23,10 @@ Game::Game()
 
     player->setPos(screen->width()/2, screen->height() - player->rect().height()-5);
 
-    setBlock(300,300, game_screen);
-    setBlock(400,400, game_screen);
+    Block *block = new Block(100,100, NULL, game_screen);
 
 }
-
+/*
 void Game::setBlock(int xPos, int yPos, QGraphicsScene *game_screen)
 {
     Block *block_one = new Block(xPos,yPos,NULL,game_screen);
@@ -35,3 +34,4 @@ void Game::setBlock(int xPos, int yPos, QGraphicsScene *game_screen)
     Block *block_three = new Block(xPos,yPos+16,NULL,game_screen);
     Block *block_four = new Block(xPos+16,yPos+16,NULL,game_screen);
 }
+*/
