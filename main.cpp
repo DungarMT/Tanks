@@ -2,7 +2,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "player.h"
-//Yay
+//xyu
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
