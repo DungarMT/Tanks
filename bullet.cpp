@@ -6,7 +6,7 @@
 
 Bullet::Bullet()
 {
-    setRect(0, 0, 10, 10);
+    setRect(13, 0, 6, 8);
 
     QTimer *timer = new QTimer();
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
