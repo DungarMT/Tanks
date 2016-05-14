@@ -2,7 +2,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "player.h"
-//yay
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -13,6 +13,11 @@ int main(int argc, char *argv[])
     player->setRect(0, 0, 100, 100);
 
     scene->addItem(player);
+
+
+
+
+
 
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
