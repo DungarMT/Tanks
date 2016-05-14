@@ -6,11 +6,11 @@ void Player::keyPressEvent(QKeyEvent *event)
 {
     switch(event->key()){
     case Qt::Key_Left:
-        if(x() > 5)
+        if(x() > 0)
             setPos(x()-5, y());
         break;
     case Qt::Key_Right:
-        if(x() < 495)
+        if(x() + 32 < 800)
             setPos(x()+5, y());
         break;
     case Qt::Key_Up:
@@ -18,7 +18,7 @@ void Player::keyPressEvent(QKeyEvent *event)
             setPos(x(), y()-5);
         break;
     case Qt::Key_Down:
-        if(y() < 495)
+        if(y() + 32 < 600)
             setPos(x(), y()+5);
         break;
     case Qt::Key_Space:

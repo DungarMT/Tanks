@@ -17,8 +17,8 @@ Game::Game()
     screen->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     screen->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     screen->show();
-    screen->setFixedSize(600, 600);
+    screen->setFixedSize(800, 600);
     game_screen->setSceneRect(0, 0, 800, 600);
 
-    player->setPos(screen->width()/2, screen->height() - player->rect().height()-5);
+    player->setPos(screen->width()/2, screen->height() - player->rect().height());
 }
