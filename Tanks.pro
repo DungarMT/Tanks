@@ -16,12 +16,14 @@ SOURCES += main.cpp \
     player.cpp \
     bullet.cpp \
     game.cpp \
-    block.cpp
+    block.cpp \
+    brick.cpp
 
 
 HEADERS  += \
     player.h \
     bullet.h \
     game.h \
-    block.h
+    block.h \
+    brick.h
 

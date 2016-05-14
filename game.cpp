@@ -17,16 +17,21 @@ Game::Game()
     screen->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     screen->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     screen->show();
-    screen->setFixedSize(800, 600);
-    game_screen->setSceneRect(0, 0, 800, 600);
-
-    player->setPos(screen->width()/2, screen->height() - player->rect().height());
 
     screen->setFixedSize(600, 600);
     game_screen->setSceneRect(0, 0, 800, 600);
 
     player->setPos(screen->width()/2, screen->height() - player->rect().height()-5);
 
-    Block *block = new Block(100,100, NULL, game_screen);
+    Brick *block = new Brick(100,100,game_screen);
 
 }
+/*
+void Game::setBlock(int xPos, int yPos, QGraphicsScene *game_screen)
+{
+    Block *block_one = new Block(xPos,yPos,NULL,game_screen);
+    Block *block_two = new Block(xPos+16,yPos,NULL,game_screen);
+    Block *block_three = new Block(xPos,yPos+16,NULL,game_screen);
+    Block *block_four = new Block(xPos+16,yPos+16,NULL,game_screen);
+}
+*/

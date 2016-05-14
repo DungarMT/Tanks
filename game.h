@@ -5,6 +5,7 @@
 #include <QGraphicsView>
 #include "player.h"
 #include "block.h"
+#include "brick.h"
 
 class Game : public QObject
 {
