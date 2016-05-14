@@ -15,17 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp \
     player.cpp \
     bullet.cpp \
-<<<<<<< HEAD
-    game.cpp
-=======
+    game.cpp \
     block.cpp
->>>>>>> origin/master
+
 
 HEADERS  += \
     player.h \
     bullet.h \
-<<<<<<< HEAD
-    game.h
-=======
+    game.h \
     block.h
->>>>>>> origin/master
+

@@ -2,12 +2,17 @@
 #define BLOCK_H
 
 #include <QGraphicsRectItem>
+#include <QGraphicsScene>
 
 
 class Block : public QGraphicsRectItem
 {
+
+private:
+//    QGraphicsRectItem * block;
 public:
-    void test(int a);
+    Block(int xPos, int yPos, QWidget *parent, QGraphicsScene *scene);
+//    QGraphicsRectItem* getBlock();
 };
 
 #endif // BLOCK_H
