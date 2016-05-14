@@ -4,6 +4,9 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QObject>
+#include <QTimer>
+#include <QList>
+#include <typeinfo>
 
 class Bullet : public QObject, public QGraphicsRectItem
 {
