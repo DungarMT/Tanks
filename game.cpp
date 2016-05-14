@@ -21,4 +21,12 @@ Game::Game()
     game_screen->setSceneRect(0, 0, 800, 600);
 
     player->setPos(screen->width()/2, screen->height() - player->rect().height());
+
+    screen->setFixedSize(600, 600);
+    game_screen->setSceneRect(0, 0, 800, 600);
+
+    player->setPos(screen->width()/2, screen->height() - player->rect().height()-5);
+
+    Block *block = new Block(100,100, NULL, game_screen);
+
 }
