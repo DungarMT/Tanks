@@ -7,7 +7,7 @@ Game::Game()
 
     //Create player tank
     Player *player = new Player('U');
-    player->setRect(0, 0, 30, 30);
+    player->setRect(0, 0, 32, 32);
 
     game_screen->addItem(player);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -21,7 +21,7 @@ Game::Game()
     screen->setFixedSize(800, 600);
     game_screen->setSceneRect(0, 0, 800, 600);
 
-    player->setPos(screen->width()/2, screen->height() - player->rect().height()-5);
+    player->setPos(screen->width()/2+1, screen->height() - player->rect().height()-5);
 
 
 
