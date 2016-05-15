@@ -6,6 +6,8 @@
 
 Bullet::Bullet(char side, int stars)
 {
+    this->setZValue(1);
+    this->setBrush(* new QBrush(Qt::white));
     this->side = side;
     this->stars = stars;
     QTimer *timer = new QTimer(this);

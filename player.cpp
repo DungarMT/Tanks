@@ -4,6 +4,7 @@
 #include "bullet.h"
 #include "brick.h"
 #include "concrete.h"
+#include "upgrades.h"
 
 Player::Player(char side) : Tank(side)
 {
@@ -78,6 +79,12 @@ void Player::keyPressEvent(QKeyEvent *event)
                 setPos(x()-2, y());
                 break;
             }
+        }
+        else if(typeid(*(colliding_items[i])) == typeid(Upgrades))
+        {
+            scene()->removeItem(colliding_items[i]);
+            delete colliding_items[i];
+            this->stars+=1;
         }
     }
 }

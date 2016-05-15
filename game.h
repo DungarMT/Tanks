@@ -5,8 +5,9 @@
 #include <QGraphicsView>
 #include "player.h"
 #include "block.h"
-#include "brick.h"
 #include <QVector>
+#include <upgrades.h>
+#include <ctime>
 
 class Game : public QObject
 {
