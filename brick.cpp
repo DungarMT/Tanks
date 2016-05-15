@@ -3,6 +3,7 @@
 
 Brick::Brick(int xPos, int yPos, QGraphicsScene *scene, QWidget *parent)
 {
+
     Brick *brick_one = new Brick(xPos,yPos,scene);
     Brick *brick_two = new Brick(xPos+16,yPos,scene);
     Brick *brick_three = new Brick(xPos,yPos+16,scene);

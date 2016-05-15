@@ -2,7 +2,9 @@
 #define BLOCK_H
 
 #include "brick.h"
-
+#include "concrete.h"
+#include "bush.h"
+#include "ice.h"
 
 class Block
 {

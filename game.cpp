@@ -6,7 +6,7 @@ Game::Game()
     QGraphicsScene *game_screen = new QGraphicsScene(this);
 
     //Create player tank
-    Player *player = new Player();
+    Player *player = new Player('U');
     player->setRect(0, 0, 32, 32);
 
     game_screen->addItem(player);
@@ -18,7 +18,7 @@ Game::Game()
     screen->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     screen->show();
 
-    screen->setFixedSize(600, 600);
+    screen->setFixedSize(800, 600);
     game_screen->setSceneRect(0, 0, 800, 600);
 
     player->setPos(screen->width()/2, screen->height() - player->rect().height()-5);

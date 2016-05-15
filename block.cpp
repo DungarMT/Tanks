@@ -1,7 +1,5 @@
 #include "block.h"
-#include "concrete.h"
-#include "bush.h"
-#include "ice.h"
+
 
 /*
 Block::Block(int xPos, int yPos, QWidget *parent, QGraphicsScene *scene)
