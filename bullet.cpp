@@ -4,11 +4,11 @@
 #include <QList>
 #include <typeinfo>
 
-Bullet::Bullet()
+Bullet::Bullet(char side)
 {
-    setRect(13, 0, 6, 8);
+    this->side = side;
 
-    QTimer *timer = new QTimer();
+    QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 
     timer->start(5);
@@ -33,9 +33,34 @@ void Bullet::move()
         return;
     }
 
-    setPos(x(), y()-1);
-    if(pos().y() == 5){
-        scene()->removeItem(this);
-        delete this;
+    switch(this->side){
+    case 'U':
+        setPos(x(), y()-1);
+        if(pos().y() == 5){
+            scene()->removeItem(this);
+            delete this;
+        }
+        break;
+    case 'D':
+        setPos(x(), y()+1);
+        if(pos().y() == 600){
+            scene()->removeItem(this);
+            delete this;
+        }
+        break;
+    case 'L':
+        setPos(x()-1, y());
+        if(pos().x() == 0){
+            scene()->removeItem(this);
+            delete this;
+        }
+        break;
+    case 'R':
+        setPos(x()+1, y());
+        if(pos().x() == 800){
+            scene()->removeItem(this);
+            delete this;
+        }
+        break;
     }
 }
