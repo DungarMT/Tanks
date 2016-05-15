@@ -11,5 +11,6 @@ Concrete::Concrete(int xPos, int yPos, QGraphicsScene *scene, QWidget *parent)
 Concrete::Concrete(int xPos, int yPos, QGraphicsScene *scene)
 {
     this->setRect(xPos, yPos, 16, 16);
+    this->setBrush(* new QBrush(Qt::black));
     scene->addItem(this);
 }

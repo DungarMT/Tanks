@@ -4,10 +4,10 @@
 #include <QList>
 #include <typeinfo>
 
-Bullet::Bullet(char side)
+Bullet::Bullet(char side, int stars)
 {
     this->side = side;
-
+    this->stars = stars;
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 
@@ -26,8 +26,13 @@ void Bullet::move()
         }
         else if(typeid(*(colliding_items[i])) == typeid(Concrete))
         {
+            if(stars==3){
+                scene()->removeItem(colliding_items[i]);
+                delete colliding_items[i];
+            }
             deleted = true;
         }
+
     }
     if(deleted){
         scene()->removeItem(this);

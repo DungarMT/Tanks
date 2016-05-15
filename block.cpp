@@ -34,6 +34,9 @@ Block::Block(int xPos, int yPos, QGraphicsScene *scene, int IdBlock)
     case 4:
         Ice(xPos,yPos,scene,NULL);
         break;
+    case 5:
+        Water(xPos,yPos,scene,NULL);
+        break;
     default:
         break;
     }

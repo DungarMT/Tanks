@@ -6,6 +6,8 @@
 
 class Player : public Tank
 {
+private:
+    int stars=0;
 public:
     Player(char side);
     void keyPressEvent(QKeyEvent * event);

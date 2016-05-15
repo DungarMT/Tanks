@@ -6,6 +6,7 @@
 #include "player.h"
 #include "block.h"
 #include "brick.h"
+#include <QVector>
 
 class Game : public QObject
 {

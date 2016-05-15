@@ -12,10 +12,11 @@ class Bullet : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    Bullet(char side);
+    Bullet(char side, int stars);
 
 private:
     char side;
+    int stars;
 public slots:
     void move();
 };

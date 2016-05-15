@@ -5,6 +5,7 @@
 #include "concrete.h"
 #include "bush.h"
 #include "ice.h"
+#include "water.h"
 
 class Block
 {

@@ -23,29 +23,20 @@ Game::Game()
 
     player->setPos(screen->width()/2, screen->height() - player->rect().height()-5);
 
-    Block *block = new Block(268,400,game_screen,1);
-    Block *block1 = new Block(268,368,game_screen,1);
-    Block *block2 = new Block(268,432,game_screen,1);
-    Block *block3 = new Block(300,432,game_screen,3);
-    Block *block4 = new Block(300,368,game_screen,4);
-    Block *block5 = new Block(332,432,game_screen,1);
-    Block *block6 = new Block(332,400,game_screen,1);
-    Block *block7 = new Block(332,368,game_screen,1);
 
 
 
+    QVector <Block *> block;
+    block.push_back(new Block(300,300,game_screen,1));
+    block.push_back(new Block(300,333,game_screen,1));
+    block.push_back(new Block(300,366,game_screen,1));
+    block.push_back(new Block(333,300,game_screen,5));
+    block.push_back(new Block(333,333,game_screen,2));
+    block.push_back(new Block(333,366,game_screen,3));
+    block.push_back(new Block(366,300,game_screen,1));
+    block.push_back(new Block(366,333,game_screen,1));
+    block.push_back(new Block(366,366,game_screen,1));
 
-
-    Block *block8 = new Block(300,400,game_screen,2);
-    //Brick *block = new Brick(300,400,game_screen);
 
 }
-/*
-void Game::setBlock(int xPos, int yPos, QGraphicsScene *game_screen)
-{
-    Block *block_one = new Block(xPos,yPos,NULL,game_screen);
-    Block *block_two = new Block(xPos+16,yPos,NULL,game_screen);
-    Block *block_three = new Block(xPos,yPos+16,NULL,game_screen);
-    Block *block_four = new Block(xPos+16,yPos+16,NULL,game_screen);
-}
-*/
+

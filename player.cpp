@@ -4,7 +4,8 @@
 
 Player::Player(char side) : Tank(side)
 {
-
+    this->setBrush(* new QBrush(Qt::yellow));
+    this->setZValue(1);
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -31,7 +32,7 @@ void Player::keyPressEvent(QKeyEvent *event)
             setPos(x(), y()+5);
         break;
     case Qt::Key_Space:
-        Bullet *bullet = new Bullet(this->side);
+        Bullet *bullet = new Bullet(this->side, stars);
         switch(side){
         case 'U':
             bullet->setPos(x()+13, y());

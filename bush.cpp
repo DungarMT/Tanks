@@ -11,5 +11,7 @@ Bush::Bush(int xPos, int yPos, QGraphicsScene *scene, QWidget *parent)
 Bush::Bush(int xPos, int yPos, QGraphicsScene *scene)
 {
     this->setRect(xPos, yPos, 16, 16);
+    this->setZValue(2);
+    this->setBrush(* new QBrush(Qt::green));
     scene->addItem(this);
 }

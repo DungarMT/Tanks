@@ -13,5 +13,6 @@ Brick::Brick(int xPos, int yPos, QGraphicsScene *scene, QWidget *parent)
 Brick::Brick(int xPos, int yPos, QGraphicsScene *scene)
 {
     this->setRect(xPos, yPos, 16, 16);
+    this->setBrush(* new QBrush(Qt::red));
     scene->addItem(this);
 }
