@@ -1,6 +1,9 @@
 #include "block.h"
+#include "concrete.h"
+#include "bush.h"
+#include "ice.h"
 
-
+/*
 Block::Block(int xPos, int yPos, QWidget *parent, QGraphicsScene *scene)
 {
     //scene->addItem(this);
@@ -16,4 +19,24 @@ Block::Block(int xPos, int yPos, QGraphicsScene *scene)
 {
     this->setRect(xPos, yPos, 16, 16);
     scene->addItem(this);
+}
+*/
+Block::Block(int xPos, int yPos, QGraphicsScene *scene, int IdBlock)
+{
+    switch (IdBlock) {
+    case 1:
+       Brick(xPos, yPos, scene, NULL);
+        break;
+    case 2:
+        Concrete(xPos,yPos,scene,NULL);
+        break;
+    case 3:
+        Bush(xPos,yPos,scene,NULL);
+        break;
+    case 4:
+        Ice(xPos,yPos,scene,NULL);
+        break;
+    default:
+        break;
+    }
 }

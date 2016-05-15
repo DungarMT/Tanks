@@ -23,7 +23,21 @@ Game::Game()
 
     player->setPos(screen->width()/2, screen->height() - player->rect().height()-5);
 
-    Brick *block = new Brick(100,100,game_screen);
+    Block *block = new Block(268,400,game_screen,1);
+    Block *block1 = new Block(268,368,game_screen,1);
+    Block *block2 = new Block(268,432,game_screen,1);
+    Block *block3 = new Block(300,432,game_screen,3);
+    Block *block4 = new Block(300,368,game_screen,4);
+    Block *block5 = new Block(332,432,game_screen,1);
+    Block *block6 = new Block(332,400,game_screen,1);
+    Block *block7 = new Block(332,368,game_screen,1);
+
+
+
+
+
+    Block *block8 = new Block(300,400,game_screen,2);
+    //Brick *block = new Brick(300,400,game_screen);
 
 }
 /*

@@ -17,7 +17,10 @@ SOURCES += main.cpp \
     bullet.cpp \
     game.cpp \
     block.cpp \
-    brick.cpp
+    brick.cpp \
+    concrete.cpp \
+    bush.cpp \
+    ice.cpp
 
 
 HEADERS  += \
@@ -25,5 +28,8 @@ HEADERS  += \
     bullet.h \
     game.h \
     block.h \
-    brick.h
+    brick.h \
+    concrete.h \
+    bush.h \
+    ice.h
 
