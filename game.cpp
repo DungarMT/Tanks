@@ -7,7 +7,7 @@ Game::Game()
 
     //Create player tank
     Player *player = new Player('U');
-    player->setRect(0, 0, 32, 32);
+    player->setRect(0, 0, 30, 30);
 
     game_screen->addItem(player);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
