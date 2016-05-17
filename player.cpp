@@ -5,6 +5,7 @@
 #include "brick.h"
 #include "concrete.h"
 #include "upgrades.h"
+#include <QTimer>
 
 Player::Player(char side) : Tank(side)
 {
@@ -14,12 +15,12 @@ Player::Player(char side) : Tank(side)
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
+
     switch(event->key()){
     case Qt::Key_Left:
         this->side = 'L';
-        if(x() > 0)
-            setPos(x()-2, y());
-        break;
+            if(x() > 0)
+                setPos(x()-2, y());
     case Qt::Key_Right:
         this->side = 'R';
         if(x() + 32 < 800)

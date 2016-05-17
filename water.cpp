@@ -12,7 +12,7 @@ Water::Water(int xPos, int yPos, QGraphicsScene *scene, QWidget *parent)
 
 Water::Water(int xPos, int yPos, QGraphicsScene *scene)
 {
-    this->setRect(xPos, yPos, 16, 16);
+    this->setRect(xPos, yPos, 15, 15);
     this->setBrush(* new QBrush(Qt::blue));
     scene->addItem(this);
 }

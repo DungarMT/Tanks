@@ -10,6 +10,6 @@ Ice::Ice(int xPos, int yPos, QGraphicsScene *scene, QWidget *parent)
 
 Ice::Ice(int xPos, int yPos, QGraphicsScene *scene)
 {
-    this->setRect(xPos, yPos, 16, 16);
+    this->setRect(xPos, yPos, 15, 15);
     scene->addItem(this);
 }
