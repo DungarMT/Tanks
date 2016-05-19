@@ -5,11 +5,16 @@
 #include "brick.h"
 #include "concrete.h"
 #include "upgrades.h"
+#include "water.h"
 
 Player::Player(char side) : Tank(side)
 {
     this->setBrush(* new QBrush(Qt::yellow));
     this->setZValue(1);
+    stars = 0;
+    count = 0;
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -17,23 +22,23 @@ void Player::keyPressEvent(QKeyEvent *event)
     switch(event->key()){
     case Qt::Key_Left:
         this->side = 'L';
-        if(x() > 0)
-            setPos(x()-2, y());
+        if(x() > 0 and !timer->isActive())
+            timer->start(20);
         break;
     case Qt::Key_Right:
         this->side = 'R';
-        if(x() + 32 < 800)
-            setPos(x()+2, y());
+        if(x() + 32 < 800 and !timer->isActive())
+            timer->start(20);
         break;
     case Qt::Key_Up:
         this->side = 'U';
-        if(y() > 0)
-            setPos(x(), y()-2);
+        if(y() > 0 and !timer->isActive())
+            timer->start(20);
         break;
     case Qt::Key_Down:
         this->side = 'D';
-        if(y() + 32 < 600)
-            setPos(x(), y()+2);
+        if(y() + 32 < 600 and !timer->isActive())
+            timer->start(20);
         break;
     case Qt::Key_Space:
         Bullet *bullet = new Bullet(this->side, stars);
@@ -61,7 +66,8 @@ void Player::keyPressEvent(QKeyEvent *event)
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for(int i = 0; i < colliding_items.size(); i++){
         if(typeid(*(colliding_items[i])) == typeid(Brick) ||
-           typeid(*(colliding_items[i])) == typeid(Concrete))
+           typeid(*(colliding_items[i])) == typeid(Concrete) ||
+           typeid(*(colliding_items[i])) == typeid(Water))
         {
             if(side == 'U'){
                 setPos(x(), y()+2);
@@ -86,5 +92,35 @@ void Player::keyPressEvent(QKeyEvent *event)
             delete colliding_items[i];
             this->stars+=1;
         }
+    }
+}
+
+void Player::move()
+{
+    switch(side){
+    case 'L':
+        if(x() > 0)
+            setPos(x()-2, y());
+        count++;
+        break;
+    case 'R':
+        if(x() + 32 < 800)
+            setPos(x()+2, y());
+        count++;
+        break;
+    case 'U':
+        if(y() > 0)
+            setPos(x(), y()-2);
+        count++;
+        break;
+    case 'D':
+        if(y() + 32 < 600)
+            setPos(x(), y()+2);
+        count++;
+        break;
+    }
+    if(count >= 8){
+        count = 0;
+        timer->stop();
     }
 }

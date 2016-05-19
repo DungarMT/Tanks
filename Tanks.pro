@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     bush.cpp \
     ice.cpp\
     tank.cpp \
-    water.cpp
+    water.cpp \
+    upgrades.cpp
 
 
 HEADERS  += \
@@ -35,5 +36,9 @@ HEADERS  += \
     bush.h \
     ice.h\
     tank.h \
-    water.h
+    water.h \
+    upgrades.h
+
+RESOURCES += \
+
 

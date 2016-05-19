@@ -3,13 +3,20 @@
 
 #include <tank.h>
 #include <QKeyEvent>
+#include <QTimer>
 
-class Player : public Tank
+class Player : public QObject, public Tank
 {
+    Q_OBJECT
 private:
-    int stars=0;
+    int stars;
+    int count;
+    QTimer *timer;
 public:
     Player(char side);
     void keyPressEvent(QKeyEvent * event);
+
+private slots:
+    void move();
 };
 #endif // PLAYER_H
