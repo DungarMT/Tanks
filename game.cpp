@@ -21,8 +21,12 @@ Game::Game()
 
     screen->setFixedSize(800, 600);
     game_screen->setSceneRect(0, 0, 800, 600);
+
+    player->setPos(screen->width()/2+1, screen->height() - player->rect().height()-5);
+
     player->setPos(396,396);
     //player->setPos(screen->width()/2+1, screen->height() - player->rect().height()-4);
+
 
     Upgrades *strs1 = new Upgrades(rand()%600,rand()%600,game_screen);
     Upgrades *strs2 = new Upgrades(rand()%600,rand()%600,game_screen);
