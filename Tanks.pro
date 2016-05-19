@@ -38,7 +38,3 @@ HEADERS  += \
     tank.h \
     water.h \
     upgrades.h
-
-RESOURCES += \
-
-

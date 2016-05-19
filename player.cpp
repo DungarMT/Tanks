@@ -6,6 +6,8 @@
 #include "concrete.h"
 #include "upgrades.h"
 #include "water.h"
+#include <QTimer>
+
 
 Player::Player(char side) : Tank(side)
 {
@@ -19,12 +21,15 @@ Player::Player(char side) : Tank(side)
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
+
     switch(event->key()){
     case Qt::Key_Left:
         this->side = 'L';
         if(x() > 0 and !timer->isActive())
             timer->start(20);
         break;
+            if(x() > 0)
+                setPos(x()-2, y());
     case Qt::Key_Right:
         this->side = 'R';
         if(x() + 32 < 800 and !timer->isActive())
