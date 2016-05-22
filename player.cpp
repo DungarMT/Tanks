@@ -15,36 +15,49 @@ Player::Player(char side) : Tank(side)
     this->setZValue(1);
     stars = 0;
     count = 0;
+<<<<<<< HEAD
     PressKey = false;
+=======
+    processEvent = false;
+>>>>>>> origin/master
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
-
     switch(event->key()){
     case Qt::Key_Left:
-        this->side = 'L';
-        if(x() > 0 and !timer->isActive())
-            timer->start(20);
+        if(!processEvent){
+            processEvent = true;
+            this->side = 'L';
+            if(x() > 0 and !timer->isActive())
+                timer->start(20);
+        }
         break;
-            if(x() > 0)
-                setPos(x()-2, y());
     case Qt::Key_Right:
-        this->side = 'R';
-        if(x() + 32 < 800 and !timer->isActive())
-            timer->start(20);
+        if(!processEvent){
+            processEvent = true;
+            this->side = 'R';
+            if(x() + 32 < 800 and !timer->isActive())
+                timer->start(20);
+        }
         break;
     case Qt::Key_Up:
-        this->side = 'U';
-        if(y() > 0 and !timer->isActive())
-            timer->start(20);
+        if(!processEvent){
+            processEvent = true;
+            this->side = 'U';
+            if(y() > 0 and !timer->isActive())
+                timer->start(20);
+        }
         break;
     case Qt::Key_Down:
-        this->side = 'D';
-        if(y() + 32 < 600 and !timer->isActive())
-            timer->start(20);
+        if(!processEvent){
+            processEvent = true;
+            this->side = 'D';
+            if(y() + 32 < 600 and !timer->isActive())
+                timer->start(20);
+        }
         break;
     case Qt::Key_Space:
         Bullet *bullet = new Bullet(this->side, stars);
@@ -69,7 +82,10 @@ void Player::keyPressEvent(QKeyEvent *event)
 
         scene()->addItem(bullet);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 }
 
 void Player::move()
@@ -99,6 +115,37 @@ void Player::move()
     if(count >= 8){
         count = 0;
         timer->stop();
+        processEvent = false;
+    }
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for(int i = 0; i < colliding_items.size(); i++){
+        if(typeid(*(colliding_items[i])) == typeid(Brick) ||
+           typeid(*(colliding_items[i])) == typeid(Concrete) ||
+           typeid(*(colliding_items[i])) == typeid(Water))
+        {
+            if(side == 'U'){
+                setPos(x(), y()+2);
+                break;
+            }
+            else if (side == 'D'){
+                setPos(x(), y()-2);
+                break;
+            }
+            else if (side == 'L'){
+                setPos(x()+2, y());
+                break;
+            }
+            else if (side == 'R'){
+                setPos(x()-2, y());
+                break;
+            }
+        }
+        else if(typeid(*(colliding_items[i])) == typeid(Upgrades))
+        {
+            scene()->removeItem(colliding_items[i]);
+            delete colliding_items[i];
+            this->stars+=1;
+        }
     }
 
     QList<QGraphicsItem *> colliding_items = collidingItems();
