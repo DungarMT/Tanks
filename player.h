@@ -11,6 +11,7 @@ class Player : public QObject, public Tank
 private:
     int stars;
     int count;
+    bool processEvent;
     QTimer *timer;
 public:
     Player(char side);
