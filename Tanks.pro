@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     ice.cpp\
     tank.cpp \
     water.cpp \
-    upgrades.cpp
+    upgrades.cpp \
+    base.cpp
 
 
 HEADERS  += \
@@ -37,4 +38,5 @@ HEADERS  += \
     ice.h\
     tank.h \
     water.h \
-    upgrades.h
+    upgrades.h \
+    base.h

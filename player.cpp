@@ -15,6 +15,7 @@ Player::Player(char side) : Tank(side)
     this->setZValue(1);
     stars = 0;
     count = 0;
+    PressKey = false;
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 }
@@ -68,36 +69,7 @@ void Player::keyPressEvent(QKeyEvent *event)
 
         scene()->addItem(bullet);
     }
-    QList<QGraphicsItem *> colliding_items = collidingItems();
-    for(int i = 0; i < colliding_items.size(); i++){
-        if(typeid(*(colliding_items[i])) == typeid(Brick) ||
-           typeid(*(colliding_items[i])) == typeid(Concrete) ||
-           typeid(*(colliding_items[i])) == typeid(Water))
-        {
-            if(side == 'U'){
-                setPos(x(), y()+2);
-                break;
-            }
-            else if (side == 'D'){
-                setPos(x(), y()-2);
-                break;
-            }
-            else if (side == 'L'){
-                setPos(x()+2, y());
-                break;
-            }
-            else if (side == 'R'){
-                setPos(x()-2, y());
-                break;
-            }
-        }
-        else if(typeid(*(colliding_items[i])) == typeid(Upgrades))
-        {
-            scene()->removeItem(colliding_items[i]);
-            delete colliding_items[i];
-            this->stars+=1;
-        }
-    }
+
 }
 
 void Player::move()
@@ -127,5 +99,36 @@ void Player::move()
     if(count >= 8){
         count = 0;
         timer->stop();
+    }
+
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for(int i = 0; i < colliding_items.size(); i++){
+        if(typeid(*(colliding_items[i])) == typeid(Brick) ||
+           typeid(*(colliding_items[i])) == typeid(Concrete) ||
+           typeid(*(colliding_items[i])) == typeid(Water))
+        {
+            if(side == 'U'){
+                setPos(x(), y()+2);
+                break;
+            }
+            else if (side == 'D'){
+                setPos(x(), y()-2);
+                break;
+            }
+            else if (side == 'L'){
+                setPos(x()+2, y());
+                break;
+            }
+            else if (side == 'R'){
+                setPos(x()-2, y());
+                break;
+            }
+        }
+        else if(typeid(*(colliding_items[i])) == typeid(Upgrades))
+        {
+            scene()->removeItem(colliding_items[i]);
+            delete colliding_items[i];
+            this->stars+=1;
+        }
     }
 }

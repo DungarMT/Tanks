@@ -11,10 +11,12 @@ class Player : public QObject, public Tank
 private:
     int stars;
     int count;
+    bool PressKey;
     QTimer *timer;
 public:
     Player(char side);
     void keyPressEvent(QKeyEvent * event);
+
 
 private slots:
     void move();
