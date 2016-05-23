@@ -12,16 +12,29 @@ TARGET = Tanks
 TEMPLATE = app
 
 
-SOURCES += \ 
-    main.cpp \
+SOURCES += main.cpp \
+    player.cpp \
+    bullet.cpp \
     game.cpp \
-    gamemap.cpp \
-    player.cpp
+    block.cpp \
+    brick.cpp \
+    concrete.cpp \
+    bush.cpp \
+    ice.cpp\
+    tank.cpp \
+    water.cpp \
+    upgrades.cpp
 
 
-HEADERS  += \ 
+HEADERS  += \
+    player.h \
+    bullet.h \
     game.h \
-    gamemap.h \
-    player.h
-
-DISTFILES +=
+    block.h \
+    brick.h \
+    concrete.h \
+    bush.h \
+    ice.h\
+    tank.h \
+    water.h \
+    upgrades.h
