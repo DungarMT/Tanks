@@ -1,5 +1,7 @@
 #include "gamemap.h"
 
+#include <QTextStream>
+
 GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
 {
     for(int i = 0; i < 26; i++)
@@ -14,9 +16,25 @@ void GameMap::createPlayer(int xPos, int yPos)
     map[xPos+1][yPos] = 1;
     map[xPos][yPos+1] = 1;
     map[xPos+1][yPos+1] = 1;
-    Player *player = new Player(this);
-    player->setRect(xPos * 16, yPos * 16, 32, 32);
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
+    Player *player = new Player(xPos, yPos, this);
     workScene->addItem(player);
+}
+
+void GameMap::loadMap()
+{
+    QFile file("D:\\Projects\\Tanks\\1.txt");
+    file.open(QIODevice::ReadOnly);
+    QString tmp;
+    QTextStream in(&file);
+    for(int y = 0; y < 26; y++)
+        for(int x = 0; x < 26; x++){
+            in >> tmp;
+            if(tmp.toInt() == 1 and tmp.toInt() != map[x][y]){
+                this->createPlayer(x, y);
+            }
+            if(tmp.toInt() != map[x][y])
+                map[x][y] = tmp.toInt();
+        }
+
+
 }

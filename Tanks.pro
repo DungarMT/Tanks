@@ -24,4 +24,5 @@ HEADERS  += \
     gamemap.h \
     player.h
 
-DISTFILES +=
+DISTFILES += \
+    1.txt

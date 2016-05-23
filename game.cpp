@@ -17,5 +17,5 @@ Game::Game()
 
     //Create game map
     GameMap *map = new GameMap(gameScene);
-    map->createPlayer(0, 0);
+    map->loadMap();
 }
