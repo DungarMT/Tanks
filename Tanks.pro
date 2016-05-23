@@ -22,7 +22,8 @@ SOURCES += \
     water.cpp \
     bush.cpp \
     ice.cpp \
-    base.cpp
+    base.cpp \
+    stars.cpp
 
 
 HEADERS  += \ 
@@ -34,7 +35,8 @@ HEADERS  += \
     water.h \
     bush.h \
     ice.h \
-    base.h
+    base.h \
+    stars.h
 
 DISTFILES += \
     1.txt \
@@ -43,4 +45,21 @@ DISTFILES += \
     bush.png \
     ice.png \
     water1.png \
-    water2.png
+    water2.png \
+    player1up.png \
+    player2up.png \
+    player1left.png \
+    player2left.png \
+    player1down.png \
+    player2down.png \
+    player1right.png \
+    player2right.png \
+    base.png \
+    loss.png \
+    granade.png \
+    helem.png \
+    pistol.png \
+    shovel.png \
+    star.png \
+    tank.png \
+    timer.png \

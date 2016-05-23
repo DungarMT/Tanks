@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include <QGraphicsRectItem>
-#include <QBrush>
+#include <QPainter>
 class Player : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
