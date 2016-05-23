@@ -16,13 +16,25 @@ SOURCES += \
     main.cpp \
     game.cpp \
     gamemap.cpp \
-    player.cpp
+    player.cpp \
+    brick.cpp \
+    concrete.cpp \
+    water.cpp \
+    bush.cpp \
+    ice.cpp \
+    base.cpp
 
 
 HEADERS  += \ 
     game.h \
     gamemap.h \
-    player.h
+    player.h \
+    brick.h \
+    concrete.h \
+    water.h \
+    bush.h \
+    ice.h \
+    base.h
 
 DISTFILES += \
     1.txt
