@@ -3,6 +3,7 @@
 
 
 #include <QGraphicsRectItem>
+#include <QBrush>
 
 class Ice : public QObject, public QGraphicsRectItem
 {

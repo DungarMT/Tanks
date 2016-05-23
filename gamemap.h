@@ -24,6 +24,7 @@ private:
     int map[26][26];
     QGraphicsScene *workScene;
     void createPlayer(int xPos, int yPos);
+    void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
 
 };

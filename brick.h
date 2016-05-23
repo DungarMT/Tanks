@@ -2,6 +2,7 @@
 #define BRICK_H
 
 #include <QGraphicsRectItem>
+#include <QBrush>
 
 class Brick : public QObject, public QGraphicsRectItem
 {

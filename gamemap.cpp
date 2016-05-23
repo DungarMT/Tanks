@@ -20,6 +20,16 @@ void GameMap::createPlayer(int xPos, int yPos)
     workScene->addItem(player);
 }
 
+void GameMap::createBase(int xPos, int yPos)
+{
+    map[xPos][yPos] = 7;
+    map[xPos+1][yPos] = 7;
+    map[xPos][yPos+1] = 7;
+    map[xPos+1][yPos+1] = 7;
+    Base *base= new Base(xPos, yPos, this);
+    workScene->addItem(base);
+}
+
 void GameMap::createBlock(int xPos, int yPos, int idBlock)
 {
     switch(idBlock){
@@ -53,12 +63,14 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
         workScene->addItem(ice);
         break;
         }
+        /*
     case 7:
         {
         Base *base = new Base(xPos, yPos, this);
         workScene->addItem(base);
         break;
         }
+        */
     }
 }
 
@@ -71,9 +83,10 @@ void GameMap::loadMap()
     for(int y = 0; y < 26; y++)
         for(int x = 0; x < 26; x++){
             in >> tmp;
-            if(tmp.toInt() == 1 and tmp.toInt() != map[x][y]){
+            if(tmp.toInt() == 1 and tmp.toInt() != map[x][y])
                 this->createPlayer(x, y);
-            }
+            if(tmp.toInt() == 7 and tmp.toInt() != map[x][y])
+                this->createBase(x,y);
             if(tmp.toInt() != map[x][y])
                 map[x][y] = tmp.toInt();
             if(tmp.toInt()!=0){

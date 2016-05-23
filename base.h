@@ -3,6 +3,7 @@
 
 
 #include <QGraphicsRectItem>
+#include <QBrush>
 
 class Base : public QObject, public QGraphicsRectItem
 {
