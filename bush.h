@@ -3,7 +3,7 @@
 
 
 #include <QGraphicsRectItem>
-#include <QBrush>
+#include <QPainter>
 
 class Bush : public QObject, public QGraphicsRectItem
 {

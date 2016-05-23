@@ -37,4 +37,10 @@ HEADERS  += \
     base.h
 
 DISTFILES += \
-    1.txt
+    1.txt \
+    brick.png \
+    concrete.png \
+    bush.png \
+    ice.png \
+    water1.png \
+    water2.png

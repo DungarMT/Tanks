@@ -2,7 +2,7 @@
 #define WATER_H
 
 #include <QGraphicsRectItem>
-#include <QBrush>
+#include <QPainter>
 
 class Water : public QObject, public QGraphicsRectItem
 {

@@ -2,7 +2,7 @@
 #define CONCRETE_H
 
 #include <QGraphicsRectItem>
-#include <QBrush>
+#include <QPainter>
 class Concrete : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
