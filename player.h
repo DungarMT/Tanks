@@ -3,6 +3,7 @@
 
 #include <QGraphicsRectItem>
 #include "gamemap.h"
+#include <QPainter>
 
 class Player : public QObject, public QGraphicsRectItem
 {

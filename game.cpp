@@ -11,6 +11,7 @@ Game::Game()
     gameScreen->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     gameScreen->show();
 
+
     //set screen and scene size
     gameScreen->setFixedSize(800,600);
     gameScene->setSceneRect(0, 0, 800, 600);

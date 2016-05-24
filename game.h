@@ -5,7 +5,6 @@
 #include <QGraphicsView>
 
 #include "gamemap.h"
-
 class Game : public QObject
 {
     Q_OBJECT
