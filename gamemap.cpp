@@ -16,7 +16,7 @@ void GameMap::createPlayer(int xPos, int yPos)
     map[xPos+1][yPos] = 1;
     map[xPos][yPos+1] = 1;
     map[xPos+1][yPos+1] = 1;
-    Player *player = new Player(xPos, yPos, this, this);
+    Player *player = new Player(xPos, yPos, this);
     workScene->addItem(player);
 }
 
@@ -76,7 +76,7 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
 
 void GameMap::loadMap()
 {
-    QFile file("C:\\Users\\Gnom\\Documents\\GitHub\\Tanks\\1.txt");
+    QFile file(":/maps/1.txt");
     file.open(QIODevice::ReadOnly);
     QString tmp;
     QTextStream in(&file);

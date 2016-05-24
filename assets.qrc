@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/img">
+        <file alias="base.png">assets/img/base.png</file>
+        <file alias="brick.png">assets/img/brick.png</file>
+        <file alias="bush.png">assets/img/bush.png</file>
+        <file alias="concrete.png">assets/img/concrete.png</file>
+        <file alias="granade.png">assets/img/granade.png</file>
+        <file alias="helmet.png">assets/img/helmet.png</file>
+        <file alias="ice.png">assets/img/ice.png</file>
+        <file alias="loss.png">assets/img/loss.png</file>
+        <file alias="pistol.png">assets/img/pistol.png</file>
+        <file alias="player1down.png">assets/img/player1down.png</file>
+        <file alias="player1left.png">assets/img/player1left.png</file>
+        <file alias="player1right.png">assets/img/player1right.png</file>
+        <file alias="player1up.png">assets/img/player1up.png</file>
+        <file alias="player2down.png">assets/img/player2down.png</file>
+        <file alias="player2left.png">assets/img/player2left.png</file>
+        <file alias="player2right.png">assets/img/player2right.png</file>
+        <file alias="player2up.png">assets/img/player2up.png</file>
+        <file alias="shovel.png">assets/img/shovel.png</file>
+        <file alias="star.png">assets/img/star.png</file>
+        <file alias="tank.png">assets/img/tank.png</file>
+        <file alias="timer.png">assets/img/timer.png</file>
+        <file alias="water1.png">assets/img/water1.png</file>
+        <file alias="water2.png">assets/img/water2.png</file>
+    </qresource>
+    <qresource prefix="/maps">
+        <file alias="1.txt">assets/maps/1.txt</file>
+    </qresource>
+</RCC>

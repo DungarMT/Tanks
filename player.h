@@ -2,17 +2,17 @@
 #define PLAYER_H
 
 #include <QGraphicsRectItem>
-#include "gamemap.h"
 #include <QPainter>
+
 
 class Player : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    explicit Player(int xPos, int yPos, GameMap *map, QObject *parent = 0);
+    explicit Player(int xPos, int yPos, QObject *parent = 0);
 
 private:
-    GameMap *map;
+
 
 signals:
 
