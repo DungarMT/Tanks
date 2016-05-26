@@ -34,6 +34,7 @@ void Player::keyPressEvent(QKeyEvent *event)
 }
 void Player::keyReleaseEvent(QKeyEvent *event)
 {
+
     if(event->isAutoRepeat())
     {
         event->ignore();
@@ -42,10 +43,13 @@ void Player::keyReleaseEvent(QKeyEvent *event)
     {
         switch(event->key()){
         case Qt::Key_Up:
-            if(queue->first() == Qt::Key_Up)
+            if(queue->first() == Qt::Key_Up){
+                   //timer->stop();
                 queue->pop_front();
-            else if(queue->last() == Qt::Key_Up)
+            }
+            else if(queue->last() == Qt::Key_Up){
                 queue->pop_back();
+            }
             break;
         }
     }
@@ -53,6 +57,7 @@ void Player::keyReleaseEvent(QKeyEvent *event)
 
 void Player::move()
 {
+
     if(!queue->isEmpty()){
         switch(queue->last()){
         case Qt::Key_Up:
@@ -61,8 +66,11 @@ void Player::move()
             break;
         }
     }
-    if(count >= 8){
-        count = 0;
-        timer->stop();
+
+    /*
+    if(count >=8){
+       count = 0;
+       timer->stop();
     }
+    */
 }
