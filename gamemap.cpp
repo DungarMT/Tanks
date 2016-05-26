@@ -16,7 +16,7 @@ void GameMap::createPlayer(int xPos, int yPos)
     map[xPos+1][yPos] = 1;
     map[xPos][yPos+1] = 1;
     map[xPos+1][yPos+1] = 1;
-    Player *player = new Player(xPos, yPos, this);
+    Player *player = new Player(xPos, yPos, this, this);
     workScene->addItem(player);
 }
 
