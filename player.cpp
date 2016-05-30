@@ -90,8 +90,10 @@ void Player::move()
 {
     if(direction == 0 and !queue->isEmpty())
         direction = queue->last();
+    int a=y();
     switch(direction){
     case Qt::Key_Up:
+
         setPos(x(), y()-2);
         count++;
         break;

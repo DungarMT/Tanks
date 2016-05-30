@@ -11,6 +11,7 @@ class Enemy: public QObject, public QGraphicsRectItem
 public:
     explicit Enemy(int xPos, int yPos, QObject *parent = 0);
 private:
+    int xPos, yPos;
     static int StaticId;
     int EnemyId;
     char side;

@@ -2,6 +2,8 @@
 
 Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
 {
+    this->xPos=xPos;
+    this->yPos=yPos;
     EnemyId=StaticId;
     StaticId++;
     setRect(xPos * 16, yPos * 16, 32, 32);
@@ -37,10 +39,28 @@ void Enemy::move()
         count++;
         break;
     }
+    int a=x();
     if(count>=8){
         count=0;
         //timer->stop();
-        emit checkCoord(x()/16,y()/16,side);
+        switch (side) {
+        case 'D':
+            yPos++;
+            break;
+        case 'L':
+            xPos--;
+            break;
+        case 'U':
+            yPos--;
+            break;
+        case 'R':
+            xPos++;
+            break;
+        default:
+            count++;
+            break;
+        }
+        emit checkCoord(xPos,yPos,side);
     }
 }
 
@@ -48,10 +68,10 @@ void Enemy::motion(char side, bool flag)
 {
     if(flag){
         this->side=side;
-        emit changeCoord(x()/16,y()/16,side);
+        emit changeCoord(xPos,yPos,side);
     }
     else{
-        emit checkCoord(x()/16,y()/16,side);
+        emit checkCoord(xPos,yPos,side);
     }
 }
 int Enemy::StaticId = 1;
