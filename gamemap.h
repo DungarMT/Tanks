@@ -27,6 +27,8 @@ private:
     void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
 
+public slots:
+    void changePlayerCoord(int xPos, int yPos);
 };
 
 #endif // GAMEMAP_H

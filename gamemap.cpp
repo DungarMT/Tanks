@@ -16,8 +16,9 @@ void GameMap::createPlayer(int xPos, int yPos)
     map[xPos+1][yPos] = 1;
     map[xPos][yPos+1] = 1;
     map[xPos+1][yPos+1] = 1;
-    Player *player = new Player(xPos, yPos, this, this);
+    Player *player = new Player(xPos, yPos, this);
     workScene->addItem(player);
+    connect(player, SIGNAL(changeCoord(int,int)), this, SLOT(changePlayerCoord(int,int)));
 }
 
 void GameMap::createBase(int xPos, int yPos)
@@ -72,6 +73,18 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
         }
         */
     }
+}
+
+void GameMap::changePlayerCoord(int xPos, int yPos)
+{
+    for(int i = 0; i < 26; i++)
+        for(int j = 0; j < 26; j++)
+            if(map[i][j] == 1)
+                map[i][j] = 0;
+    map[xPos][yPos] = 1;
+    map[xPos+1][yPos] = 1;
+    map[xPos][yPos+1] = 1;
+    map[xPos+1][yPos+1] = 1;
 }
 
 void GameMap::loadMap()

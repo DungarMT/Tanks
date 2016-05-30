@@ -7,29 +7,31 @@
 #include <QKeyEvent>
 #include <QTimer>
 
-class GameMap;
-
 class Player : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    Player(int xPos, int yPos, GameMap *map, QObject *parent = 0);
+    Player(int xPos, int yPos, QObject *parent = 0);
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 
 private:
-    GameMap *map;
+    int xPos, yPos;
     QList<int> *queue;
+    int direction;
     QTimer *timer;
     int count;
     int pressKey;
 
-signals:
+    void changeView(int);
 
+signals:
+    void changeCoord(int, int);
 public slots:
 
 private slots:
     void move();
+
 };
 
 #endif // PLAYER_H
