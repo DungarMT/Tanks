@@ -23,7 +23,8 @@ SOURCES += \
     bush.cpp \
     ice.cpp \
     base.cpp \
-    stars.cpp
+    stars.cpp \
+    enemy.cpp
 
 
 HEADERS  += \ 
@@ -36,7 +37,8 @@ HEADERS  += \
     bush.h \
     ice.h \
     base.h \
-    stars.h
+    stars.h \
+    enemy.h
 
 
 
