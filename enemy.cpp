@@ -9,7 +9,7 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
     setRect(xPos * 16, yPos * 16, 32, 32);
     setPen(Qt::NoPen);
     setBrush(QPixmap(":/img/brick.png"));
-    side='R';
+    side='D';
     count=0;
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
@@ -60,18 +60,20 @@ void Enemy::move()
             count++;
             break;
         }
-        emit checkCoord(xPos,yPos,side);
+        emit checkCoord(xPos,yPos,side,this->EnemyId);
     }
 }
 
-void Enemy::motion(char side, bool flag)
+void Enemy::motion(char side, bool flag, int id)
 {
-    if(flag){
-        this->side=side;
-        emit changeCoord(xPos,yPos,side);
-    }
-    else{
-        emit checkCoord(xPos,yPos,side);
+    if(id==EnemyId){
+        if(flag){
+            this->side=side;
+            emit changeCoord(xPos,yPos,side,id);
+        }
+        else{
+            emit checkCoord(xPos,yPos,side,id);
+        }
     }
 }
 int Enemy::StaticId = 1;

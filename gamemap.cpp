@@ -88,7 +88,7 @@ void GameMap::changePlayerCoord(int xPos, int yPos)
 }
 
 
-void GameMap::checkCoord(int xPos, int yPos, char side)
+void GameMap::checkCoord(int xPos, int yPos, char side, int id)
 {
     int n=rand()%4;
     char s;
@@ -117,7 +117,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side)
             }
             else{
                 if(map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==0){
-                    emit motion(s, true);
+                    emit motion(s, true, id);
                     return;
                 }
                 else{
@@ -133,7 +133,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side)
             }
             else{
                 if(map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==0){
-                    emit motion(s, true);
+                    emit motion(s, true, id);
                     return;
                 }
                 else{
@@ -149,7 +149,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side)
             }
             else{
                 if(map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==0){
-                    emit motion(s, true);
+                    emit motion(s, true, id);
                     return;
                 }
                 else{
@@ -166,7 +166,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side)
             }
             else{
                 if(map[xPos+2][yPos]==0 and map[xPos+2][yPos+1]==0){
-                    emit motion(s, true);
+                    emit motion(s, true, id);
                     return;
                 }
                 else{
@@ -191,53 +191,53 @@ void GameMap::checkCoord(int xPos, int yPos, char side)
     switch (side) {
     case 'D':
         if(yPos==24){
-            emit motion(side, false);
+            emit motion(side, false, id);
         }
         else{
             if(map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==0){
-                emit motion(side, true);
+                emit motion(side, true, id);
             }
             else{
-                emit motion('U', false);
+                emit motion('U', false, id);
             }
         }
         break;
     case 'L':
         if(xPos==0){
-            emit motion(side, false);
+            emit motion(side, false, id);
         }
         else{
             if(map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==0){
-                emit motion(side, true);
+                emit motion(side, true, id);
             }
             else{
-                emit motion('R', false);
+                emit motion('R', false, id);
             }
         }
         break;
     case 'U':
         if(yPos==0){
-            emit motion(side, false);
+            emit motion(side, false, id);
         }
         else{
             if(map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==0){
-                emit motion(side, true);
+                emit motion(side, true, id);
             }
             else{
-                emit motion('D', false);
+                emit motion('D', false, id);
             }
         }
         break;
     case 'R':
         if(xPos==24){
-            emit motion(side, false);
+            emit motion(side, false, id);
         }
         else{
             if(map[xPos+2][yPos]==0 and map[xPos+2][yPos+1]==0){
-                emit motion(side, true);
+                emit motion(side, true, id);
             }
             else{
-                emit motion('L', false);
+                emit motion('L', false, id);
             }
         }
         break;
@@ -249,7 +249,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side)
 
 }
 
-void GameMap::changeCoord(int xPos, int yPos, char side)
+void GameMap::changeCoord(int xPos, int yPos, char side, int id)
 {
     switch (side) {
     case 'D':
@@ -301,14 +301,23 @@ void GameMap::loadMap()
                 createBlock(x,y,tmp.toInt());
             }
         }
-    Enemy *en = new Enemy(4,0,this);
-    connect(this,SIGNAL(motion(char,bool)),en,SLOT(motion(char,bool)));
-    connect(en,SIGNAL(checkCoord(int,int,char)),this, SLOT(checkCoord(int,int,char)));
-    connect(en,SIGNAL(changeCoord(int,int,char)),this, SLOT(changeCoord(int,int,char)));
+
+
+
+
+    Enemy *en = new Enemy(12,0,this);
+    connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
+    connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
+    connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
             workScene->addItem(en);
 
+    //for(int i=0;i<10000;i++);
 
-
+    Enemy *en1 = new Enemy(8,0,this);
+    connect(this,SIGNAL(motion(char,bool,int)),en1,SLOT(motion(char,bool,int)));
+    connect(en1,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
+    connect(en1,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
+            workScene->addItem(en1);
 
 
 

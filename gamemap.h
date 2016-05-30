@@ -30,11 +30,11 @@ private:
     void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
 signals:
-    void motion(char side, bool flag);
+    void motion(char side, bool flag, int id);
 public slots:
     void changePlayerCoord(int xPos, int yPos);
-    void checkCoord(int xPos, int yPos, char side);
-    void changeCoord(int xPos, int yPos, char side);
+    void checkCoord(int xPos, int yPos, char side, int id);
+    void changeCoord(int xPos, int yPos, char side, int id);
 };
 
 #endif // GAMEMAP_H

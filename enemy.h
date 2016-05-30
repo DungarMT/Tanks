@@ -18,11 +18,11 @@ private:
     int count;
     QTimer *timer;
 signals:
-    checkCoord(int,int,char);
-    changeCoord(int,int,char);
+    checkCoord(int,int,char, int);
+    changeCoord(int,int,char, int);
 private slots:
     void move();
-    void motion(char side ,bool flag);
+    void motion(char side ,bool flag, int id);
 };
 
 #endif // ENEMY_H
