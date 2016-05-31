@@ -36,10 +36,8 @@ void Enemy::move()
         count++;
         break;
     default:
-        count++;
         break;
     }
-    int a=x();
     if(count>=8){
         count=0;
         //timer->stop();
@@ -57,7 +55,6 @@ void Enemy::move()
             xPos++;
             break;
         default:
-            count++;
             break;
         }
         emit checkCoord(xPos,yPos,side,this->EnemyId);

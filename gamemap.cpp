@@ -129,7 +129,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
     case 'L':
         if(side!='R'){
             if(xPos==0){
-                break;
+               break;
             }
             else{
                 if(map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==0){
@@ -140,6 +140,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
                     break;
                 }
             }
+
         }
         break;
     case 'U':
@@ -157,6 +158,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
 
                 }
             }
+
         }
         break;
     case 'R':
@@ -173,6 +175,7 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
                     break;
                 }
             }
+
         }
         break;
     default:
@@ -191,53 +194,53 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
     switch (side) {
     case 'D':
         if(yPos==24){
-            emit motion(side, false, id);
+            emit motion('U', true, id);
         }
         else{
             if(map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==0){
                 emit motion(side, true, id);
             }
             else{
-                emit motion('U', false, id);
+                emit motion('U', true, id);
             }
         }
         break;
     case 'L':
         if(xPos==0){
-            emit motion(side, false, id);
+            emit motion('R', true, id);
         }
         else{
             if(map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==0){
                 emit motion(side, true, id);
             }
             else{
-                emit motion('R', false, id);
+                emit motion('R', true, id);
             }
         }
         break;
     case 'U':
         if(yPos==0){
-            emit motion(side, false, id);
+            emit motion('D', true, id);
         }
         else{
             if(map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==0){
                 emit motion(side, true, id);
             }
             else{
-                emit motion('D', false, id);
+                emit motion('D', true, id);
             }
         }
         break;
     case 'R':
         if(xPos==24){
-            emit motion(side, false, id);
+            emit motion('L', true, id);
         }
         else{
             if(map[xPos+2][yPos]==0 and map[xPos+2][yPos+1]==0){
                 emit motion(side, true, id);
             }
             else{
-                emit motion('L', false, id);
+               emit motion('L', true, id);
             }
         }
         break;
@@ -259,8 +262,8 @@ void GameMap::changeCoord(int xPos, int yPos, char side, int id)
         map[xPos+1][yPos+2]=9;
         break;
     case 'L':
-        map[xPos][yPos]=0;
-        map[xPos][yPos+1]=0;
+        map[xPos+1][yPos]=0;
+        map[xPos+1][yPos+1]=0;
         map[xPos-1][yPos]=9;
         map[xPos-1][yPos+1]=9;
         break;
@@ -305,7 +308,7 @@ void GameMap::loadMap()
 
 
 
-    Enemy *en = new Enemy(12,0,this);
+    Enemy *en = new Enemy(0,18,this);
     connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
     connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
@@ -319,6 +322,11 @@ void GameMap::loadMap()
     connect(en1,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
             workScene->addItem(en1);
 
+    Enemy *en2 = new Enemy(24,0,this);
+    connect(this,SIGNAL(motion(char,bool,int)),en2,SLOT(motion(char,bool,int)));
+    connect(en2,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
+    connect(en2,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
+            workScene->addItem(en2);
 
 
 
