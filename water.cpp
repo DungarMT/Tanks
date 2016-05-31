@@ -8,3 +8,15 @@ Water::Water(int xPos, int yPos, QObject *parent): QObject(parent)
     this->setZValue(0);
 }
 
+void Water::animate()
+{
+    if(animateFlag == 0){
+        setBrush(QPixmap(":/img/water2.png"));
+        animateFlag = 1;
+    }
+    else{
+        setBrush(QPixmap(":/img/water1.png"));
+        animateFlag = 0;
+    }
+}
+

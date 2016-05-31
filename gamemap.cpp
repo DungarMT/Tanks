@@ -8,6 +8,8 @@ GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
         for(int j = 0; j < 26; j++)
             map[i][j] = 0;
     this->workScene = workScene;
+    animationTimer = new QTimer(this);
+    animationTimer->start(1000);
 }
 
 void GameMap::createPlayer(int xPos, int yPos)
@@ -19,6 +21,7 @@ void GameMap::createPlayer(int xPos, int yPos)
     Player *player = new Player(xPos, yPos, this);
     workScene->addItem(player);
     connect(player, SIGNAL(changeCoord(int,int)), this, SLOT(changePlayerCoord(int,int)));
+    connect(player, SIGNAL(checkCoord(int,int,int,bool&)), this, SLOT(checkPlayerCoord(int,int,int,bool&)));
 }
 
 void GameMap::createBase(int xPos, int yPos)
@@ -50,6 +53,7 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
         {
         Water *water = new Water(xPos, yPos, this);
         workScene->addItem(water);
+        connect(animationTimer, SIGNAL(timeout()), water, SLOT(animate()));
         break;
         }
     case 5:
@@ -86,6 +90,7 @@ void GameMap::changePlayerCoord(int xPos, int yPos)
     map[xPos][yPos+1] = 1;
     map[xPos+1][yPos+1] = 1;
 }
+
 
 
 void GameMap::checkCoord(int xPos, int yPos, char side, int id)
@@ -282,6 +287,58 @@ void GameMap::changeCoord(int xPos, int yPos, char side, int id)
     default:
         break;
     }
+}
+void GameMap::checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp)
+{
+
+    switch(direction){
+    case Qt::Key_Up:
+        if(yPos == 0){
+            tmp = false;
+            return;
+        }
+        if((map[xPos][yPos-1] == 0 or map[xPos][yPos-1] == 5)and
+           (map[xPos+1][yPos-1] == 0 or map[xPos+1][yPos-1] == 5)){
+            tmp = true;
+            return;
+        }
+        break;
+    case Qt::Key_Down:
+        if(yPos == 24){
+            tmp = false;
+            return;
+        }
+        if((map[xPos][yPos+2] == 0 or map[xPos][yPos+2] == 5)and
+           (map[xPos+1][yPos+2] == 0 or map[xPos+1][yPos+2] == 5)){
+            tmp = true;
+            return;
+        }
+        break;
+    case Qt::Key_Left:
+        if(xPos == 0){
+            tmp = false;
+            return;
+        }
+        if((map[xPos-1][yPos] == 0 or map[xPos-1][yPos] == 5)and
+           (map[xPos-1][yPos+1] == 0 or map[xPos-1][yPos+1] == 5)){
+            tmp = true;
+            return;
+        }
+        break;
+    case Qt::Key_Right:
+        if(xPos == 24){
+            tmp = false;
+            return;
+        }
+        if((map[xPos+2][yPos] == 0 or map[xPos+2][yPos] == 5)and
+           (map[xPos+2][yPos+1] == 0 or map[xPos+2][yPos+1] == 5)){
+            tmp = true;
+            return;
+        }
+        break;
+    }
+    tmp = false;
+
 }
 
 void GameMap::loadMap()

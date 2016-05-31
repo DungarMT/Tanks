@@ -14,7 +14,7 @@ Game::Game()
 
     //set screen and scene size
     gameScreen->setFixedSize(800,600);
-    gameScene->setSceneRect(0, 0, 800, 600);
+    gameScene->setSceneRect(0, 0, 700, 500);
 
     //Create game map
     GameMap *map = new GameMap(gameScene);

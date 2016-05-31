@@ -30,11 +30,9 @@ void Player::keyPressEvent(QKeyEvent *event)
         else if(queue->size() < 2){
             if(queue->isEmpty()){
                 queue->push_back(event->key());
-                this->changeView(event->key());
             }
             else if(queue->first() != event->key()){
                 queue->push_back(event->key());
-                this->changeView(event->key());
             }
         }
     }
@@ -88,26 +86,65 @@ void Player::keyReleaseEvent(QKeyEvent *event)
 
 void Player::move()
 {
-    if(direction == 0 and !queue->isEmpty())
+    if(direction == 0 and !queue->isEmpty()){
         direction = queue->last();
-    int a=y();
+        this->changeView(direction);
+        bool tmp;
+        emit checkCoord(xPos, yPos, direction, tmp);
+        if(!tmp){
+            direction=0;
+            return;
+        }
+    }
     switch(direction){
     case Qt::Key_Up:
 
         setPos(x(), y()-2);
         count++;
+        if(animation == 0){
+            this->setBrush(QPixmap(":/img/player2up"));
+            animation = 1;
+        }
+        else{
+            this->setBrush(QPixmap(":/img/player1up"));
+            animation = 0;
+        }
         break;
     case Qt::Key_Down:
         setPos(x(), y()+2);
         count++;
+        if(animation == 0){
+            this->setBrush(QPixmap(":/img/player2down"));
+            animation = 1;
+        }
+        else{
+            this->setBrush(QPixmap(":/img/player1down"));
+            animation = 0;
+        }
         break;
     case Qt::Key_Left:
         setPos(x()-2, y());
         count++;
+        if(animation == 0){
+            this->setBrush(QPixmap(":/img/player2left"));
+            animation = 1;
+        }
+        else{
+            this->setBrush(QPixmap(":/img/player1left"));
+            animation = 0;
+        }
         break;
     case Qt::Key_Right:
         setPos(x()+2, y());
         count++;
+        if(animation == 0){
+            this->setBrush(QPixmap(":/img/player2right"));
+            animation = 1;
+        }
+        else{
+            this->setBrush(QPixmap(":/img/player1right"));
+            animation = 0;
+        }
         break;
     }
     if(count >=8){
@@ -139,15 +176,19 @@ void Player::changeView(int direction)
     switch(direction){
     case Qt::Key_Up:
         this->setBrush(QPixmap(":/img/player1up.png"));
+        animation = 0;
         break;
     case Qt::Key_Down:
         this->setBrush(QPixmap(":/img/player1down.png"));
+        animation = 0;
         break;
     case Qt::Key_Left:
         this->setBrush(QPixmap(":/img/player1left.png"));
+        animation = 0;
         break;
     case Qt::Key_Right:
         this->setBrush(QPixmap(":/img/player1right.png"));
+        animation = 0;
         break;
     }
 }
