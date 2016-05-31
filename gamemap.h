@@ -5,6 +5,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QFile>
+#include <QTimer>
 
 #include "player.h"
 #include "brick.h"
@@ -21,6 +22,7 @@ public:
     GameMap(QGraphicsScene *workScene, QObject *parent = 0);
     void loadMap();
 private:
+    QTimer *animationTimer;
     int map[26][26];
     QGraphicsScene *workScene;
     void createPlayer(int xPos, int yPos);
@@ -29,6 +31,7 @@ private:
 
 public slots:
     void changePlayerCoord(int xPos, int yPos);
+    void checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp);
 };
 
 #endif // GAMEMAP_H

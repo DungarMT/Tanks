@@ -22,11 +22,13 @@ private:
     QTimer *timer;
     int count;
     int pressKey;
+    bool animation;
 
     void changeView(int);
 
 signals:
     void changeCoord(int, int);
+    void checkCoord(int, int, int, bool&);
 public slots:
 
 private slots:

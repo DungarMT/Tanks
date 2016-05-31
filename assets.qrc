@@ -23,6 +23,10 @@
         <file alias="timer.png">assets/img/timer.png</file>
         <file alias="water1.png">assets/img/water1.png</file>
         <file alias="water2.png">assets/img/water2.png</file>
+        <file alias="bulletDown.png">assets/img/bulletDown.png</file>
+        <file alias="bulletLeft.png">assets/img/bulletLeft.png</file>
+        <file alias="bulletRight.png">assets/img/bulletRight.png</file>
+        <file alias="bulletUp.png">assets/img/bulletUp.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>
