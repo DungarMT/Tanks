@@ -121,7 +121,10 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
                 break;
             }
             else{
-                if(map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==0){
+                if((map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==0)
+                        ||(map[xPos][yPos+2]==5 and map[xPos+1][yPos+2]==0)
+                        ||(map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==5)
+                        ||(map[xPos][yPos+2]==5 and map[xPos+1][yPos+2]==5)){
                     emit motion(s, true, id);
                     return;
                 }
@@ -137,7 +140,10 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
                break;
             }
             else{
-                if(map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==0){
+                if((map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==0)
+                        ||(map[xPos-1][yPos]==5 and map[xPos-1][yPos+1]==0)
+                        ||(map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==5)
+                        ||(map[xPos-1][yPos]==5 and map[xPos-1][yPos+1]==5)){
                     emit motion(s, true, id);
                     return;
                 }
@@ -154,7 +160,10 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
                 break;
             }
             else{
-                if(map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==0){
+                if((map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==0)
+                        ||(map[xPos][yPos-1]==5 and map[xPos+1][yPos-1]==0)
+                        ||(map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==5)
+                        ||(map[xPos][yPos-1]==5 and map[xPos+1][yPos-1]==5)){
                     emit motion(s, true, id);
                     return;
                 }
@@ -172,7 +181,10 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
                 break;
             }
             else{
-                if(map[xPos+2][yPos]==0 and map[xPos+2][yPos+1]==0){
+                if((map[xPos+2][yPos]==0 and map[xPos+2][yPos+1]==0)
+                        ||(map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==5)
+                        ||(map[xPos][yPos-1]==5 and map[xPos+1][yPos-1]==0)
+                        ||(map[xPos][yPos-1]==5 and map[xPos+1][yPos-1]==5)){
                     emit motion(s, true, id);
                     return;
                 }
@@ -202,7 +214,10 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
             emit motion('U', true, id);
         }
         else{
-            if(map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==0){
+            if((map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==0)
+                    ||(map[xPos][yPos+2]==5 and map[xPos+1][yPos+2]==0)
+                    ||(map[xPos][yPos+2]==0 and map[xPos+1][yPos+2]==5)
+                    ||(map[xPos][yPos+2]==5 and map[xPos+1][yPos+2]==5)){
                 emit motion(side, true, id);
             }
             else{
@@ -215,7 +230,10 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
             emit motion('R', true, id);
         }
         else{
-            if(map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==0){
+            if((map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==0)
+                    ||(map[xPos-1][yPos]==5 and map[xPos-1][yPos+1]==0)
+                    ||(map[xPos-1][yPos]==0 and map[xPos-1][yPos+1]==5)
+                    ||(map[xPos-1][yPos]==5 and map[xPos-1][yPos+1]==5)){
                 emit motion(side, true, id);
             }
             else{
@@ -228,7 +246,10 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
             emit motion('D', true, id);
         }
         else{
-            if(map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==0){
+            if((map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==0)
+                    ||(map[xPos][yPos-1]==5 and map[xPos+1][yPos-1]==0)
+                    ||(map[xPos][yPos-1]==0 and map[xPos+1][yPos-1]==5)
+                    ||(map[xPos][yPos-1]==5 and map[xPos+1][yPos-1]==5)){
                 emit motion(side, true, id);
             }
             else{
@@ -241,7 +262,10 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
             emit motion('L', true, id);
         }
         else{
-            if(map[xPos+2][yPos]==0 and map[xPos+2][yPos+1]==0){
+            if((map[xPos+2][yPos]==0 and map[xPos+2][yPos+1]==0)
+                    ||(map[xPos+2][yPos]==5 and map[xPos+2][yPos+1]==0)
+                    ||(map[xPos+2][yPos]==0 and map[xPos+2][yPos+1]==5)
+                    ||(map[xPos+2][yPos]==5 and map[xPos+2][yPos+1]==5)){
                 emit motion(side, true, id);
             }
             else{

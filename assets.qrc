@@ -27,6 +27,14 @@
         <file alias="bulletLeft.png">assets/img/bulletLeft.png</file>
         <file alias="bulletRight.png">assets/img/bulletRight.png</file>
         <file alias="bulletUp.png">assets/img/bulletUp.png</file>
+        <file alias="tank_lvl_1/tank1down.png">assets/img/tank_lvl_1/tank1down.png</file>
+        <file alias="tank_lvl_1/tank1left.png">assets/img/tank_lvl_1/tank1left.png</file>
+        <file alias="tank_lvl_1/tank1right.png">assets/img/tank_lvl_1/tank1right.png</file>
+        <file alias="tank_lvl_1/tank1up.png">assets/img/tank_lvl_1/tank1up.png</file>
+        <file alias="tank_lvl_1/tank2down.png">assets/img/tank_lvl_1/tank2down.png</file>
+        <file alias="tank_lvl_1/tank2left.png">assets/img/tank_lvl_1/tank2left.png</file>
+        <file alias="tank_lvl_1/tank2right.png">assets/img/tank_lvl_1/tank2right.png</file>
+        <file alias="tank_lvl_1/tank2up.png">assets/img/tank_lvl_1/tank2up.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>
