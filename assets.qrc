@@ -35,6 +35,11 @@
         <file alias="tank_lvl_1/tank2left.png">assets/img/tank_lvl_1/tank2left.png</file>
         <file alias="tank_lvl_1/tank2right.png">assets/img/tank_lvl_1/tank2right.png</file>
         <file alias="tank_lvl_1/tank2up.png">assets/img/tank_lvl_1/tank2up.png</file>
+        <file alias="explosion1.png">assets/img/explosion1.png</file>
+        <file alias="explosion2.png">assets/img/explosion2.png</file>
+        <file alias="explosion3.png">assets/img/explosion3.png</file>
+        <file alias="explosion4.png">assets/img/explosion4.png</file>
+        <file alias="explosion5.png">assets/img/explosion5.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>

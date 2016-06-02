@@ -79,6 +79,16 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
+void GameMap::spawnEnemy(int xPos, int yPos)
+{
+    Enemy *en = new Enemy(xPos,yPos,this);
+    connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
+    connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
+    connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
+    connect(en,SIGNAL(spawnBullet(int,int,char)),this, SLOT(spawnBullet(int,int,char)));
+    workScene->addItem(en);
+}
+
 void GameMap::changePlayerCoord(int xPos, int yPos)
 {
     for(int i = 0; i < 26; i++)
@@ -365,6 +375,12 @@ void GameMap::checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp)
 
 }
 
+void GameMap::spawnBullet(int xPos,int yPos, char side)
+{
+    Bullet *bullet = new Bullet(xPos,yPos,side,this);
+    workScene->addItem(bullet);
+}
+
 void GameMap::loadMap()
 {
     qsrand(QTime(0,0,0).msecsTo(QTime::currentTime()));
@@ -387,27 +403,9 @@ void GameMap::loadMap()
         }
 
 
-
-
-    Enemy *en = new Enemy(0,18,this);
-    connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
-    connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
-    connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
-            workScene->addItem(en);
-
-    //for(int i=0;i<10000;i++);
-
-    Enemy *en1 = new Enemy(8,0,this);
-    connect(this,SIGNAL(motion(char,bool,int)),en1,SLOT(motion(char,bool,int)));
-    connect(en1,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
-    connect(en1,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
-            workScene->addItem(en1);
-
-    Enemy *en2 = new Enemy(24,0,this);
-    connect(this,SIGNAL(motion(char,bool,int)),en2,SLOT(motion(char,bool,int)));
-    connect(en2,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
-    connect(en2,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
-            workScene->addItem(en2);
+    for(int i=0;i<26;i+=8){
+        spawnEnemy(i,0);
+    }
 
 
 

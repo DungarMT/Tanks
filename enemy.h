@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QTimer>
 
+
 class Enemy: public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
@@ -19,11 +20,15 @@ private:
     int count;
     QTimer *timer;
     QTimer *timerAnimation;
+    QTimer *timerBullet;
 
 signals:
+    void spawnBullet(int xPos,int yPos,char side);
     checkCoord(int,int,char, int);
     changeCoord(int,int,char, int);
 private slots:
+
+    void spawnBulletEnemy();
     void TankAnimation();
     void move();
     void motion(char side ,bool flag, int id);

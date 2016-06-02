@@ -18,10 +18,21 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
     connect(timerAnimation,SIGNAL(timeout()),this,SLOT(TankAnimation()));
     timerAnimation->start(80);
     timer->start(20);
+    timerBullet = new QTimer(this);
+    connect(timerBullet,SIGNAL(timeout()),this,SLOT(spawnBulletEnemy()));
+    timerBullet->start(1000);
 }
+
+void Enemy::spawnBulletEnemy()
+{
+    emit spawnBullet(this->xPos,this->yPos,this->side);
+}
+
+
 
 void Enemy::move()
 {
+
     switch (side) {
     case 'D':
         if(animation){
