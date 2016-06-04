@@ -14,7 +14,7 @@ public:
     ~Enemy();
 private:
     bool animation;
-    int xPos, yPos;
+    int xPos, yPos, posX, posY;
     static int StaticId;
     int EnemyId;
     char side;

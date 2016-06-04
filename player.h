@@ -16,9 +16,10 @@ public:
     void keyReleaseEvent(QKeyEvent *event);
 
 private:
-    int xPos, yPos;
+    int xPos, yPos, posX, posY;
     QList<int> *queue;
     int direction;
+    char side;
     QTimer *timer;
     int count;
     int pressKey;
@@ -29,6 +30,7 @@ private:
 signals:
     void changeCoord(int, int);
     void checkCoord(int, int, int, bool&);
+    void spawnBullet(int, int, char);
 public slots:
 
 private slots:

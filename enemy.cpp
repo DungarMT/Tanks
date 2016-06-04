@@ -5,6 +5,8 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
     animation = true;
     this->xPos=xPos;
     this->yPos=yPos;
+    posX=xPos*16;
+    posY=yPos*16;
     EnemyId=StaticId;
     StaticId++;
     setRect(xPos * 16, yPos * 16, 32, 32);
@@ -20,7 +22,7 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
     timer->start(20);
     timerBullet = new QTimer(this);
     connect(timerBullet,SIGNAL(timeout()),this,SLOT(spawnBulletEnemy()));
-    timerBullet->start(500);
+    timerBullet->start(3000);
 }
 
 Enemy::~Enemy()
@@ -30,7 +32,7 @@ Enemy::~Enemy()
 
 void Enemy::spawnBulletEnemy()
 {
-    emit spawnBullet(xPos,yPos,side);
+    emit spawnBullet(posX,posY,side);
 }
 
 
@@ -48,6 +50,7 @@ void Enemy::move()
             this->setBrush(QPixmap(":/img/tank_lvl_1/tank2down"));
             animation = true;
         }
+        posY+=2;
         setPos(x(),y()+2);
         count++;
         break;
@@ -60,6 +63,7 @@ void Enemy::move()
             this->setBrush(QPixmap(":/img/tank_lvl_1/tank2left"));
             animation = true;
         };
+        posX-=2;
         setPos(x()-2, y());
         count++;
         break;
@@ -72,6 +76,7 @@ void Enemy::move()
             this->setBrush(QPixmap(":/img/tank_lvl_1/tank2up"));
             animation = true;
         }
+        posY-=2;
         setPos(x(),y()-2);
         count++;
         break;
@@ -84,6 +89,7 @@ void Enemy::move()
             this->setBrush(QPixmap(":/img/tank_lvl_1/tank2right"));
             animation = true;
         }
+        posX+=2;
         setPos(x()+2,y());
         count++;
         break;

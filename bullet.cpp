@@ -3,28 +3,31 @@
 Bullet::Bullet(int xPos, int yPos, char side, QObject *parent): QObject(parent)
 {
     count = 0;
-    this->xPos=xPos*16;
-    this->yPos=yPos*16;
+    this->xPos=xPos;
+    this->yPos=yPos;
     BulletId=StaticId;
     StaticId++;
     this->side=side;
     setPen(Qt::NoPen);
-    setRect(xPos * 16, yPos * 16, 8, 8);
+    setRect(0, 0, 8, 8);
     switch (side) {
     case 'D':
-        setPos(x()+12,y()+48);
+
+        setPos(xPos+12, yPos+32);
         this->setBrush(QPixmap(":/img/bulletDown.png"));
         break;
     case 'R':
-        setPos(x()+48,y()+12);
+
+        setPos(xPos+32,yPos+12);
         this->setBrush(QPixmap(":/img/bulletRight.png"));
         break;
     case 'U':
-        setPos(x()+12,y()-24);
+        setPos(xPos+12,yPos-8);
         setBrush(QPixmap(":/img/bulletUp.png"));
         break;
     case 'L':
-        setPos(x()-24,y()+12);
+
+        setPos(xPos-8,yPos+12);
         setBrush(QPixmap(":/img/bulletLeft.png"));
         break;
     default:
@@ -46,16 +49,16 @@ void Bullet::move()
             if(typeid(*(colliding_items[i])) == typeid(Brick)){
                 switch (side) {
                 case 'D':
-                    emit spawnExplosion(xPos,yPos+46,false);
+                    emit spawnExplosion(xPos,yPos+24,false);
                     break;
                 case 'L':
-                    emit spawnExplosion(xPos-46,yPos,false);
+                    emit spawnExplosion(xPos-24,yPos,false);
                     break;
                 case 'U':
-                    emit spawnExplosion(xPos,yPos-46,false);
+                    emit spawnExplosion(xPos,yPos-24,false);
                     break;
                 case 'R':
-                    emit spawnExplosion(xPos+46,yPos,false);
+                    emit spawnExplosion(xPos+24,yPos,false);
                     break;
                 default:
                     break;
@@ -69,13 +72,13 @@ void Bullet::move()
             {
                 switch (side) {
                 case 'D':
-                    emit spawnExplosion(xPos,yPos+48,false);
+                    emit spawnExplosion(xPos,yPos+24,false);
                     break;
                 case 'L':
-                    emit spawnExplosion(xPos-48,yPos,false);
+                    emit spawnExplosion(xPos-24,yPos,false);
                     break;
                 case 'U':
-                    emit spawnExplosion(xPos,yPos-48,false);
+                    emit spawnExplosion(xPos,yPos-24,false);
                     break;
                 case 'R':
                     emit spawnExplosion(xPos+48,yPos,false);
@@ -92,16 +95,16 @@ void Bullet::move()
 
                 switch (side) {
                 case 'D':
-                    emit spawnExplosion(xPos,yPos+48,true);;
+                    emit spawnExplosion(xPos,yPos+24,true);;
                     break;
                 case 'L':
-                    emit spawnExplosion(xPos-48,yPos,true);
+                    emit spawnExplosion(xPos-24,yPos,true);
                     break;
                 case 'U':
-                    emit spawnExplosion(xPos,yPos-48,true);
+                    emit spawnExplosion(xPos,yPos-24,true);
                     break;
                 case 'R':
-                    emit spawnExplosion(xPos+48,yPos,true);
+                    emit spawnExplosion(xPos+24,yPos,true);
                     break;
                 default:
                     break;
@@ -191,6 +194,7 @@ void Bullet::move()
     default:
         break;
     }
+
 
 
 

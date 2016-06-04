@@ -12,9 +12,12 @@ Player::Player(int xPos, int yPos, QObject *parent) : QObject(parent)
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
     direction = 0;
+    side = 'U';
     timer->start(20);
     count = 0;
     pressKey = 0;
+    posX=xPos*16;
+    posY=yPos*16;
     this->xPos = xPos;
     this->yPos = yPos;
 }
@@ -36,7 +39,9 @@ void Player::keyPressEvent(QKeyEvent *event)
             }
         }
     }
-    else if(event->key()==Qt::Key_Space){}
+    else if(event->key()==Qt::Key_Space){
+        emit spawnBullet(posX, posY, side);
+    }
 }
 void Player::keyReleaseEvent(QKeyEvent *event)
 {
@@ -87,6 +92,7 @@ void Player::keyReleaseEvent(QKeyEvent *event)
 void Player::move()
 {
     if(direction == 0 and !queue->isEmpty()){
+
         direction = queue->last();
         this->changeView(direction);
         bool tmp;
@@ -95,10 +101,11 @@ void Player::move()
             direction=0;
             return;
         }
+
     }
     switch(direction){
     case Qt::Key_Up:
-
+        posY-=2;
         setPos(x(), y()-2);
         count++;
         if(animation == 0){
@@ -111,6 +118,7 @@ void Player::move()
         }
         break;
     case Qt::Key_Down:
+        posY+=2;
         setPos(x(), y()+2);
         count++;
         if(animation == 0){
@@ -123,6 +131,7 @@ void Player::move()
         }
         break;
     case Qt::Key_Left:
+        posX-=2;
         setPos(x()-2, y());
         count++;
         if(animation == 0){
@@ -135,6 +144,7 @@ void Player::move()
         }
         break;
     case Qt::Key_Right:
+        posX+=2;
         setPos(x()+2, y());
         count++;
         if(animation == 0){
@@ -173,6 +183,14 @@ void Player::move()
 
 void Player::changeView(int direction)
 {
+    if(direction == Qt::Key_Up and side != 'U')
+        side = 'U';
+    else if(direction == Qt::Key_Down and side != 'D')
+        side = 'D';
+    else if(direction == Qt::Key_Left and side != 'L')
+        side = 'L';
+    else if(direction == Qt::Key_Right and side != 'R')
+        side = 'R';
     switch(direction){
     case Qt::Key_Up:
         this->setBrush(QPixmap(":/img/player1up.png"));
