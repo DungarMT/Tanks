@@ -25,7 +25,8 @@ SOURCES += \
     base.cpp \
     stars.cpp \
     enemy.cpp \
-    bullet.cpp
+    bullet.cpp \
+    explosion.cpp
 
 
 HEADERS  += \ 
@@ -40,7 +41,8 @@ HEADERS  += \
     base.h \
     stars.h \
     enemy.h \
-    bullet.h
+    bullet.h \
+    explosion.h
 
 
 

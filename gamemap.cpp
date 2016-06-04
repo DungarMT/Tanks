@@ -40,25 +40,31 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     case 2:
         {
         Brick *brick = new Brick(xPos, yPos, this);
+        connect(brick,SIGNAL(delMapCoord(int,int,bool)),this,SLOT(delMapCoord(int,int,bool)));
         workScene->addItem(brick);
         break;
         }
     case 3:
         {
         Concrete *concrete = new Concrete(xPos, yPos, this);
+        connect(concrete,SIGNAL(delMapCoord(int,int,bool)),this,SLOT(delMapCoord(int,int,bool)));
         workScene->addItem(concrete);
         break;
         }
     case 4:
         {
         Water *water = new Water(xPos, yPos, this);
+        connect(water,SIGNAL(delMapCoord(int,int,bool)),this,SLOT(delMapCoord(int,int,bool)));
         workScene->addItem(water);
+
         connect(animationTimer, SIGNAL(timeout()), water, SLOT(animate()));
         break;
         }
     case 5:
         {
+
         Bush *bush = new Bush(xPos, yPos, this);
+        connect(bush,SIGNAL(delMapCoord(int,int,bool)),this,SLOT(delMapCoord(int,int,bool)));
         workScene->addItem(bush);
         break;
         }
@@ -86,7 +92,64 @@ void GameMap::spawnEnemy(int xPos, int yPos)
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
     connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
     connect(en,SIGNAL(spawnBullet(int,int,char)),this, SLOT(spawnBullet(int,int,char)));
+    connect(en,SIGNAL(spawnExplosion(int,int,bool)),this, SLOT(spawnExplosion(int,int,bool)));
+    connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
     workScene->addItem(en);
+}
+
+void GameMap::delMapCoord(int xPos, int yPos, bool tank, char side){
+    switch (side) {
+    case 'D':
+        map[xPos][yPos+1]=0;
+        map[xPos+1][yPos+1]=0;
+        map[xPos][yPos+2]=0;
+        map[xPos+1][yPos+2]=0;
+        break;
+    case 'L':
+        map[xPos][yPos]=0;
+        map[xPos][yPos+1]=0;
+        map[xPos-1][yPos]=0;
+        map[xPos-1][yPos+1]=0;
+        break;
+    case 'U':
+        map[xPos][yPos]=0;
+        map[xPos][yPos-1]=0;
+        map[xPos+1][yPos]=0;
+        map[xPos+1][yPos-1]=0;
+        break;
+    case 'R':
+        map[xPos+1][yPos]=0;
+        map[xPos+1][yPos+1]=0;
+        map[xPos+2][yPos]=0;
+        map[xPos+2][yPos+1]=0;
+        break;
+    default:
+        break;
+    }
+    //Base *a1 = new Base(xPos,yPos,0);
+    //workScene->addItem(a1);
+}
+
+void GameMap::delMapCoord(int xPos, int yPos, bool tank)
+{
+    if(tank){
+        map[xPos][yPos]=0;
+        map[xPos+1][yPos]=0;
+        map[xPos][yPos+1]=0;
+        map[xPos+1][yPos+1]=0;
+    }
+    else{
+        map[xPos][yPos]=0;
+    }
+    //Concrete *a = new Concrete(xPos,yPos,0);
+    //workScene->addItem(a);
+
+}
+
+void GameMap::spawnExplosion(int xPos, int yPos, bool tank)
+{
+    Explosion *exp = new Explosion(xPos, yPos, tank);
+    workScene->addItem(exp);
 }
 
 void GameMap::changePlayerCoord(int xPos, int yPos)
@@ -379,6 +442,8 @@ void GameMap::spawnBullet(int xPos,int yPos, char side)
 {
     Bullet *bullet = new Bullet(xPos,yPos,side,this);
     workScene->addItem(bullet);
+    connect(bullet,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
+
 }
 
 void GameMap::loadMap()
@@ -403,8 +468,9 @@ void GameMap::loadMap()
         }
 
 
-    for(int i=0;i<26;i+=8){
+    for(int i=0;i<=16;i+=8){
         spawnEnemy(i,0);
+        //spawnEnemy(0,i);
     }
 
 

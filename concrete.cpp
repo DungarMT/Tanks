@@ -7,3 +7,8 @@ Concrete::Concrete(int xPos, int yPos, QObject *parent) : QObject(parent)
     setPen(Qt::NoPen);
     setBrush(QPixmap(":/img/concrete.png"));
 }
+
+Concrete::~Concrete()
+{
+    emit delMapCoord(xPos,yPos,false);
+}

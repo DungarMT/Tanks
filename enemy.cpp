@@ -20,12 +20,17 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
     timer->start(20);
     timerBullet = new QTimer(this);
     connect(timerBullet,SIGNAL(timeout()),this,SLOT(spawnBulletEnemy()));
-    timerBullet->start(1000);
+    timerBullet->start(500);
+}
+
+Enemy::~Enemy()
+{
+    emit delMapCoord(xPos,yPos,true,side);
 }
 
 void Enemy::spawnBulletEnemy()
 {
-    emit spawnBullet(this->xPos,this->yPos,this->side);
+    emit spawnBullet(xPos,yPos,side);
 }
 
 

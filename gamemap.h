@@ -19,6 +19,7 @@
 #include "base.h"
 #include "enemy.h"
 #include "bullet.h"
+#include "explosion.h"
 
 class GameMap : public QObject
 {
@@ -37,6 +38,9 @@ private:
 signals:
     void motion(char side, bool flag, int id);
 public slots:
+    void delMapCoord(int xPos, int yPos, bool tank, char side);
+    void delMapCoord(int xPos, int yPos, bool tank);
+    void spawnExplosion(int xPos,int yPos, bool tank);
     void spawnBullet(int xPos,int yPos, char side);
     void changePlayerCoord(int xPos, int yPos);
     void checkCoord(int xPos, int yPos, char side, int id);

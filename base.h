@@ -8,8 +8,13 @@
 class Base : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
+private:
+    int xPos, yPos;
+signals:
+    void delMapCoord(int,int,bool);
 public:
     explicit Base(int xPos, int yPos, QObject *parent = 0);
+    ~Base();
 };
 
 #endif // BASE_H

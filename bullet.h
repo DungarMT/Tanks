@@ -13,10 +13,14 @@
 #include "enemy.h"
 #include "base.h"
 #include "player.h"
+
 class Bullet : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 private:
+    int count;
+    int xPos;
+    int yPos;
     char side;
     QTimer *timer;
     int BulletId;
@@ -24,7 +28,7 @@ private:
 public:
     explicit Bullet(int xPos, int yPos, char side, QObject *parent = 0);
 signals:
-
+    void spawnExplosion(int,int,bool);
 public slots:
 
     void move();

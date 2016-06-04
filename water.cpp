@@ -8,6 +8,11 @@ Water::Water(int xPos, int yPos, QObject *parent): QObject(parent)
     this->setZValue(0);
 }
 
+Water::~Water()
+{
+    emit delMapCoord(xPos,yPos,false);
+}
+
 void Water::animate()
 {
     if(animateFlag == 0){

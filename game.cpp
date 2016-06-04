@@ -13,8 +13,8 @@ Game::Game()
     gameScreen->setBackgroundBrush(Qt::black);
 
     //set screen and scene size
-    gameScreen->setFixedSize(800,600);
-    gameScene->setSceneRect(0, 0, 700, 500);
+    gameScreen->setFixedSize(416,416);
+    gameScene->setSceneRect(0, 0, 416, 416);
 
     //Create game map
     GameMap *map = new GameMap(gameScene);
