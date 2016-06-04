@@ -92,7 +92,7 @@ void GameMap::spawnEnemy(int xPos, int yPos)
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
     connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
     connect(en,SIGNAL(spawnBullet(int,int,char)),this, SLOT(spawnBullet(int,int,char)));
-    connect(en,SIGNAL(spawnExplosion(int,int,bool)),this, SLOT(spawnExplosion(int,int,bool)));
+    //connect(en,SIGNAL(spawnExplosion(int,int,bool)),this, SLOT(spawnExplosion(int,int,bool)));
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
     workScene->addItem(en);
 }

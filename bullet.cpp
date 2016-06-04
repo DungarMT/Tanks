@@ -46,16 +46,16 @@ void Bullet::move()
             if(typeid(*(colliding_items[i])) == typeid(Brick)){
                 switch (side) {
                 case 'D':
-                    emit spawnExplosion(xPos,yPos+46,false);
+                    emit spawnExplosion(xPos,yPos+48,false);
                     break;
                 case 'L':
-                    emit spawnExplosion(xPos-46,yPos,false);
+                    emit spawnExplosion(xPos-48,yPos,false);
                     break;
                 case 'U':
-                    emit spawnExplosion(xPos,yPos-46,false);
+                    emit spawnExplosion(xPos,yPos-48,false);
                     break;
                 case 'R':
-                    emit spawnExplosion(xPos+46,yPos,false);
+                    emit spawnExplosion(xPos+48,yPos,false);
                     break;
                 default:
                     break;
