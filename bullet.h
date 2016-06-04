@@ -30,7 +30,6 @@ public:
 signals:
     void spawnExplosion(int,int,bool);
 public slots:
-
     void move();
 };
 

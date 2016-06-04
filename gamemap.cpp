@@ -22,6 +22,7 @@ void GameMap::createPlayer(int xPos, int yPos)
     workScene->addItem(player);
     connect(player, SIGNAL(changeCoord(int,int)), this, SLOT(changePlayerCoord(int,int)));
     connect(player, SIGNAL(checkCoord(int,int,int,bool&)), this, SLOT(checkPlayerCoord(int,int,int,bool&)));
+    connect(player, SIGNAL(spawnBullet(int,int,char)), this, SLOT(spawnBullet(int,int,char)));
 }
 
 void GameMap::createBase(int xPos, int yPos)
@@ -163,8 +164,6 @@ void GameMap::changePlayerCoord(int xPos, int yPos)
     map[xPos][yPos+1] = 1;
     map[xPos+1][yPos+1] = 1;
 }
-
-
 
 void GameMap::checkCoord(int xPos, int yPos, char side, int id)
 {
