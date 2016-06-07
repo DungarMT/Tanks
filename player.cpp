@@ -15,7 +15,8 @@ Player::Player(int xPos, int yPos, QObject *parent) : QObject(parent)
     side = 'U';
     timer->start(20);
     count = 0;
-    stars=0;
+    stars = 0;
+    pistol = 0;
     pressKey = 0;
     posX=xPos*16;
     posY=yPos*16;
@@ -118,6 +119,16 @@ void Player::move()
             delete colliding_items[i];
             spawnShiledPlayer();
         }
+        else if(typeid(*(colliding_items[i])) == typeid(Pistol)){
+            delete colliding_items[i];
+            pistol++;
+        }
+        else if(typeid(*(colliding_items[i])) == typeid(Bush)){
+            if(pistol>=3){
+                delete colliding_items[i];
+            }
+        }
+
     }
 
 

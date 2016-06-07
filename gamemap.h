@@ -23,6 +23,7 @@
 #include "stars.h"
 #include "shield.h"
 #include "helmet.h"
+#include "pistol.h"
 class GameMap : public QObject
 {
     Q_OBJECT

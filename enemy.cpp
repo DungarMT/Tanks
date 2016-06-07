@@ -32,10 +32,8 @@ Enemy::~Enemy()
 
 void Enemy::spawnBulletEnemy()
 {
-    emit spawnBullet(posX,posY,side,0);
+    emit spawnBullet(posX,posY,side,-1);
 }
-
-
 
 void Enemy::move()
 {

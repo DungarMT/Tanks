@@ -458,10 +458,16 @@ void GameMap::spawnStars()
     int yPos = qrand()%384;
     Stars *star = new Stars(xPos,yPos,this);
     workScene->addItem(star);
+
     xPos = qrand()%384;
     yPos = qrand()%384;
     Helmet *helmet = new Helmet(xPos,yPos,this);
     workScene->addItem(helmet);
+
+    xPos = qrand()%384;
+    yPos = qrand()%384;
+    Pistol *pistol = new Pistol(xPos,yPos,this);
+    workScene->addItem(pistol);
 }
 
 void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)

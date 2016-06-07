@@ -100,6 +100,7 @@ void Bullet::move()
             }
             else if(typeid(*(colliding_items[i])) == typeid(Enemy))
             {
+                if(stars>=0){
 
                 switch (side) {
                 case 'D':
@@ -117,13 +118,14 @@ void Bullet::move()
                 default:
                     break;
                 }
-
                 delete colliding_items[i];
+                }
                 deleted = true;
 
             }
             else if(typeid(*(colliding_items[i])) == typeid(Base))
             {
+
                 /*
                 switch (side) {
                 case 'D':
@@ -147,6 +149,7 @@ void Bullet::move()
             }
             else if(typeid(*(colliding_items[i])) == typeid(Player))
             {
+
                 emit CheckShield();
                 deleted = true;
                 /*

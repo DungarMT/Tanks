@@ -11,6 +11,8 @@
 
 #include "stars.h"
 #include "helmet.h"
+#include "pistol.h"
+#include "bush.h"
 
 class Player : public QObject, public QGraphicsRectItem
 {
@@ -33,7 +35,7 @@ private:
     QTimer *delShield;
     bool shield;
     void changeView(int);
-
+    int pistol;
 signals:
     void moveShield(char);
     void spawnShield(int,int);
