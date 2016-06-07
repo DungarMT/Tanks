@@ -40,6 +40,8 @@
         <file alias="explosion3.png">assets/img/explosion3.png</file>
         <file alias="explosion4.png">assets/img/explosion4.png</file>
         <file alias="explosion5.png">assets/img/explosion5.png</file>
+        <file alias="shield1.png">assets/img/shield1.png</file>
+        <file alias="shield2.png">assets/img/shield2.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>

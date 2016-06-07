@@ -1,7 +1,8 @@
 #include "bullet.h"
 
-Bullet::Bullet(int xPos, int yPos, char side, QObject *parent): QObject(parent)
+Bullet::Bullet(int xPos, int yPos, char side, int stars, QObject *parent): QObject(parent)
 {
+    this->stars=stars;
     count = 0;
     this->xPos=xPos;
     this->yPos=yPos;
@@ -49,18 +50,6 @@ void Bullet::move()
             if(typeid(*(colliding_items[i])) == typeid(Brick)){
                 switch (side) {
                 case 'D':
-<<<<<<< HEAD
-                    emit spawnExplosion(xPos,yPos+48,false);
-                    break;
-                case 'L':
-                    emit spawnExplosion(xPos-48,yPos,false);
-                    break;
-                case 'U':
-                    emit spawnExplosion(xPos,yPos-48,false);
-                    break;
-                case 'R':
-                    emit spawnExplosion(xPos+48,yPos,false);
-=======
                     emit spawnExplosion(xPos,yPos+24,false);
                     break;
                 case 'L':
@@ -71,12 +60,10 @@ void Bullet::move()
                     break;
                 case 'R':
                     emit spawnExplosion(xPos+24,yPos,false);
->>>>>>> origin/full-rewrite
                     break;
                 default:
                     break;
                 }
-                //emit spawnExplosion(xPos,yPos,false);
                 delete colliding_items[i];
                 deleted = true;
 
@@ -94,12 +81,20 @@ void Bullet::move()
                     emit spawnExplosion(xPos,yPos-24,false);
                     break;
                 case 'R':
-                    emit spawnExplosion(xPos+48,yPos,false);
+                    emit spawnExplosion(xPos+24,yPos,false);
                     break;
                 default:
                     break;
                 }
-                //emit spawnExplosion(xPos,yPos,false);
+                if(stars>=3)
+                    delete colliding_items[i];
+                deleted = true;
+
+            }
+            else if(typeid(*(colliding_items[i])) == typeid(Bullet))
+            {
+
+                delete colliding_items[i];
                 deleted = true;
 
             }
@@ -122,6 +117,7 @@ void Bullet::move()
                 default:
                     break;
                 }
+
                 delete colliding_items[i];
                 deleted = true;
 
@@ -151,6 +147,8 @@ void Bullet::move()
             }
             else if(typeid(*(colliding_items[i])) == typeid(Player))
             {
+                emit CheckShield();
+                deleted = true;
                 /*
                 switch (side) {
                 case 'D':

@@ -15,11 +15,17 @@ Player::Player(int xPos, int yPos, QObject *parent) : QObject(parent)
     side = 'U';
     timer->start(20);
     count = 0;
+    stars=0;
     pressKey = 0;
     posX=xPos*16;
     posY=yPos*16;
     this->xPos = xPos;
     this->yPos = yPos;
+    shield = false;
+    //spawnShiledPlayer();
+    delShield = new QTimer(this);
+    connect(delShield,SIGNAL(timeout()),this,SLOT(deleteShield()));
+
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -40,7 +46,8 @@ void Player::keyPressEvent(QKeyEvent *event)
         }
     }
     else if(event->key()==Qt::Key_Space){
-        emit spawnBullet(posX, posY, side);
+        emit spawnBullet(posX, posY, side,stars);
+
     }
 }
 void Player::keyReleaseEvent(QKeyEvent *event)
@@ -89,8 +96,31 @@ void Player::keyReleaseEvent(QKeyEvent *event)
     }
 }
 
+void Player::spawnShiledPlayer()
+{
+    if(!shield){
+        emit spawnShield(posX,posY);
+        shield=true;
+        delShield->start(3000);
+    }
+
+}
+
 void Player::move()
 {
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for(int i = 0; i < colliding_items.size(); i++){
+        if(typeid(*(colliding_items[i])) == typeid(Stars)){
+            delete colliding_items[i];
+            stars++;
+        }
+        else if(typeid(*(colliding_items[i])) == typeid(Helmet)){
+            delete colliding_items[i];
+            spawnShiledPlayer();
+        }
+    }
+
+
     if(direction == 0 and !queue->isEmpty()){
 
         direction = queue->last();
@@ -108,6 +138,7 @@ void Player::move()
         posY-=2;
         setPos(x(), y()-2);
         count++;
+        emit moveShield('U');
         if(animation == 0){
             this->setBrush(QPixmap(":/img/player2up"));
             animation = 1;
@@ -121,6 +152,7 @@ void Player::move()
         posY+=2;
         setPos(x(), y()+2);
         count++;
+        emit moveShield('D');
         if(animation == 0){
             this->setBrush(QPixmap(":/img/player2down"));
             animation = 1;
@@ -134,6 +166,7 @@ void Player::move()
         posX-=2;
         setPos(x()-2, y());
         count++;
+        emit moveShield('L');
         if(animation == 0){
             this->setBrush(QPixmap(":/img/player2left"));
             animation = 1;
@@ -147,6 +180,7 @@ void Player::move()
         posX+=2;
         setPos(x()+2, y());
         count++;
+        emit moveShield('R');
         if(animation == 0){
             this->setBrush(QPixmap(":/img/player2right"));
             animation = 1;
@@ -209,4 +243,18 @@ void Player::changeView(int direction)
         animation = 0;
         break;
     }
+}
+
+void Player::CheckShield()
+{
+    if(!shield){
+        //delete this;
+        spawnShiledPlayer();
+    }
+}
+
+void Player::deleteShield()
+{
+    shield=false;
+    delShield->stop();
 }

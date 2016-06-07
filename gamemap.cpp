@@ -20,9 +20,12 @@ void GameMap::createPlayer(int xPos, int yPos)
     map[xPos+1][yPos+1] = 1;
     Player *player = new Player(xPos, yPos, this);
     workScene->addItem(player);
+    connect(player, SIGNAL(spawnShield(int,int)),this,SLOT(spawnShield(int,int)));
     connect(player, SIGNAL(changeCoord(int,int)), this, SLOT(changePlayerCoord(int,int)));
     connect(player, SIGNAL(checkCoord(int,int,int,bool&)), this, SLOT(checkPlayerCoord(int,int,int,bool&)));
-    connect(player, SIGNAL(spawnBullet(int,int,char)), this, SLOT(spawnBullet(int,int,char)));
+    connect(player, SIGNAL(spawnBullet(int,int,char, int)), this, SLOT(spawnBullet(int,int,char, int)));
+    connect(player,SIGNAL(moveShield(char)),this,SLOT(moveShieldSlot(char)));
+    connect(this,SIGNAL(CheckShield()),player,SLOT(CheckShield()));
 }
 
 void GameMap::createBase(int xPos, int yPos)
@@ -86,16 +89,36 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
-void GameMap::spawnEnemy(int xPos, int yPos)
+void GameMap::moveShieldSlot(char side)
 {
+    emit moveShideld(side);
+}
+
+void GameMap::spawnShield(int xPos, int yPos)
+{
+    Shield *shield = new Shield(xPos,yPos,this);
+    connect(this,SIGNAL(moveShideld(char)),shield,SLOT(move(char)));
+    workScene->addItem(shield);
+}
+
+void GameMap::spawnEnemy()
+{
+     qsrand(QTime(0,0,0).msecsTo(QTime::currentTime()));
+    int xPos, yPos = 0;
+    xPos= 12*qrand()%3;
     Enemy *en = new Enemy(xPos,yPos,this);
     connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
     connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
-    connect(en,SIGNAL(spawnBullet(int,int,char)),this, SLOT(spawnBullet(int,int,char)));
+    connect(en,SIGNAL(spawnBullet(int,int,char, int)),this, SLOT(spawnBullet(int,int,char, int)));
     //connect(en,SIGNAL(spawnExplosion(int,int,bool)),this, SLOT(spawnExplosion(int,int,bool)));
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
     workScene->addItem(en);
+}
+
+void GameMap::CheckShieldSlot()
+{
+    emit CheckShield();
 }
 
 void GameMap::delMapCoord(int xPos, int yPos, bool tank, char side){
@@ -271,15 +294,6 @@ void GameMap::checkCoord(int xPos, int yPos, char side, int id)
         break;
     }
 
-
-
-
-
-
-
-
-
-
     switch (side) {
     case 'D':
         if(yPos==24){
@@ -384,6 +398,7 @@ void GameMap::changeCoord(int xPos, int yPos, char side, int id)
         break;
     }
 }
+
 void GameMap::checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp)
 {
 
@@ -437,12 +452,24 @@ void GameMap::checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp)
 
 }
 
-void GameMap::spawnBullet(int xPos,int yPos, char side)
+void GameMap::spawnStars()
 {
-    Bullet *bullet = new Bullet(xPos,yPos,side,this);
+    int xPos = qrand()%384;
+    int yPos = qrand()%384;
+    Stars *star = new Stars(xPos,yPos,this);
+    workScene->addItem(star);
+    xPos = qrand()%384;
+    yPos = qrand()%384;
+    Helmet *helmet = new Helmet(xPos,yPos,this);
+    workScene->addItem(helmet);
+}
+
+void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
+{
+    Bullet *bullet = new Bullet(xPos,yPos,side,stars,this);
     workScene->addItem(bullet);
     connect(bullet,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
-
+    connect(bullet,SIGNAL(CheckShield()),this,SLOT(CheckShieldSlot()));
 }
 
 void GameMap::loadMap()
@@ -467,11 +494,13 @@ void GameMap::loadMap()
         }
 
 
-    for(int i=0;i<=16;i+=8){
-        spawnEnemy(i,0);
-        //spawnEnemy(0,i);
-    }
 
+    stars = new QTimer(this);
+    connect(stars,SIGNAL(timeout()),this,SLOT(spawnStars()));
+    enemy = new QTimer(this);
+    connect(enemy, SIGNAL(timeout()),this,SLOT(spawnEnemy()));
+    enemy->start(5000);
+    stars->start(10000);
 
 
 

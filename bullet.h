@@ -18,6 +18,7 @@ class Bullet : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 private:
+    int stars;
     int count;
     int xPos;
     int yPos;
@@ -26,8 +27,9 @@ private:
     int BulletId;
     static int StaticId;
 public:
-    explicit Bullet(int xPos, int yPos, char side, QObject *parent = 0);
+    explicit Bullet(int xPos, int yPos, char side, int stars, QObject *parent = 0);
 signals:
+    void CheckShield();
     void spawnExplosion(int,int,bool);
 public slots:
     void move();

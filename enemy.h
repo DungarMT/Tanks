@@ -24,7 +24,7 @@ private:
     QTimer *timerBullet;
 signals:
     void delMapCoord(int,int,bool,char);
-    spawnBullet(int xPos,int yPos,char side);
+    spawnBullet(int,int,char, int);
     checkCoord(int,int,char, int);
     changeCoord(int,int,char, int);
 private slots:

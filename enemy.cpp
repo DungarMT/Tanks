@@ -22,7 +22,7 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
     timer->start(20);
     timerBullet = new QTimer(this);
     connect(timerBullet,SIGNAL(timeout()),this,SLOT(spawnBulletEnemy()));
-    timerBullet->start(3000);
+    timerBullet->start(500);
 }
 
 Enemy::~Enemy()
@@ -32,7 +32,7 @@ Enemy::~Enemy()
 
 void Enemy::spawnBulletEnemy()
 {
-    emit spawnBullet(posX,posY,side);
+    emit spawnBullet(posX,posY,side,0);
 }
 
 

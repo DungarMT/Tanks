@@ -2,10 +2,9 @@
 
 Stars::Stars(int xPos, int yPos, QObject *parent) : QObject(parent)
 {
-    setFlag(QGraphicsItem::ItemIsFocusable);
-    setFocus();
     setPen(Qt::NoPen);
-    setRect(xPos * 16, yPos * 16, 32, 32);
+    setRect(0, 0, 32, 32);
+    setPos(xPos,yPos);
     setBrush(QPixmap(":/img/star.png"));
     this->setZValue(1);
 }

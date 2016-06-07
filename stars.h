@@ -7,6 +7,7 @@
 class Stars: public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
+private:
 public:
     explicit Stars(int xPos, int yPos, QObject *parent = 0);
 
