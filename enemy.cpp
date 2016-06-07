@@ -28,6 +28,7 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
 Enemy::~Enemy()
 {
     emit delMapCoord(xPos,yPos,true,side);
+    spawnExplosion(posX,posY,true);
 }
 
 void Enemy::spawnBulletEnemy()

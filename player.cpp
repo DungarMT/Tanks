@@ -134,6 +134,10 @@ void Player::move()
             delete colliding_items[i];
             emit spawnShovel();
         }
+        else if(typeid(*(colliding_items[i])) == typeid(Granade)){
+            delete colliding_items[i];
+            emit killEnemy();
+        }
 
     }
 

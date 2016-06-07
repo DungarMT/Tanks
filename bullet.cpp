@@ -101,7 +101,7 @@ void Bullet::move()
             else if(typeid(*(colliding_items[i])) == typeid(Enemy))
             {
                 if(stars>=0){
-
+                /*
                 switch (side) {
                 case 'D':
                     emit spawnExplosion(xPos,yPos+24,true);;
@@ -118,6 +118,7 @@ void Bullet::move()
                 default:
                     break;
                 }
+                */
                 delete colliding_items[i];
                 }
                 deleted = true;
@@ -187,22 +188,18 @@ void Bullet::move()
     switch (side) {
     case 'D':
         yPos+=2;
-        //count++;
         setPos(x(),y()+2);
         break;
     case 'L':
         xPos-=2;
-        //count++;
         setPos(x()-2, y());
         break;
     case 'U':
         yPos-=2;
-        //count++;
         setPos(x(),y()-2);
         break;
     case 'R':
         xPos+=2;
-        //count++;
         setPos(x()+2,y());
         break;
     default:

@@ -8,6 +8,8 @@
 #include <QTime>
 #include <QVector>
 #include <QTimer>
+#include <typeinfo>
+#include <QList>
 
 
 #include "player.h"
@@ -25,6 +27,8 @@
 #include "helmet.h"
 #include "pistol.h"
 #include "shovel.h"
+#include "granade.h"
+
 class GameMap : public QObject
 {
     Q_OBJECT
@@ -48,6 +52,7 @@ signals:
     void moveShideld(char side);
     void motion(char side, bool flag, int id);
 public slots:
+    void killEnemy();
     void deleteShovel();
     void createShovel();
     void moveShieldSlot(char side);

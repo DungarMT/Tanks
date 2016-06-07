@@ -26,6 +26,7 @@ void GameMap::createPlayer(int xPos, int yPos)
     connect(player, SIGNAL(spawnBullet(int,int,char, int)), this, SLOT(spawnBullet(int,int,char, int)));
     connect(player,SIGNAL(moveShield(char)),this,SLOT(moveShieldSlot(char)));
     connect(player,SIGNAL(spawnShovel()),this,SLOT(createShovel()));
+    connect(player,SIGNAL(killEnemy()),this,SLOT(killEnemy()));
     connect(this,SIGNAL(CheckShield()),player,SLOT(CheckShield()));
 }
 
@@ -90,6 +91,16 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
+void GameMap::killEnemy()
+{
+    QList<QGraphicsItem *> enemy_items = workScene->items();
+    for(int i = 0; i < enemy_items.size(); i++){
+        if(typeid(*(enemy_items[i])) == typeid(Enemy)){
+            delete enemy_items[i];
+        }
+    }
+}
+
 void GameMap::deleteShovel()
 {
     for(int i=0;i<shovel.size();i++)
@@ -143,6 +154,7 @@ void GameMap::spawnEnemy()
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
     connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
     connect(en,SIGNAL(spawnBullet(int,int,char, int)),this, SLOT(spawnBullet(int,int,char, int)));
+    connect(en,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
     //connect(en,SIGNAL(spawnExplosion(int,int,bool)),this, SLOT(spawnExplosion(int,int,bool)));
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
     workScene->addItem(en);
@@ -486,30 +498,34 @@ void GameMap::checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp)
 
 void GameMap::spawnStars()
 {
-    int randBonus = qrand()%4;
+    int randBonus = qrand()%5;
     int xPos= qrand()%384;
     int yPos= qrand()%384;
-    Stars *star= new Stars(xPos,yPos,this);
-    Helmet *helmet= new Helmet(xPos,yPos,this);
-    Pistol *pistol= new Pistol(xPos,yPos,this);
-    Shovel *shovel= new Shovel(xPos,yPos,this);
+    Stars *star = new Stars(xPos,yPos,this);
+    Helmet *helmet = new Helmet(xPos,yPos,this);
+    Pistol *pistol = new Pistol(xPos,yPos,this);
+    Shovel *shovel = new Shovel(xPos,yPos,this);
+    Granade *granade = new Granade(xPos,yPos,this);
+
     switch (randBonus) {
     case 0:
-        //workScene->addItem(star);
+        workScene->addItem(star);
         break;
     case 1:
-       // workScene->addItem(helmet);
+        workScene->addItem(helmet);
         break;
     case 2:
-        //workScene->addItem(pistol);
+        workScene->addItem(pistol);
         break;
     case 3:
-        //workScene->addItem(shovel);
+        workScene->addItem(shovel);
         break;
+    case 4:
+        workScene->addItem(granade);
     default:
         break;
     }
-    workScene->addItem(shovel);
+
     /*
     switch (randBonus) {
     case 0:
@@ -577,7 +593,7 @@ void GameMap::loadMap()
     connect(stars,SIGNAL(timeout()),this,SLOT(spawnStars()));
     enemy = new QTimer(this);
     connect(enemy, SIGNAL(timeout()),this,SLOT(spawnEnemy()));
-    //enemy->start(5000);
+    enemy->start(5000);
     stars->start(2000);
 
 

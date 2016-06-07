@@ -14,6 +14,7 @@
 #include "pistol.h"
 #include "bush.h"
 #include "shovel.h"
+#include "granade.h"
 
 
 class Player : public QObject, public QGraphicsRectItem
@@ -40,6 +41,7 @@ private:
     void changeView(int);
     int pistol;
 signals:
+    void killEnemy();
     void spawnShovel();
     void moveShield(char);
     void spawnShield(int,int);

@@ -23,6 +23,7 @@ private:
     QTimer *timerAnimation;
     QTimer *timerBullet;
 signals:
+    void spawnExplosion(int,int,bool);
     void delMapCoord(int,int,bool,char);
     spawnBullet(int,int,char, int);
     checkCoord(int,int,char, int);
