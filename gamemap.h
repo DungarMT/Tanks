@@ -6,7 +6,7 @@
 #include <QGraphicsScene>
 #include <QFile>
 #include <QTime>
-
+#include <QVector>
 #include <QTimer>
 
 
@@ -24,6 +24,7 @@
 #include "shield.h"
 #include "helmet.h"
 #include "pistol.h"
+#include "shovel.h"
 class GameMap : public QObject
 {
     Q_OBJECT
@@ -31,6 +32,8 @@ public:
     GameMap(QGraphicsScene *workScene, QObject *parent = 0);
     void loadMap();
 private:
+    QTimer *timerShovel;
+    QVector<Concrete*> shovel;
     QTimer *enemy;
     QTimer *stars;
     QTimer *animationTimer;
@@ -45,6 +48,8 @@ signals:
     void moveShideld(char side);
     void motion(char side, bool flag, int id);
 public slots:
+    void deleteShovel();
+    void createShovel();
     void moveShieldSlot(char side);
     void spawnShield(int xPos, int yPos);
     void delMapCoord(int xPos, int yPos, bool tank, char side);

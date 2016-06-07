@@ -107,6 +107,8 @@ void Player::spawnShiledPlayer()
 
 }
 
+
+
 void Player::move()
 {
     QList<QGraphicsItem *> colliding_items = collidingItems();
@@ -124,9 +126,13 @@ void Player::move()
             pistol++;
         }
         else if(typeid(*(colliding_items[i])) == typeid(Bush)){
-            if(pistol>=3){
+            if(pistol>=2){
                 delete colliding_items[i];
             }
+        }
+        else if(typeid(*(colliding_items[i])) == typeid(Shovel)){
+            delete colliding_items[i];
+            emit spawnShovel();
         }
 
     }

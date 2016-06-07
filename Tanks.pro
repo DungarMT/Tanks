@@ -29,7 +29,8 @@ SOURCES += \
     explosion.cpp \
     shield.cpp \
     helmet.cpp \
-    pistol.cpp
+    pistol.cpp \
+    shovel.cpp
 
 
 HEADERS  += \ 
@@ -48,7 +49,8 @@ HEADERS  += \
     explosion.h \
     shield.h \
     helmet.h \
-    pistol.h
+    pistol.h \
+    shovel.h
 
 
 

@@ -13,6 +13,8 @@
 #include "helmet.h"
 #include "pistol.h"
 #include "bush.h"
+#include "shovel.h"
+
 
 class Player : public QObject, public QGraphicsRectItem
 {
@@ -23,6 +25,7 @@ public:
     void keyReleaseEvent(QKeyEvent *event);
     void spawnShiledPlayer();
 private:
+
     int stars;
     int xPos, yPos, posX, posY;
     QList<int> *queue;
@@ -37,6 +40,7 @@ private:
     void changeView(int);
     int pistol;
 signals:
+    void spawnShovel();
     void moveShield(char);
     void spawnShield(int,int);
     void changeCoord(int, int);

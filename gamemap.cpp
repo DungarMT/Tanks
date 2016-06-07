@@ -25,6 +25,7 @@ void GameMap::createPlayer(int xPos, int yPos)
     connect(player, SIGNAL(checkCoord(int,int,int,bool&)), this, SLOT(checkPlayerCoord(int,int,int,bool&)));
     connect(player, SIGNAL(spawnBullet(int,int,char, int)), this, SLOT(spawnBullet(int,int,char, int)));
     connect(player,SIGNAL(moveShield(char)),this,SLOT(moveShieldSlot(char)));
+    connect(player,SIGNAL(spawnShovel()),this,SLOT(createShovel()));
     connect(this,SIGNAL(CheckShield()),player,SLOT(CheckShield()));
 }
 
@@ -87,6 +88,37 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
         }
         */
     }
+}
+
+void GameMap::deleteShovel()
+{
+    for(int i=0;i<shovel.size();i++)
+    {
+
+        delete shovel[i];
+
+    }
+    //shovel.clear();
+    timerShovel->stop();
+}
+
+void GameMap::createShovel()
+{
+    int i=shovel.size();
+    shovel.push_back(new Concrete(11,23,this));
+    shovel.push_back(new Concrete(12,23,this));
+    shovel.push_back(new Concrete(13,23,this));
+    shovel.push_back(new Concrete(14,23,this));
+    shovel.push_back(new Concrete(11,24,this));
+    shovel.push_back(new Concrete(11,25,this));
+    shovel.push_back(new Concrete(14,24,this));
+    shovel.push_back(new Concrete(14,25,this));
+    for(i;i<shovel.size();i++)
+    {
+        workScene->addItem(shovel[i]);
+    }
+    timerShovel->start(5000);
+
 }
 
 void GameMap::moveShieldSlot(char side)
@@ -454,20 +486,59 @@ void GameMap::checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp)
 
 void GameMap::spawnStars()
 {
-    int xPos = qrand()%384;
-    int yPos = qrand()%384;
-    Stars *star = new Stars(xPos,yPos,this);
-    workScene->addItem(star);
+    int randBonus = qrand()%4;
+    int xPos= qrand()%384;
+    int yPos= qrand()%384;
+    Stars *star= new Stars(xPos,yPos,this);
+    Helmet *helmet= new Helmet(xPos,yPos,this);
+    Pistol *pistol= new Pistol(xPos,yPos,this);
+    Shovel *shovel= new Shovel(xPos,yPos,this);
+    switch (randBonus) {
+    case 0:
+        //workScene->addItem(star);
+        break;
+    case 1:
+       // workScene->addItem(helmet);
+        break;
+    case 2:
+        //workScene->addItem(pistol);
+        break;
+    case 3:
+        //workScene->addItem(shovel);
+        break;
+    default:
+        break;
+    }
+    workScene->addItem(shovel);
+    /*
+    switch (randBonus) {
+    case 0:
+        delete helmet;
+        delete pistol;
+        delete shovel;
+        break;
+    case 1:
+        delete stars;
+        delete pistol;
+        delete shovel;
+        break;
+    case 2:
+        delete stars;
+        delete helmet;
+        delete shovel;
+        break;
+    case 3:
+        delete stars;
+        delete helmet;
+        delete pistol;
+        break;
+    default:
+        break;
+    }
+    */
 
-    xPos = qrand()%384;
-    yPos = qrand()%384;
-    Helmet *helmet = new Helmet(xPos,yPos,this);
-    workScene->addItem(helmet);
 
-    xPos = qrand()%384;
-    yPos = qrand()%384;
-    Pistol *pistol = new Pistol(xPos,yPos,this);
-    workScene->addItem(pistol);
+
 }
 
 void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
@@ -500,13 +571,14 @@ void GameMap::loadMap()
         }
 
 
-
+    timerShovel = new QTimer(this);
+    connect(timerShovel,SIGNAL(timeout()),this,SLOT(deleteShovel()));
     stars = new QTimer(this);
     connect(stars,SIGNAL(timeout()),this,SLOT(spawnStars()));
     enemy = new QTimer(this);
     connect(enemy, SIGNAL(timeout()),this,SLOT(spawnEnemy()));
-    enemy->start(5000);
-    stars->start(10000);
+    //enemy->start(5000);
+    stars->start(2000);
 
 
 
