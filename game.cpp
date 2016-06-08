@@ -10,12 +10,16 @@ Game::Game()
     gameScreen->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     gameScreen->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     gameScreen->show();
-    gameScreen->setBackgroundBrush(Qt::black);
+    gameScene->setBackgroundBrush(QColor(99,99,99));
 
     //set screen and scene size
-    gameScreen->setFixedSize(416,416);
-    gameScene->setSceneRect(0, 0, 416, 416);
-
+    gameScreen->setFixedSize(516,436);
+    gameScene->setSceneRect(35, 0, 416, 416);
+    QGraphicsRectItem *field = new QGraphicsRectItem(NULL);
+    field->setRect(0,0,416,416);
+    field->setPos(0,0);
+    field->setBrush(Qt::black);
+    gameScene->addItem(field);
     //Create game map
     GameMap *map = new GameMap(gameScene);
     map->loadMap();

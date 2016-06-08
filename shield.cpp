@@ -9,7 +9,7 @@ Shield::Shield(int xPos, int yPos, QObject *parent): QObject(parent)
     animationTimer = new QTimer(this);
     connect(animationTimer,SIGNAL(timeout()),this,SLOT(animation()));
     animationTimer->start(100);
-    this->setZValue(1);
+    this->setZValue(2);
     animate=true;
     deleted = new QTimer(this);
     connect(deleted,SIGNAL(timeout()),this,SLOT(del()));

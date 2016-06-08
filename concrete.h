@@ -3,6 +3,7 @@
 
 #include <QGraphicsRectItem>
 #include <QPainter>
+
 class Concrete : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT

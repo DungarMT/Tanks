@@ -11,6 +11,16 @@ GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
     this->workScene = workScene;
     animationTimer = new QTimer(this);
     animationTimer->start(1000);
+    HealthPanel *healthPanel = new HealthPanel(456,256,this);
+
+    connect(this,SIGNAL(changeHealth(int)),healthPanel,SLOT(changeHealth(int)));
+    workScene->addItem(healthPanel);
+
+    QGraphicsRectItem *iconHealth = new QGraphicsRectItem(0,0,16,16,NULL);
+    iconHealth->setPos(456-16,256);
+    iconHealth->setBrush(QPixmap(":/img/health.png"));
+    iconHealth->setPen(Qt::NoPen);
+    workScene->addItem(iconHealth);
 }
 
 void GameMap::createPlayer(int xPos, int yPos)
@@ -97,7 +107,9 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
 
 void GameMap::addHealth()
 {
+    if(health<=9)
     health++;
+    emit changeHealth(health);
 }
 
 void GameMap::killEnemy()
@@ -179,8 +191,12 @@ void GameMap::CheckShieldSlot()
 void GameMap::CheckHealth()
 {
     if(health>0){
-        health--;
+       health--;
+       emit changeHealth(health);
        this->createPlayer(8,24);
+    }
+    else{
+        end();
     }
 }
 
@@ -615,10 +631,16 @@ void GameMap::loadMap()
     enemy = new QTimer(this);
     connect(enemy, SIGNAL(timeout()),this,SLOT(spawnEnemy()));
     enemy->start(5000);
-    stars->start(2000);
+    stars->start(10000);
 
 
 
 
 
+}
+
+void GameMap::end()
+{
+    GameOver *gameover = new GameOver(176,416,this);
+    workScene->addItem(gameover);
 }

@@ -44,6 +44,25 @@ int Bullet::StaticId = 1;
 
 void Bullet::move()
 {
+    if((xPos<0) or (xPos>384) or (yPos<0) or (yPos>416)){
+        switch (side) {
+        case 'D':
+            emit spawnExplosion(xPos,yPos-32,false);
+            break;
+        case 'L':
+            emit spawnExplosion(xPos,yPos,false);
+            break;
+        case 'U':
+            emit spawnExplosion(xPos,yPos,false);
+            break;
+        case 'R':
+            emit spawnExplosion(xPos,yPos,false);
+            break;
+        default:
+            break;
+        }
+        delete this;
+    }
     bool deleted = false;
         QList<QGraphicsItem *> colliding_items = collidingItems();
         for(int i = 0; i < colliding_items.size(); i++){
@@ -204,6 +223,7 @@ void Bullet::move()
     default:
         break;
     }
+
 
 
 

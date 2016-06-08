@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QGraphicsRectItem>
 #include "gamemap.h"
 
 class Game : public QObject

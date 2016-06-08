@@ -42,6 +42,18 @@
         <file alias="explosion5.png">assets/img/explosion5.png</file>
         <file alias="shield1.png">assets/img/shield1.png</file>
         <file alias="shield2.png">assets/img/shield2.png</file>
+        <file alias="gameover.png">assets/img/gameover.png</file>
+        <file alias="0.png">assets/img/0.png</file>
+        <file alias="1.png">assets/img/1.png</file>
+        <file alias="2.png">assets/img/2.png</file>
+        <file alias="3.png">assets/img/3.png</file>
+        <file alias="4.png">assets/img/4.png</file>
+        <file alias="5.png">assets/img/5.png</file>
+        <file alias="6.png">assets/img/6.png</file>
+        <file alias="7.png">assets/img/7.png</file>
+        <file alias="8.png">assets/img/8.png</file>
+        <file alias="9.png">assets/img/9.png</file>
+        <file alias="health.png">assets/img/health.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>

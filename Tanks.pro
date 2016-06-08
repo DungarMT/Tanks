@@ -32,10 +32,13 @@ SOURCES += \
     pistol.cpp \
     shovel.cpp \
     granade.cpp \
-    health.cpp
+    health.cpp \
+    gameover.cpp \
+    healthpanel.cpp
 
 
-HEADERS  += \ 
+
+HEADERS  += \
     game.h \
     gamemap.h \
     player.h \
@@ -54,7 +57,10 @@ HEADERS  += \
     pistol.h \
     shovel.h \
     granade.h \
-    health.h
+    health.h \
+    gameover.h \
+    healthpanel.h
+
 
 
 

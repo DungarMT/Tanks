@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <typeinfo>
 #include <QList>
+#include <QPainter>
 
 
 #include "player.h"
@@ -29,6 +30,8 @@
 #include "shovel.h"
 #include "granade.h"
 #include "health.h"
+#include "gameover.h"
+#include "healthpanel.h"
 
 class GameMap : public QObject
 {
@@ -36,6 +39,7 @@ class GameMap : public QObject
 public:
     GameMap(QGraphicsScene *workScene, QObject *parent = 0);
     void loadMap();
+    void end();
 private:
     int health;
     QTimer *timerShovel;
@@ -50,6 +54,7 @@ private:
     void createBlock(int xPos, int yPos, int idBlock);
     //void spawnEnemy(int xPos, int yPos);
 signals:
+    void changeHealth(int count);
     void CheckShield();
     void moveShideld(char side);
     void motion(char side, bool flag, int id);

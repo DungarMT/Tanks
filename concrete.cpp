@@ -1,6 +1,5 @@
 #include "concrete.h"
 
-
 Concrete::Concrete(int xPos, int yPos, QObject *parent) : QObject(parent)
 {
     this->xPos=xPos;
