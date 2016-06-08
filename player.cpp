@@ -23,9 +23,9 @@ Player::Player(int xPos, int yPos, QObject *parent) : QObject(parent)
     this->xPos = xPos;
     this->yPos = yPos;
     shield = false;
-    //spawnShiledPlayer();
     delShield = new QTimer(this);
     connect(delShield,SIGNAL(timeout()),this,SLOT(deleteShield()));
+    spawnShiledPlayer();
 
 }
 
@@ -107,7 +107,15 @@ void Player::spawnShiledPlayer()
 
 }
 
+int Player::getX()
+{
+    return posX;
+}
 
+int Player::getY()
+{
+    return posY;
+}
 
 void Player::move()
 {
@@ -137,6 +145,10 @@ void Player::move()
         else if(typeid(*(colliding_items[i])) == typeid(Granade)){
             delete colliding_items[i];
             emit killEnemy();
+        }
+        else if(typeid(*(colliding_items[i])) == typeid(Health)){
+            delete colliding_items[i];
+            emit addHealth();
         }
 
     }
@@ -269,8 +281,9 @@ void Player::changeView(int direction)
 void Player::CheckShield()
 {
     if(!shield){
-        //delete this;
-        spawnShiledPlayer();
+        //spawnShiledPlayer();
+        emit CheckHealth();
+        delete this;
     }
 }
 

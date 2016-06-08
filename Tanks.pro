@@ -31,7 +31,8 @@ SOURCES += \
     helmet.cpp \
     pistol.cpp \
     shovel.cpp \
-    granade.cpp
+    granade.cpp \
+    health.cpp
 
 
 HEADERS  += \ 
@@ -52,7 +53,8 @@ HEADERS  += \
     helmet.h \
     pistol.h \
     shovel.h \
-    granade.h
+    granade.h \
+    health.h
 
 
 

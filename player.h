@@ -15,7 +15,7 @@
 #include "bush.h"
 #include "shovel.h"
 #include "granade.h"
-
+#include "health.h"
 
 class Player : public QObject, public QGraphicsRectItem
 {
@@ -25,10 +25,12 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void spawnShiledPlayer();
+    int getX();
+    int getY();
 private:
-
+    int posX, posY;
     int stars;
-    int xPos, yPos, posX, posY;
+    int xPos, yPos;
     QList<int> *queue;
     int direction;
     char side;
@@ -41,6 +43,8 @@ private:
     void changeView(int);
     int pistol;
 signals:
+    void addHealth();
+    void CheckHealth();
     void killEnemy();
     void spawnShovel();
     void moveShield(char);

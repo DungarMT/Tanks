@@ -150,7 +150,6 @@ void Bullet::move()
             }
             else if(typeid(*(colliding_items[i])) == typeid(Player))
             {
-
                 emit CheckShield();
                 deleted = true;
                 /*

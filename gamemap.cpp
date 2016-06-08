@@ -4,6 +4,7 @@
 
 GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
 {
+    health=3;
     for(int i = 0; i < 26; i++)
         for(int j = 0; j < 26; j++)
             map[i][j] = 0;
@@ -27,7 +28,10 @@ void GameMap::createPlayer(int xPos, int yPos)
     connect(player,SIGNAL(moveShield(char)),this,SLOT(moveShieldSlot(char)));
     connect(player,SIGNAL(spawnShovel()),this,SLOT(createShovel()));
     connect(player,SIGNAL(killEnemy()),this,SLOT(killEnemy()));
+    connect(player,SIGNAL(CheckHealth()),this,SLOT(CheckHealth()));
+    connect(player,SIGNAL(addHealth()),this,SLOT(addHealth()));
     connect(this,SIGNAL(CheckShield()),player,SLOT(CheckShield()));
+    emit spawnShield(player->getX(),player->getY());
 }
 
 void GameMap::createBase(int xPos, int yPos)
@@ -91,6 +95,11 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
+void GameMap::addHealth()
+{
+    health++;
+}
+
 void GameMap::killEnemy()
 {
     QList<QGraphicsItem *> enemy_items = workScene->items();
@@ -103,7 +112,8 @@ void GameMap::killEnemy()
 
 void GameMap::deleteShovel()
 {
-    for(int i=0;i<shovel.size();i++)
+
+    for(int i=shovel.size()-1;i>=shovel.size()-8;i--)
     {
 
         delete shovel[i];
@@ -146,9 +156,10 @@ void GameMap::spawnShield(int xPos, int yPos)
 
 void GameMap::spawnEnemy()
 {
-     qsrand(QTime(0,0,0).msecsTo(QTime::currentTime()));
+    //qsrand(QTime(0,0,0).msecsTo(QTime::currentTime()));
     int xPos, yPos = 0;
-    xPos= 12*qrand()%3;
+    xPos= qrand()%3;
+    xPos*=12;
     Enemy *en = new Enemy(xPos,yPos,this);
     connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
@@ -163,6 +174,14 @@ void GameMap::spawnEnemy()
 void GameMap::CheckShieldSlot()
 {
     emit CheckShield();
+}
+
+void GameMap::CheckHealth()
+{
+    if(health>0){
+        health--;
+       this->createPlayer(8,24);
+    }
 }
 
 void GameMap::delMapCoord(int xPos, int yPos, bool tank, char side){
@@ -498,7 +517,7 @@ void GameMap::checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp)
 
 void GameMap::spawnStars()
 {
-    int randBonus = qrand()%5;
+    int randBonus = qrand()%6;
     int xPos= qrand()%384;
     int yPos= qrand()%384;
     Stars *star = new Stars(xPos,yPos,this);
@@ -506,7 +525,7 @@ void GameMap::spawnStars()
     Pistol *pistol = new Pistol(xPos,yPos,this);
     Shovel *shovel = new Shovel(xPos,yPos,this);
     Granade *granade = new Granade(xPos,yPos,this);
-
+    Health *health = new Health(xPos,yPos,this);
     switch (randBonus) {
     case 0:
         workScene->addItem(star);
@@ -522,6 +541,8 @@ void GameMap::spawnStars()
         break;
     case 4:
         workScene->addItem(granade);
+    case 5:
+        workScene->addItem(health);
     default:
         break;
     }

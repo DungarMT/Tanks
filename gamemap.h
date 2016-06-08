@@ -28,6 +28,7 @@
 #include "pistol.h"
 #include "shovel.h"
 #include "granade.h"
+#include "health.h"
 
 class GameMap : public QObject
 {
@@ -36,6 +37,7 @@ public:
     GameMap(QGraphicsScene *workScene, QObject *parent = 0);
     void loadMap();
 private:
+    int health;
     QTimer *timerShovel;
     QVector<Concrete*> shovel;
     QTimer *enemy;
@@ -52,6 +54,7 @@ signals:
     void moveShideld(char side);
     void motion(char side, bool flag, int id);
 public slots:
+    void addHealth();
     void killEnemy();
     void deleteShovel();
     void createShovel();
@@ -68,6 +71,7 @@ public slots:
     void spawnStars();
     void spawnEnemy();
     void CheckShieldSlot();
+    void CheckHealth();
 };
 
 #endif // GAMEMAP_H
