@@ -44,15 +44,17 @@ private:
     int health;
     QTimer *timerShovel;
     QVector<Concrete*> shovel;
+    QList<int> enemyQueue;
     QTimer *enemy;
     QTimer *stars;
     QTimer *animationTimer;
     int map[26][26];
     QGraphicsScene *workScene;
+
+    void loadEnemys();
     void createPlayer(int xPos, int yPos);
     void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
-    //void spawnEnemy(int xPos, int yPos);
 signals:
     void changeHealth(int count);
     void CheckShield();

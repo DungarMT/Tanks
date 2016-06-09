@@ -4,11 +4,13 @@
 
 GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
 {
+    this->workScene = workScene;
     health=3;
     for(int i = 0; i < 26; i++)
         for(int j = 0; j < 26; j++)
             map[i][j] = 0;
-    this->workScene = workScene;
+
+
     animationTimer = new QTimer(this);
     animationTimer->start(1000);
     HealthPanel *healthPanel = new HealthPanel(456,256,this);
@@ -21,6 +23,8 @@ GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
     iconHealth->setBrush(QPixmap(":/img/health.png"));
     iconHealth->setPen(Qt::NoPen);
     workScene->addItem(iconHealth);
+    loadMap();
+    loadEnemys();
 }
 
 void GameMap::createPlayer(int xPos, int yPos)
@@ -643,4 +647,16 @@ void GameMap::end()
 {
     GameOver *gameover = new GameOver(176,416,this);
     workScene->addItem(gameover);
+}
+
+void GameMap::loadEnemys()
+{
+    QFile file(":/maps/1e.txt");
+    file.open(QIODevice::ReadOnly);
+    QString tmp;
+    QTextStream in(&file);
+    for(int i = 0; i < 20; i++){
+        in >> tmp;
+        enemyQueue.push_back(tmp.toInt());
+    }
 }

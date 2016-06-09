@@ -22,5 +22,4 @@ Game::Game()
     gameScene->addItem(field);
     //Create game map
     GameMap *map = new GameMap(gameScene);
-    map->loadMap();
 }

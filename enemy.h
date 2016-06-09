@@ -25,9 +25,9 @@ private:
 signals:
     void spawnExplosion(int,int,bool);
     void delMapCoord(int,int,bool,char);
-    spawnBullet(int,int,char, int);
-    checkCoord(int,int,char, int);
-    changeCoord(int,int,char, int);
+    void spawnBullet(int,int,char, int);
+    void checkCoord(int,int,char, int);
+    void changeCoord(int,int,char, int);
 private slots:
     void spawnBulletEnemy();
     void TankAnimation();
