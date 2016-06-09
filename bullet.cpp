@@ -39,6 +39,11 @@ Bullet::Bullet(int xPos, int yPos, char side, int stars, QObject *parent): QObje
 
     timer->start(10);
 }
+
+void Bullet::pause()
+{
+    timer->stop();
+}
 int Bullet::StaticId = 1;
 
 void Bullet::move()

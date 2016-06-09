@@ -68,6 +68,13 @@ void Enemy::setHealth(int health)
     this->health=health;
 }
 
+void Enemy::pause()
+{
+    timerAnimation->stop();
+    timerBullet->stop();
+    timer->stop();
+}
+
 void Enemy::xya(Enemy *buff)
 {
     buff->setX(posX);

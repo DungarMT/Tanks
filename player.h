@@ -53,6 +53,7 @@ signals:
     void checkCoord(int, int, int, bool&);
     void spawnBullet(int, int, char, int);
 private slots:
+    void pause();
     void CheckShield();
     void deleteShield();
     void move();

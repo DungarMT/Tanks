@@ -75,6 +75,7 @@ void GameMap::createPlayer(int xPos, int yPos)
     connect(player,SIGNAL(CheckHealth()),this,SLOT(CheckHealth()));
     connect(player,SIGNAL(addHealth()),this,SLOT(addHealth()));
     connect(this,SIGNAL(CheckShield()),player,SLOT(CheckShield()));
+    connect(this,SIGNAL(pause()),player,SLOT(pause()));
     emit spawnShield(player->getX(),player->getY());
 }
 
@@ -164,7 +165,7 @@ void GameMap::spawnEnemy(int xPos, int yPos)
     connect(en,SIGNAL(spawnBullet(int,int,char, int)),this, SLOT(spawnBullet(int,int,char, int)));
     connect(en,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
-
+    connect(this,SIGNAL(pause()),en,SLOT(pause()));
     connect(this,SIGNAL(xyaSIGNAL(Enemy*)),en,SLOT(xya(Enemy*)));
     workScene->addItem(en);
     removeEnemyInterfase();
@@ -643,6 +644,7 @@ void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
     connect(bullet,SIGNAL(CheckShield()),this,SLOT(CheckShieldSlot()));
     connect(bullet,SIGNAL(xya(Enemy*)),this,SLOT(xyaSLOT(Enemy*)));
     connect(bullet,SIGNAL(killBase()),this,SLOT(killBase()));
+    connect(this,SIGNAL(pause()),bullet,SLOT(pause()));
 }
 
 void GameMap::loadMap()
@@ -682,6 +684,10 @@ void GameMap::end()
 {
     GameOver *gameover = new GameOver(176,416,this);
     workScene->addItem(gameover);
+    emit pause();
+    stars->stop();
+    blinkTimer->stop();
+
 }
 
 void GameMap::loadEnemys()

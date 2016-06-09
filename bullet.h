@@ -34,6 +34,7 @@ signals:
     void CheckShield();
     void spawnExplosion(int,int,bool);
 public slots:
+    void pause();
     void move();
 };
 

@@ -279,6 +279,12 @@ void Player::changeView(int direction)
     }
 }
 
+void Player::pause()
+{
+    timer->stop();
+    delShield->stop();
+}
+
 void Player::CheckShield()
 {
     if(!shield){

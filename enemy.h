@@ -39,6 +39,7 @@ signals:
     void checkCoord(int,int,char, int);
     void changeCoord(int,int,char, int);
 private slots:
+    void pause();
     void xya(Enemy *buff);
     void spawnBulletEnemy();
     void TankAnimation();

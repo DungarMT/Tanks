@@ -61,6 +61,7 @@ private:
     void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
 signals:
+    void pause();
     void gameLoss();
     void xyaSIGNAL(Enemy *buff);
     void changeHealth(int count);
