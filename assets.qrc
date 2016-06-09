@@ -67,5 +67,6 @@
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>
+        <file alias="1e.txt">assets/maps/1e.txt</file>
     </qresource>
 </RCC>

@@ -26,7 +26,7 @@ Player::Player(int xPos, int yPos, QObject *parent) : QObject(parent)
     delShield = new QTimer(this);
     connect(delShield,SIGNAL(timeout()),this,SLOT(deleteShield()));
     spawnShiledPlayer();
-
+    
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -284,6 +284,7 @@ void Player::CheckShield()
     if(!shield){
         //spawnShiledPlayer();
         emit CheckHealth();
+        clearFocus();
         delete this;
     }
 }

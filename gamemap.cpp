@@ -5,14 +5,18 @@
 GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
 {
     countEnemy=0;
+    this->workScene = workScene;
     health=3;
     for(int i = 0; i < 26; i++)
         for(int j = 0; j < 26; j++)
             map[i][j] = 0;
-    this->workScene = workScene;
+
+
     animationTimer = new QTimer(this);
     animationTimer->start(1000);
     showInterface();
+    loadMap();
+    loadEnemys();
 }
 
 void GameMap::showInterface()
@@ -50,7 +54,6 @@ void GameMap::showInterface()
         }
         enemyList.push_back(enemyIcon);
     }
-
 }
 
 void GameMap::createPlayer(int xPos, int yPos)
@@ -619,6 +622,7 @@ void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
     connect(bullet,SIGNAL(CheckShield()),this,SLOT(CheckShieldSlot()));
     connect(bullet,SIGNAL(xya(Enemy*)),this,SLOT(xyaSLOT(Enemy*)));
 }
+
 void GameMap::loadMap()
 {
     qsrand(QTime(0,0,0).msecsTo(QTime::currentTime()));
@@ -662,4 +666,14 @@ void GameMap::end()
     workScene->addItem(gameover);
 }
 
-
+void GameMap::loadEnemys()
+{
+    QFile file(":/maps/1e.txt");
+    file.open(QIODevice::ReadOnly);
+    QString tmp;
+    QTextStream in(&file);
+    for(int i = 0; i < 20; i++){
+        in >> tmp;
+        enemyQueue.push_back(tmp.toInt());
+    }
+}
