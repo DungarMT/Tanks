@@ -15,6 +15,8 @@ signals:
 public:
     explicit Base(int xPos, int yPos, QObject *parent = 0);
     ~Base();
+public slots:
+    void gameLoss();
 };
 
 #endif // BASE_H

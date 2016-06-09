@@ -11,6 +11,11 @@ Base::Base(int xPos, int yPos, QObject *parent): QObject(parent)
 
 Base::~Base()
 {
-     emit delMapCoord(xPos,yPos,true);
+    emit delMapCoord(xPos,yPos,true);
+}
+
+void Base::gameLoss()
+{
+    setBrush(QPixmap(":/img/loss.png"));
 }
 

@@ -32,7 +32,7 @@ private:
     QTimer *timerAnimation;
     QTimer *timerBullet;
 signals:
-    void removeEnemyInterfase();
+
     void spawnExplosion(int,int,bool);
     void delMapCoord(int,int,bool,char);
     void spawnBullet(int,int,char, int);

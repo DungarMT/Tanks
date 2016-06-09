@@ -33,7 +33,7 @@ Enemy::Enemy(int xPos, int yPos, int speed, int health, QObject *parent): QObjec
 
 Enemy::~Enemy()
 {
-    emit removeEnemyInterfase();
+
     emit delMapCoord(xPos,yPos,true,side);
     spawnExplosion(posX,posY,true);
 }

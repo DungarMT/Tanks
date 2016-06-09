@@ -34,7 +34,8 @@ SOURCES += \
     granade.cpp \
     health.cpp \
     gameover.cpp \
-    healthpanel.cpp
+    healthpanel.cpp \
+    blink.cpp
 
 
 
@@ -59,7 +60,8 @@ HEADERS  += \
     granade.h \
     health.h \
     gameover.h \
-    healthpanel.h
+    healthpanel.h \
+    blink.h
 
 
 

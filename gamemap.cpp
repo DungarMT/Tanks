@@ -15,8 +15,9 @@ GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
     animationTimer = new QTimer(this);
     animationTimer->start(1000);
     showInterface();
-    loadMap();
     loadEnemys();
+    loadMap();
+
 }
 
 void GameMap::showInterface()
@@ -84,6 +85,7 @@ void GameMap::createBase(int xPos, int yPos)
     map[xPos][yPos+1] = 7;
     map[xPos+1][yPos+1] = 7;
     Base *base= new Base(xPos, yPos, this);
+    connect(this,SIGNAL(gameLoss()),base,SLOT(gameLoss()));
     workScene->addItem(base);
 }
 
@@ -138,9 +140,34 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
+void GameMap::killBase()
+{
+    end();
+    emit gameLoss();
+}
+
 void GameMap::xyaSLOT(Enemy *buff)
 {
     emit xyaSIGNAL(buff);
+}
+
+void GameMap::spawnEnemy(int xPos, int yPos)
+{
+    Enemy *en;
+    if(enemyQueue[countEnemy]==1)
+        en = new Enemy(xPos,yPos,1,1,this);
+    else if(enemyQueue[countEnemy]==2)
+        en = new Enemy(xPos,yPos,2,1,this);
+    connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
+    connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
+    connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
+    connect(en,SIGNAL(spawnBullet(int,int,char, int)),this, SLOT(spawnBullet(int,int,char, int)));
+    connect(en,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
+    connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
+
+    connect(this,SIGNAL(xyaSIGNAL(Enemy*)),en,SLOT(xya(Enemy*)));
+    workScene->addItem(en);
+    removeEnemyInterfase();
 }
 
 void GameMap::removeEnemyInterfase()
@@ -211,23 +238,17 @@ void GameMap::spawnShield(int xPos, int yPos)
     workScene->addItem(shield);
 }
 
-void GameMap::spawnEnemy()
+void GameMap::spawnBlink()
 {
+
     int xPos, yPos = 0;
     xPos = qrand()%3;
     xPos*=12;
-    Enemy *en = new Enemy(xPos,yPos,2,1,this);
-    connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
-    connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
-    connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
-    connect(en,SIGNAL(spawnBullet(int,int,char, int)),this, SLOT(spawnBullet(int,int,char, int)));
-    connect(en,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
-    connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
-    connect(en,SIGNAL(removeEnemyInterfase()),this,SLOT(removeEnemyInterfase()));
-    connect(this,SIGNAL(xyaSIGNAL(Enemy*)),en,SLOT(xya(Enemy*)));
-    workScene->addItem(en);
-    if(countEnemy>=20)
-        enemy->stop();
+    Blink *blink = new Blink(xPos,yPos,this);
+    connect(blink,SIGNAL(spawnEnemy(int,int)),this,SLOT(spawnEnemy(int,int)));
+    workScene->addItem(blink);
+    if(countEnemy>=19)
+        blinkTimer->stop();
     countEnemy++;
 }
 
@@ -621,6 +642,7 @@ void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
     connect(bullet,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
     connect(bullet,SIGNAL(CheckShield()),this,SLOT(CheckShieldSlot()));
     connect(bullet,SIGNAL(xya(Enemy*)),this,SLOT(xyaSLOT(Enemy*)));
+    connect(bullet,SIGNAL(killBase()),this,SLOT(killBase()));
 }
 
 void GameMap::loadMap()
@@ -649,14 +671,10 @@ void GameMap::loadMap()
     connect(timerShovel,SIGNAL(timeout()),this,SLOT(deleteShovel()));
     stars = new QTimer(this);
     connect(stars,SIGNAL(timeout()),this,SLOT(spawnStars()));
-    enemy = new QTimer(this);
-    connect(enemy, SIGNAL(timeout()),this,SLOT(spawnEnemy()));
-    enemy->start(5000);
+    blinkTimer = new QTimer(this);
+    connect(blinkTimer, SIGNAL(timeout()),this,SLOT(spawnBlink()));
+    blinkTimer->start(5000);
     stars->start(10000);
-
-
-
-
 
 }
 

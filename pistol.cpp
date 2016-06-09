@@ -7,4 +7,5 @@ Pistol::Pistol(int xPos, int yPos, QObject *parent) : QObject(parent)
     setPos(xPos,yPos);
     setBrush(QPixmap(":/img/pistol.png"));
     this->setZValue(2);
+
 }

@@ -13,7 +13,6 @@ Bullet::Bullet(int xPos, int yPos, char side, int stars, QObject *parent): QObje
     setRect(0, 0, 8, 8);
     switch (side) {
     case 'D':
-
         setPos(xPos+12, yPos+32);
         this->setBrush(QPixmap(":/img/bulletDown.png"));
         break;
@@ -134,33 +133,14 @@ void Bullet::move()
                 delete colliding_items[i];
 
                 }
-                deleted = true;
+                //deleted = true;
 
 
             }
             else if(typeid(*(colliding_items[i])) == typeid(Base))
             {
-
-                /*
-                switch (side) {
-                case 'D':
-                    emit spawnExplosion(xPos,yPos+48,true);;
-                    break;
-                case 'L':
-                    emit spawnExplosion(xPos-48,yPos,true);
-                    break;
-                case 'U':
-                    emit spawnExplosion(xPos,yPos-48,true);
-                    break;
-                case 'R':
-                    emit spawnExplosion(xPos+48,yPos,true);
-                    break;
-                default:
-                    break;
-                }
-                delete colliding_items[i];
+                emit killBase();
                 deleted = true;
-                */
             }
             else if(typeid(*(colliding_items[i])) == typeid(Player))
             {

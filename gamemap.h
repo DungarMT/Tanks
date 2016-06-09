@@ -32,6 +32,7 @@
 #include "health.h"
 #include "gameover.h"
 #include "healthpanel.h"
+#include "blink.h"
 
 class GameMap : public QObject
 {
@@ -41,14 +42,15 @@ public:
     void loadMap();
     void end();
     void showInterface();
+    void removeEnemyInterfase();
 private:
     QVector <QGraphicsRectItem *> enemyList;
     int countEnemy;
     int health;
     QTimer *timerShovel;
     QVector<Concrete*> shovel;
-    QList<int> enemyQueue;
-    QTimer *enemy;
+    QVector<int> enemyQueue;
+    QTimer *blinkTimer;
     QTimer *stars;
     QTimer *animationTimer;
     int map[26][26];
@@ -59,14 +61,16 @@ private:
     void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
 signals:
+    void gameLoss();
     void xyaSIGNAL(Enemy *buff);
     void changeHealth(int count);
     void CheckShield();
     void moveShideld(char side);
     void motion(char side, bool flag, int id);
 public slots:
+    void killBase();
     void xyaSLOT(Enemy* buff);
-    void removeEnemyInterfase();
+    void spawnEnemy(int xPos, int yPos);
     void addHealth();
     void killEnemy();
     void deleteShovel();
@@ -82,7 +86,7 @@ public slots:
     void changeCoord(int xPos, int yPos, char side, int id);
     void checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp);
     void spawnStars();
-    void spawnEnemy();
+    void spawnBlink();
     void CheckShieldSlot();
     void CheckHealth();
 };
