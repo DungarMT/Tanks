@@ -35,7 +35,8 @@ SOURCES += \
     health.cpp \
     gameover.cpp \
     healthpanel.cpp \
-    blink.cpp
+    blink.cpp \
+    pause.cpp
 
 
 
@@ -61,7 +62,8 @@ HEADERS  += \
     health.h \
     gameover.h \
     healthpanel.h \
-    blink.h
+    blink.h \
+    pause.h
 
 
 

@@ -33,6 +33,7 @@
 #include "gameover.h"
 #include "healthpanel.h"
 #include "blink.h"
+#include "pause.h"
 
 class GameMap : public QObject
 {
@@ -44,6 +45,9 @@ public:
     void showInterface();
     void removeEnemyInterfase();
 private:
+    Pause *pauseMessage;
+    bool paused;
+    int saveStars, saveBlinkTimer;
     QVector <QGraphicsRectItem *> enemyList;
     int countEnemy;
     int health;
@@ -61,6 +65,7 @@ private:
     void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
 signals:
+    void start();
     void pause();
     void gameLoss();
     void xyaSIGNAL(Enemy *buff);
@@ -69,6 +74,7 @@ signals:
     void moveShideld(char side);
     void motion(char side, bool flag, int id);
 public slots:
+    void checkPause();
     void killBase();
     void xyaSLOT(Enemy* buff);
     void spawnEnemy(int xPos, int yPos);

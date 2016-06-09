@@ -68,8 +68,18 @@ void Enemy::setHealth(int health)
     this->health=health;
 }
 
+void Enemy::start()
+{
+    timer->start(saveTimer);
+    timerAnimation->start(saveTimerAnimation);
+    timerBullet->start(saveTimerBullet);
+}
+
 void Enemy::pause()
 {
+    saveTimer=timer->remainingTime();
+    saveTimerAnimation=timerAnimation->remainingTime();
+    saveTimerBullet=timerBullet->remainingTime();
     timerAnimation->stop();
     timerBullet->stop();
     timer->stop();
@@ -86,12 +96,13 @@ void Enemy::xya(Enemy *buff)
 
 void Enemy::spawnBulletEnemy()
 {
+    timerBullet->start(2500);
     emit spawnBullet(posX,posY,side,-1);
 }
 
 void Enemy::move()
 {
-
+    timer->start(20);
     switch (side) {
     case 'D':
         if(animation){
@@ -193,6 +204,7 @@ void Enemy::move()
         }
         emit checkCoord(xPos,yPos,side,this->EnemyId);
     }
+
 }
 
 void Enemy::motion(char side, bool flag, int id)
@@ -209,6 +221,7 @@ void Enemy::motion(char side, bool flag, int id)
 }
 
 void Enemy::TankAnimation(){
+    timerAnimation->start(80);
     switch (side) {
     case 'D':
         if(animation){

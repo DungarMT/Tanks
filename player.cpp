@@ -48,7 +48,9 @@ void Player::keyPressEvent(QKeyEvent *event)
     }
     else if(event->key()==Qt::Key_Space){
         emit spawnBullet(posX, posY, side,stars);
-
+    }
+    else if(event->key()==Qt::Key_P){
+        emit checkPause();
     }
 }
 void Player::keyReleaseEvent(QKeyEvent *event)
@@ -99,6 +101,7 @@ void Player::keyReleaseEvent(QKeyEvent *event)
 
 void Player::spawnShiledPlayer()
 {
+
     if(!shield){
         emit spawnShield(posX,posY);
         shield=true;
@@ -119,6 +122,7 @@ int Player::getY()
 
 void Player::move()
 {
+    timer->start(20);
     QList<QGraphicsItem *> colliding_items = collidingItems();
     for(int i = 0; i < colliding_items.size(); i++){
         if(typeid(*(colliding_items[i])) == typeid(Stars)){
@@ -279,8 +283,16 @@ void Player::changeView(int direction)
     }
 }
 
+void Player::start()
+{
+    timer->start(saveTimer);
+    delShield->start(saveDelShield);
+}
+
 void Player::pause()
 {
+    saveDelShield=delShield->remainingTime();
+    saveTimer=timer->remainingTime();
     timer->stop();
     delShield->stop();
 }

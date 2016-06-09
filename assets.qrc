@@ -68,6 +68,7 @@
         <file alias="blink2.png">assets/img/blink2.png</file>
         <file alias="blink2.png">assets/img/blink3.png</file>
         <file alias="blink4.png">assets/img/blink4.png</file>
+        <file alias="pause.png">assets/img/pause.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>

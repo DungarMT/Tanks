@@ -4,6 +4,8 @@
 
 GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
 {
+    pauseMessage = new Pause(168,208,this);
+    paused=false;
     countEnemy=0;
     this->workScene = workScene;
     health=3;
@@ -74,8 +76,10 @@ void GameMap::createPlayer(int xPos, int yPos)
     connect(player,SIGNAL(killEnemy()),this,SLOT(killEnemy()));
     connect(player,SIGNAL(CheckHealth()),this,SLOT(CheckHealth()));
     connect(player,SIGNAL(addHealth()),this,SLOT(addHealth()));
+    connect(player,SIGNAL(checkPause()),this,SLOT(checkPause()));
     connect(this,SIGNAL(CheckShield()),player,SLOT(CheckShield()));
     connect(this,SIGNAL(pause()),player,SLOT(pause()));
+    connect(this,SIGNAL(start()),player,SLOT(start()));
     emit spawnShield(player->getX(),player->getY());
 }
 
@@ -130,14 +134,26 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
         workScene->addItem(ice);
         break;
         }
-        /*
-    case 7:
-        {
-        Base *base = new Base(xPos, yPos, this);
-        workScene->addItem(base);
-        break;
-        }
-        */
+    }
+}
+
+void GameMap::checkPause()
+{
+    if(paused){
+        blinkTimer->start(saveBlinkTimer);
+        stars->start(saveStars);
+        emit start();
+        paused=false;
+        workScene->removeItem(pauseMessage);
+    }
+    else{
+        saveStars=stars->remainingTime();
+        saveBlinkTimer=blinkTimer->remainingTime();
+        stars->stop();
+        blinkTimer->stop();
+        paused=true;
+        emit pause();
+        workScene->addItem(pauseMessage);
     }
 }
 
@@ -166,6 +182,7 @@ void GameMap::spawnEnemy(int xPos, int yPos)
     connect(en,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
     connect(this,SIGNAL(pause()),en,SLOT(pause()));
+    connect(this,SIGNAL(start()),en,SLOT(start()));
     connect(this,SIGNAL(xyaSIGNAL(Enemy*)),en,SLOT(xya(Enemy*)));
     workScene->addItem(en);
     removeEnemyInterfase();
@@ -241,12 +258,15 @@ void GameMap::spawnShield(int xPos, int yPos)
 
 void GameMap::spawnBlink()
 {
-
+    blinkTimer->stop();
+    blinkTimer->start(5000);
     int xPos, yPos = 0;
     xPos = qrand()%3;
     xPos*=12;
     Blink *blink = new Blink(xPos,yPos,this);
     connect(blink,SIGNAL(spawnEnemy(int,int)),this,SLOT(spawnEnemy(int,int)));
+    connect(this,SIGNAL(pause()),blink,SLOT(pause()));
+    connect(this,SIGNAL(start()),blink,SLOT(start()));
     workScene->addItem(blink);
     if(countEnemy>=19)
         blinkTimer->stop();
@@ -603,6 +623,8 @@ void GameMap::checkPlayerCoord(int xPos, int yPos, int direction, bool &tmp)
 
 void GameMap::spawnStars()
 {
+    stars->stop();
+    stars->start(10000);
     int randBonus = qrand()%6;
     int xPos= qrand()%384;
     int yPos= qrand()%384;
@@ -645,6 +667,7 @@ void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
     connect(bullet,SIGNAL(xya(Enemy*)),this,SLOT(xyaSLOT(Enemy*)));
     connect(bullet,SIGNAL(killBase()),this,SLOT(killBase()));
     connect(this,SIGNAL(pause()),bullet,SLOT(pause()));
+    connect(this,SIGNAL(start()),bullet,SLOT(start()));
 }
 
 void GameMap::loadMap()
@@ -685,9 +708,10 @@ void GameMap::end()
     GameOver *gameover = new GameOver(176,416,this);
     workScene->addItem(gameover);
     emit pause();
+    saveStars=stars->remainingTime();
+    saveBlinkTimer=blinkTimer->remainingTime();
     stars->stop();
     blinkTimer->stop();
-
 }
 
 void GameMap::loadEnemys()

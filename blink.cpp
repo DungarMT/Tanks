@@ -15,6 +15,16 @@ Blink::Blink(int xPos, int yPos, QObject *parent) : QObject(parent)
     animate->start(75);
 }
 
+void Blink::start()
+{
+    animate->start(75);
+}
+
+void Blink::pause()
+{
+    animate->stop();
+}
+
 void Blink::animation()
 {
     if(count==0){

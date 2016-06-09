@@ -1,5 +1,11 @@
 #include "bullet.h"
 
+void Bullet::startTimer()
+{
+    timer->stop();
+    timer->start(10);
+}
+
 Bullet::Bullet(int xPos, int yPos, char side, int stars, QObject *parent): QObject(parent)
 {
     this->stars=stars;
@@ -36,18 +42,24 @@ Bullet::Bullet(int xPos, int yPos, char side, int stars, QObject *parent): QObje
     emit move();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(move()));
+    timer->start(10);
+}
 
+void Bullet::start()
+{
     timer->start(10);
 }
 
 void Bullet::pause()
 {
+    saveTimer=timer->remainingTime();
     timer->stop();
 }
 int Bullet::StaticId = 1;
 
 void Bullet::move()
 {
+
     if((xPos<0) or (xPos>384) or (yPos<0) or (yPos>416)){
         switch (side) {
         case 'D':
@@ -178,9 +190,5 @@ void Bullet::move()
     default:
         break;
     }
-
-
-
-
 
 }

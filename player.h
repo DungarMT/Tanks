@@ -28,6 +28,7 @@ public:
     int getX();
     int getY();
 private:
+    int saveTimer, saveDelShield;
     int posX, posY;
     int stars;
     int xPos, yPos;
@@ -43,6 +44,7 @@ private:
     void changeView(int);
     int pistol;
 signals:
+    void checkPause();
     void addHealth();
     void CheckHealth();
     void killEnemy();
@@ -53,6 +55,7 @@ signals:
     void checkCoord(int, int, int, bool&);
     void spawnBullet(int, int, char, int);
 private slots:
+    void start();
     void pause();
     void CheckShield();
     void deleteShield();

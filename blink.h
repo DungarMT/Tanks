@@ -17,6 +17,8 @@ public:
 signals:
     void spawnEnemy(int, int);
 public slots:
+    void start();
+    void pause();
     void animation();
 };
 

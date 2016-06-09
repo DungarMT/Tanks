@@ -20,6 +20,7 @@ public:
     void setHealth(int health);
     QTimer *timer;
 private:
+    int saveTimer, saveTimerAnimation, saveTimerBullet;
     int speed;
     int health;
     bool animation;
@@ -39,6 +40,7 @@ signals:
     void checkCoord(int,int,char, int);
     void changeCoord(int,int,char, int);
 private slots:
+    void start();
     void pause();
     void xya(Enemy *buff);
     void spawnBulletEnemy();
