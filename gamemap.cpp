@@ -4,6 +4,7 @@
 
 GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
 {
+    countEnemy=0;
     health=3;
     for(int i = 0; i < 26; i++)
         for(int j = 0; j < 26; j++)
@@ -11,16 +12,45 @@ GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
     this->workScene = workScene;
     animationTimer = new QTimer(this);
     animationTimer->start(1000);
-    HealthPanel *healthPanel = new HealthPanel(456,256,this);
+    showInterface();
+}
 
+void GameMap::showInterface()
+{
+    HealthPanel *healthPanel = new HealthPanel(456,256,this);
     connect(this,SIGNAL(changeHealth(int)),healthPanel,SLOT(changeHealth(int)));
     workScene->addItem(healthPanel);
+
 
     QGraphicsRectItem *iconHealth = new QGraphicsRectItem(0,0,16,16,NULL);
     iconHealth->setPos(456-16,256);
     iconHealth->setBrush(QPixmap(":/img/health.png"));
     iconHealth->setPen(Qt::NoPen);
     workScene->addItem(iconHealth);
+
+    QGraphicsRectItem *playerIcon = new QGraphicsRectItem(0,0,32,16,NULL);
+    playerIcon->setPos(456-16,256-16);
+    playerIcon->setBrush(QPixmap(":/img/playerIcon.png"));
+    playerIcon->setPen(Qt::NoPen);
+    workScene->addItem(playerIcon);
+
+    for(int i=0;i<20;i++){
+        QGraphicsRectItem *enemyIcon = new QGraphicsRectItem(0,0,16,16,NULL);
+        if(i%2==0){
+            enemyIcon->setPos(456-16,32+i/2*16);
+            enemyIcon->setBrush(QPixmap(":/img/enemy.png"));
+            enemyIcon->setPen(Qt::NoPen);
+            workScene->addItem(enemyIcon);
+        }
+        else{
+            enemyIcon->setPos(456,32+i/2*16);
+            enemyIcon->setBrush(QPixmap(":/img/enemy.png"));
+            enemyIcon->setPen(Qt::NoPen);
+            workScene->addItem(enemyIcon);
+        }
+        enemyList.push_back(enemyIcon);
+    }
+
 }
 
 void GameMap::createPlayer(int xPos, int yPos)
@@ -105,6 +135,18 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
+void GameMap::xyaSLOT(Enemy *buff)
+{
+    emit xyaSIGNAL(buff);
+}
+
+void GameMap::removeEnemyInterfase()
+{
+    auto it=enemyList.last();
+    delete it;
+    enemyList.pop_back();
+}
+
 void GameMap::addHealth()
 {
     if(health<=9)
@@ -168,19 +210,22 @@ void GameMap::spawnShield(int xPos, int yPos)
 
 void GameMap::spawnEnemy()
 {
-    //qsrand(QTime(0,0,0).msecsTo(QTime::currentTime()));
     int xPos, yPos = 0;
-    xPos= qrand()%3;
+    xPos = qrand()%3;
     xPos*=12;
-    Enemy *en = new Enemy(xPos,yPos,this);
+    Enemy *en = new Enemy(xPos,yPos,2,1,this);
     connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
     connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
     connect(en,SIGNAL(spawnBullet(int,int,char, int)),this, SLOT(spawnBullet(int,int,char, int)));
     connect(en,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
-    //connect(en,SIGNAL(spawnExplosion(int,int,bool)),this, SLOT(spawnExplosion(int,int,bool)));
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
+    connect(en,SIGNAL(removeEnemyInterfase()),this,SLOT(removeEnemyInterfase()));
+    connect(this,SIGNAL(xyaSIGNAL(Enemy*)),en,SLOT(xya(Enemy*)));
     workScene->addItem(en);
+    if(countEnemy>=20)
+        enemy->stop();
+    countEnemy++;
 }
 
 void GameMap::CheckShieldSlot()
@@ -557,40 +602,12 @@ void GameMap::spawnStars()
         break;
     case 4:
         workScene->addItem(granade);
+        break;
     case 5:
         workScene->addItem(health);
     default:
         break;
     }
-
-    /*
-    switch (randBonus) {
-    case 0:
-        delete helmet;
-        delete pistol;
-        delete shovel;
-        break;
-    case 1:
-        delete stars;
-        delete pistol;
-        delete shovel;
-        break;
-    case 2:
-        delete stars;
-        delete helmet;
-        delete shovel;
-        break;
-    case 3:
-        delete stars;
-        delete helmet;
-        delete pistol;
-        break;
-    default:
-        break;
-    }
-    */
-
-
 
 }
 
@@ -600,8 +617,8 @@ void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
     workScene->addItem(bullet);
     connect(bullet,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
     connect(bullet,SIGNAL(CheckShield()),this,SLOT(CheckShieldSlot()));
+    connect(bullet,SIGNAL(xya(Enemy*)),this,SLOT(xyaSLOT(Enemy*)));
 }
-
 void GameMap::loadMap()
 {
     qsrand(QTime(0,0,0).msecsTo(QTime::currentTime()));
@@ -644,3 +661,5 @@ void GameMap::end()
     GameOver *gameover = new GameOver(176,416,this);
     workScene->addItem(gameover);
 }
+
+

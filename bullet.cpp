@@ -119,28 +119,23 @@ void Bullet::move()
             }
             else if(typeid(*(colliding_items[i])) == typeid(Enemy))
             {
-                if(stars>=0){
-                /*
-                switch (side) {
-                case 'D':
-                    emit spawnExplosion(xPos,yPos+24,true);;
-                    break;
-                case 'L':
-                    emit spawnExplosion(xPos-24,yPos,true);
-                    break;
-                case 'U':
-                    emit spawnExplosion(xPos,yPos-24,true);
-                    break;
-                case 'R':
-                    emit spawnExplosion(xPos+24,yPos,true);
-                    break;
-                default:
-                    break;
+
+                Enemy *buff = new Enemy(0,0,0,0,this);
+                buff->timer->stop();
+                emit xya(buff);
+                if((colliding_items[i]->x()==buff->getX())
+                   and (colliding_items[i]->y()==buff->getY()))
+                {
+                    if(buff->getHealth()==2)
+                        emit spawnExplosion(0,0,true);
                 }
-                */
+
+                if(stars>=0){
                 delete colliding_items[i];
+
                 }
                 deleted = true;
+
 
             }
             else if(typeid(*(colliding_items[i])) == typeid(Base))
@@ -171,31 +166,6 @@ void Bullet::move()
             {
                 emit CheckShield();
                 deleted = true;
-                /*
-                switch (side) {
-                case 'D':
-                    emit delMapCoord(xPos/16,yPos/16+3,true);
-                    emit spawnExplosion(xPos,yPos+48,true);;
-                    break;
-                case 'L':
-                    emit delMapCoord(xPos/16-3,yPos/16,true);
-                    emit spawnExplosion(xPos-48,yPos,true);
-                    break;
-                case 'U':
-                    emit delMapCoord(xPos/16,yPos/16-3,true);
-                    emit spawnExplosion(xPos,yPos-48,true);
-                    break;
-                case 'R':
-                    emit delMapCoord(xPos/16+3,yPos/16,true);
-                    emit spawnExplosion(xPos+48,yPos,true);
-                    break;
-                default:
-                    break;
-                }
-                delete colliding_items[i];
-                deleted = true;
-                emit delMapCoord(xPos/16,yPos/16,true);
-                */
             }
         }
         if(deleted){

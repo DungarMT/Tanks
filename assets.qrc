@@ -54,6 +54,16 @@
         <file alias="8.png">assets/img/8.png</file>
         <file alias="9.png">assets/img/9.png</file>
         <file alias="health.png">assets/img/health.png</file>
+        <file alias="playerIcon.png">assets/img/playerIcon.png</file>
+        <file alias="enemy.png">assets/img/enemy.png</file>
+        <file alias="tank_lvl_2/tank1down.png">assets/img/tank_lvl_2/tank1down.png</file>
+        <file alias="tank_lvl_2/tank1left.png">assets/img/tank_lvl_2/tank1left.png</file>
+        <file alias="tank_lvl_2/tank1right.png">assets/img/tank_lvl_2/tank1right.png</file>
+        <file alias="tank_lvl_2/tank1up.png">assets/img/tank_lvl_2/tank1up.png</file>
+        <file alias="tank_lvl_2/tank2down.png">assets/img/tank_lvl_2/tank2down.png</file>
+        <file alias="tank_lvl_2/tank2left.png">assets/img/tank_lvl_2/tank2let.png</file>
+        <file alias="tank_lvl_2/tank2right.png">assets/img/tank_lvl_2/tank2right.png</file>
+        <file alias="tank_lvl_2/tank2up.png">assets/img/tank_lvl_2/tank2up.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>

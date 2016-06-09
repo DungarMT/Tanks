@@ -40,7 +40,10 @@ public:
     GameMap(QGraphicsScene *workScene, QObject *parent = 0);
     void loadMap();
     void end();
+    void showInterface();
 private:
+    QVector <QGraphicsRectItem *> enemyList;
+    int countEnemy;
     int health;
     QTimer *timerShovel;
     QVector<Concrete*> shovel;
@@ -54,11 +57,14 @@ private:
     void createBlock(int xPos, int yPos, int idBlock);
     //void spawnEnemy(int xPos, int yPos);
 signals:
+    void xyaSIGNAL(Enemy *buff);
     void changeHealth(int count);
     void CheckShield();
     void moveShideld(char side);
     void motion(char side, bool flag, int id);
 public slots:
+    void xyaSLOT(Enemy* buff);
+    void removeEnemyInterfase();
     void addHealth();
     void killEnemy();
     void deleteShovel();

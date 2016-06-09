@@ -29,7 +29,7 @@ private:
 public:
     explicit Bullet(int xPos, int yPos, char side, int stars, QObject *parent = 0);
 signals:
-
+    void xya(Enemy *);
     void CheckShield();
     void spawnExplosion(int,int,bool);
 public slots:

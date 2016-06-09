@@ -1,7 +1,9 @@
 #include "enemy.h"
 
-Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
+Enemy::Enemy(int xPos, int yPos, int speed, int health, QObject *parent): QObject(parent)
 {
+    this->speed=speed;
+    this->health=health;
     animation = true;
     this->xPos=xPos;
     this->yPos=yPos;
@@ -9,9 +11,13 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
     posY=yPos*16;
     EnemyId=StaticId;
     StaticId++;
-    setRect(xPos * 16, yPos * 16, 32, 32);
+    setRect(0,0, 32, 32);
+    setPos(xPos * 16, yPos * 16);
     setPen(Qt::NoPen);
-    setBrush(QPixmap(":/img/tank_lvl_1/tank1down"));
+    if(speed==2)
+        this->setBrush(QPixmap(":/img/tank_lvl_2/tank1down"));
+    else
+        this->setBrush(QPixmap(":/img/tank_lvl_1/tank1down"));
     side='D';
     count=0;
     timer = new QTimer(this);
@@ -27,9 +33,49 @@ Enemy::Enemy(int xPos, int yPos, QObject *parent): QObject(parent)
 
 Enemy::~Enemy()
 {
+    emit removeEnemyInterfase();
     emit delMapCoord(xPos,yPos,true,side);
     spawnExplosion(posX,posY,true);
 }
+
+int Enemy::getX()
+{
+    return posX;
+}
+
+int Enemy::getY()
+{
+    return posY;
+}
+
+int Enemy::getHealth()
+{
+    return health;
+}
+
+void Enemy::setX(int x)
+{
+    posX=x;
+}
+
+void Enemy::setY(int y)
+{
+    posY=y;
+}
+
+void Enemy::setHealth(int health)
+{
+    this->health=health;
+}
+
+void Enemy::xya(Enemy *buff)
+{
+    buff->setX(posX);
+    buff->setY(posY);
+    buff->setHealth(health);
+}
+
+
 
 void Enemy::spawnBulletEnemy()
 {
@@ -42,55 +88,79 @@ void Enemy::move()
     switch (side) {
     case 'D':
         if(animation){
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank1down"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank1down"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank1down"));
             animation = false;
         }
         else{
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank2down"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank2down"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank2down"));
             animation = true;
         }
-        posY+=2;
-        setPos(x(),y()+2);
-        count++;
+        posY+=2*speed;
+        setPos(x(),y()+2*speed);
+        count+=1*speed;
         break;
     case 'L':
         if(animation){
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank1left"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank1left"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank1left"));
             animation = false;
         }
         else{
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank2left"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank2left"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank2left"));
             animation = true;
         };
-        posX-=2;
-        setPos(x()-2, y());
-        count++;
+        posX-=2*speed;
+        setPos(x()-2*speed, y());
+        count+=1*speed;
         break;
     case 'U':
         if(animation){
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank1up"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank1up"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank1up"));
             animation = false;
         }
         else{
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank2up"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank2up"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank2up"));
             animation = true;
         }
-        posY-=2;
-        setPos(x(),y()-2);
-        count++;
+        posY-=2*speed;
+        setPos(x(),y()-2*speed);
+        count+=1*speed;
         break;
     case 'R':
         if(animation){
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank1right"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank1right"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank1right"));
             animation = false;
         }
         else{
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank2right"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank2right"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank2right"));
             animation = true;
         }
-        posX+=2;
-        setPos(x()+2,y());
-        count++;
+        posX+=2*speed;
+        setPos(x()+2*speed,y());
+        count+=1*speed;
         break;
     default:
         break;
@@ -135,41 +205,65 @@ void Enemy::TankAnimation(){
     switch (side) {
     case 'D':
         if(animation){
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank1down"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank1down"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank1down"));
             animation = false;
         }
         else{
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank2down"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank2down"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank2down"));
             animation = true;
         }
         break;
     case 'L':
         if(animation){
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank1left"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank1left"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank1left"));
             animation = false;
         }
         else{
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank2left"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank2left"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank2left"));
             animation = true;
         };
         break;
     case 'U':
         if(animation){
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank1up"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank1up"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank1up"));
             animation = false;
         }
         else{
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank2up"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank2up"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank2up"));
             animation = true;
         }
         break;
     case 'R':
         if(animation){
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank1right"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank1right"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank1right"));
             animation = false;
         }
         else{
-            this->setBrush(QPixmap(":/img/tank_lvl_1/tank2right"));
+            if(speed==2)
+                this->setBrush(QPixmap(":/img/tank_lvl_2/tank2right"));
+            else
+                this->setBrush(QPixmap(":/img/tank_lvl_1/tank2right"));
             animation = true;
         }
         break;
