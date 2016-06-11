@@ -31,8 +31,9 @@ public:
     void startTimer();
     explicit Bullet(int xPos, int yPos, char side, int stars, QObject *parent = 0);
 signals:
+    void changeHealth(int);
+    void enemyListing(QVector<Enemy*> *buff);
     void killBase();
-    void xya(Enemy *);
     void CheckShield();
     void spawnExplosion(int,int,bool);
 public slots:

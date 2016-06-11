@@ -135,24 +135,25 @@ void Bullet::move()
             }
             else if(typeid(*(colliding_items[i])) == typeid(Enemy))
             {
+                QVector<Enemy*> *buff = new QVector<Enemy *>;
+                emit enemyListing(buff);
+                for(int j=0;j<buff->size();j++){
+                    if(colliding_items[i]->x()==buff->at(j)->getX() and colliding_items[i]->y()==buff->at(j)->getY()){
+                        if(buff->at(j)->getHealth()<=1){
+                            if(stars>=0){
+                                delete colliding_items[i];
 
-                Enemy *buff = new Enemy(0,0,0,0,this);
-                buff->timer->stop();
-                emit xya(buff);
-                if((colliding_items[i]->x()==buff->getX())
-                   and (colliding_items[i]->y()==buff->getY()))
-                {
-                    if(buff->getHealth()==2)
-                        emit spawnExplosion(0,0,true);
+                                break;
+                            }
+                        }
+                        else{
+                            emit changeHealth(buff->at(j)->getId());
+                            break;
+                        }
+                    }
                 }
-
-                if(stars>=0){
-                delete colliding_items[i];
-
-                }
-                //deleted = true;
-
-
+                deleted = true;
+                delete buff;
             }
             else if(typeid(*(colliding_items[i])) == typeid(Base))
             {

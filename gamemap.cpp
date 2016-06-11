@@ -137,6 +137,20 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
+void GameMap::chengeHealthSlot(int id)
+{
+    chengeHealthSignal(id);
+}
+
+void GameMap::enemyListing(QVector<Enemy *> *buff)
+{
+
+    for(int i=0;i<enemyListObject.size();i++){
+        buff->push_back(enemyListObject[i]);
+    }
+
+}
+
 void GameMap::checkPause()
 {
     if(paused){
@@ -160,21 +174,21 @@ void GameMap::checkPause()
 void GameMap::killBase()
 {
     end();
-    emit gameLoss();
-}
-
-void GameMap::xyaSLOT(Enemy *buff)
-{
-    emit xyaSIGNAL(buff);
-}
+    emit gameLoss();}
 
 void GameMap::spawnEnemy(int xPos, int yPos)
 {
     Enemy *en;
     if(enemyQueue[countEnemy]==1)
-        en = new Enemy(xPos,yPos,1,1,this);
+        en = new Enemy(xPos,yPos,1,1,0,this);
     else if(enemyQueue[countEnemy]==2)
-        en = new Enemy(xPos,yPos,2,1,this);
+        en = new Enemy(xPos,yPos,1,2,0,this);
+    else if(enemyQueue[countEnemy]==3)
+        en = new Enemy(xPos,yPos,4,1,0,this);
+    else if(enemyQueue[countEnemy]==4)
+        en = new Enemy(xPos,yPos,1,1,4,this);
+    enemyListObject.push_back(en);
+    countEnemy++;
     connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
     connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
@@ -183,7 +197,7 @@ void GameMap::spawnEnemy(int xPos, int yPos)
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
     connect(this,SIGNAL(pause()),en,SLOT(pause()));
     connect(this,SIGNAL(start()),en,SLOT(start()));
-    connect(this,SIGNAL(xyaSIGNAL(Enemy*)),en,SLOT(xya(Enemy*)));
+    connect(this,SIGNAL(chengeHealthSignal(int)),en,SLOT(changeHealth(int)));
     workScene->addItem(en);
     removeEnemyInterfase();
 }
@@ -208,7 +222,9 @@ void GameMap::killEnemy()
     for(int i = 0; i < enemy_items.size(); i++){
         if(typeid(*(enemy_items[i])) == typeid(Enemy)){
             delete enemy_items[i];
+            enemyListObject.pop_back();
         }
+
     }
 }
 
@@ -270,7 +286,7 @@ void GameMap::spawnBlink()
     workScene->addItem(blink);
     if(countEnemy>=19)
         blinkTimer->stop();
-    countEnemy++;
+
 }
 
 void GameMap::CheckShieldSlot()
@@ -318,6 +334,12 @@ void GameMap::delMapCoord(int xPos, int yPos, bool tank, char side){
         break;
     default:
         break;
+    }
+    auto it=enemyListObject.begin();
+    for(int i=0;i<enemyListObject.size();i++){
+        if(enemyListObject[i]->getX()==xPos and enemyListObject[i]->getY()==yPos)
+            enemyListObject.erase(it);
+        it++;
     }
     //Base *a1 = new Base(xPos,yPos,0);
     //workScene->addItem(a1);
@@ -664,8 +686,9 @@ void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
     workScene->addItem(bullet);
     connect(bullet,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
     connect(bullet,SIGNAL(CheckShield()),this,SLOT(CheckShieldSlot()));
-    connect(bullet,SIGNAL(xya(Enemy*)),this,SLOT(xyaSLOT(Enemy*)));
     connect(bullet,SIGNAL(killBase()),this,SLOT(killBase()));
+    connect(bullet,SIGNAL(enemyListing(QVector<Enemy*>*)),this,SLOT(enemyListing(QVector<Enemy*>*)));
+    connect(bullet,SIGNAL(changeHealth(int)),this,SLOT(chengeHealthSlot(int)));
     connect(this,SIGNAL(pause()),bullet,SLOT(pause()));
     connect(this,SIGNAL(start()),bullet,SLOT(start()));
 }
