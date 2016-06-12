@@ -19,6 +19,7 @@ class Bullet : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 private:
+    int id;
     int saveTimer;
     int stars;
     int count;
@@ -30,8 +31,10 @@ private:
     static int StaticId;
 public:
     void startTimer();
-    explicit Bullet(int xPos, int yPos, char side, int stars, QObject *parent = 0);
+    explicit Bullet(int xPos, int yPos, char side, int stars, int id,QObject *parent = 0);
+    ~Bullet();
 signals:
+    void delBullet(int);
     void changeHealth(int);
     void enemyListing(QVector<Enemy*> *buff);
     void killBase();

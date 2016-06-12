@@ -38,7 +38,7 @@ signals:
     void spawnPoint(int, int, int);
     void spawnExplosion(int,int,bool);
     void delMapCoord(int,int,bool,char);
-    void spawnBullet(int,int,char, int);
+    void spawnBullet(int,int,char, int, int);
     void checkCoord(int,int,char, int);
     void changeCoord(int,int,char, int);
 private slots:

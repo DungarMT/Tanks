@@ -6,8 +6,9 @@ void Bullet::startTimer()
     timer->start(10);
 }
 
-Bullet::Bullet(int xPos, int yPos, char side, int stars, QObject *parent): QObject(parent)
+Bullet::Bullet(int xPos, int yPos, char side, int stars, int id ,QObject *parent): QObject(parent)
 {
+    this->id=id;
     this->stars=stars;
     count = 0;
     this->xPos=xPos;
@@ -43,6 +44,11 @@ Bullet::Bullet(int xPos, int yPos, char side, int stars, QObject *parent): QObje
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(move()));
     timer->start(10);
+}
+
+Bullet::~Bullet()
+{
+    emit delBullet(id);
 }
 
 void Bullet::start()

@@ -47,7 +47,7 @@ void Player::keyPressEvent(QKeyEvent *event)
         }
     }
     else if(event->key()==Qt::Key_Space){
-        emit spawnBullet(posX, posY, side,stars);
+        emit spawnBullet(posX, posY, side,stars, -1);
     }
     else if(event->key()==Qt::Key_P){
         emit checkPause();

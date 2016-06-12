@@ -63,7 +63,7 @@ private:
     QTimer *animationTimer;
     int map[26][26];
     QGraphicsScene *workScene;
-
+    QVector<int> *bullerId;
     void loadEnemys();
     void createPlayer(int xPos, int yPos);
     void createBase(int xPos, int yPos);
@@ -79,6 +79,7 @@ signals:
     void moveShideld(char side);
     void motion(char side, bool flag, int id);
 public slots:
+    void delBullet(int id);
     void spawnPoint(int xPos, int yPos, int count);
     void chengeHealthSlot(int id);
     void enemyListing(QVector<Enemy *> *buff);
@@ -94,7 +95,7 @@ public slots:
     void delMapCoord(int xPos, int yPos, bool tank, char side);
     void delMapCoord(int xPos, int yPos, bool tank);
     void spawnExplosion(int xPos,int yPos, bool tank);
-    void spawnBullet(int xPos,int yPos, char side, int stars);
+    void spawnBullet(int xPos,int yPos, char side, int stars, int id);
     void changePlayerCoord(int xPos, int yPos);
     void checkCoord(int xPos, int yPos, char side, int id);
     void changeCoord(int xPos, int yPos, char side, int id);

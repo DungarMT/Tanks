@@ -53,7 +53,7 @@ signals:
     void spawnShield(int,int);
     void changeCoord(int, int);
     void checkCoord(int, int, int, bool&);
-    void spawnBullet(int, int, char, int);
+    void spawnBullet(int, int, char, int, int);
 private slots:
     void start();
     void pause();

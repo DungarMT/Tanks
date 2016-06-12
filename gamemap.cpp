@@ -20,7 +20,7 @@ GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
     showInterface();
     loadEnemys();
     loadMap();
-
+    bullerId= new QVector<int>;
 }
 
 void GameMap::showInterface()
@@ -73,7 +73,7 @@ void GameMap::createPlayer(int xPos, int yPos)
     connect(player, SIGNAL(spawnShield(int,int)),this,SLOT(spawnShield(int,int)));
     connect(player, SIGNAL(changeCoord(int,int)), this, SLOT(changePlayerCoord(int,int)));
     connect(player, SIGNAL(checkCoord(int,int,int,bool&)), this, SLOT(checkPlayerCoord(int,int,int,bool&)));
-    connect(player, SIGNAL(spawnBullet(int,int,char, int)), this, SLOT(spawnBullet(int,int,char, int)));
+    connect(player, SIGNAL(spawnBullet(int,int,char, int, int)), this, SLOT(spawnBullet(int,int,char, int, int)));
     connect(player,SIGNAL(moveShield(char)),this,SLOT(moveShieldSlot(char)));
     connect(player,SIGNAL(spawnShovel()),this,SLOT(createShovel()));
     connect(player,SIGNAL(killEnemy()),this,SLOT(killEnemy()));
@@ -140,6 +140,18 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
+void GameMap::delBullet(int id)
+{
+    auto it=bullerId->begin();
+    for(int i=0;i<bullerId->size();i++){
+        if(bullerId->at(i)==id){
+            bullerId->erase(it);
+        }
+        it++;
+    }
+
+}
+
 void GameMap::spawnPoint(int xPos, int yPos, int count)
 {
     Points *point = new Points(xPos,yPos,count,this);
@@ -202,7 +214,7 @@ void GameMap::spawnEnemy(int xPos, int yPos)
     connect(this,SIGNAL(motion(char,bool,int)),en,SLOT(motion(char,bool,int)));
     connect(en,SIGNAL(checkCoord(int,int,char,int)),this, SLOT(checkCoord(int,int,char,int)));
     connect(en,SIGNAL(changeCoord(int,int,char,int)),this, SLOT(changeCoord(int,int,char,int)));
-    connect(en,SIGNAL(spawnBullet(int,int,char, int)),this, SLOT(spawnBullet(int,int,char, int)));
+    connect(en,SIGNAL(spawnBullet(int,int,char, int, int)),this, SLOT(spawnBullet(int,int,char, int, int)));
     connect(en,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
     connect(en,SIGNAL(spawnPoint(int,int,int)),this,SLOT(spawnPoint(int,int,int)));
@@ -696,17 +708,31 @@ void GameMap::spawnStars()
 
 }
 
-void GameMap::spawnBullet(int xPos,int yPos, char side, int stars)
+void GameMap::spawnBullet(int xPos,int yPos, char side, int stars, int id)
 {
-    Bullet *bullet = new Bullet(xPos,yPos,side,stars,this);
-    workScene->addItem(bullet);
-    connect(bullet,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
-    connect(bullet,SIGNAL(CheckShield()),this,SLOT(CheckShieldSlot()));
-    connect(bullet,SIGNAL(killBase()),this,SLOT(killBase()));
-    connect(bullet,SIGNAL(enemyListing(QVector<Enemy*>*)),this,SLOT(enemyListing(QVector<Enemy*>*)));
-    connect(bullet,SIGNAL(changeHealth(int)),this,SLOT(chengeHealthSlot(int)));
-    connect(this,SIGNAL(pause()),bullet,SLOT(pause()));
-    connect(this,SIGNAL(start()),bullet,SLOT(start()));
+    bool insrt=true;
+    if(!bullerId->isEmpty()){
+        for(int i=0;i<bullerId->size();i++){
+            if(bullerId->at(i)==id){
+                insrt=false;
+            }
+        }
+    }
+    if(insrt){
+        bullerId->push_back(id);
+        Bullet *bullet = new Bullet(xPos,yPos,side,stars,id,this);
+        workScene->addItem(bullet);
+        connect(bullet,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
+        connect(bullet,SIGNAL(CheckShield()),this,SLOT(CheckShieldSlot()));
+        connect(bullet,SIGNAL(killBase()),this,SLOT(killBase()));
+        connect(bullet,SIGNAL(enemyListing(QVector<Enemy*>*)),this,SLOT(enemyListing(QVector<Enemy*>*)));
+        connect(bullet,SIGNAL(changeHealth(int)),this,SLOT(chengeHealthSlot(int)));
+        connect(bullet,SIGNAL(delBullet(int)),this,SLOT(delBullet(int)));
+        connect(this,SIGNAL(pause()),bullet,SLOT(pause()));
+        connect(this,SIGNAL(start()),bullet,SLOT(start()));
+    }
+
+
 }
 
 void GameMap::loadMap()
