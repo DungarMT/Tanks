@@ -22,4 +22,10 @@ Game::Game()
     gameScene->addItem(field);
     //Create game map
     GameMap *map = new GameMap(gameScene);
+    points=map->getPoints();
+}
+
+void Game::addPoints(int count)
+{
+    points+=count;
 }

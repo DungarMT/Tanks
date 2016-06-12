@@ -40,7 +40,19 @@ Enemy::~Enemy()
 {
 
     emit delMapCoord(xPos,yPos,true,side);
-    spawnExplosion(posX,posY,true);
+    emit spawnExplosion(posX,posY,true);
+    if(speed==2){
+        emit spawnPoint(posX,posY,200);
+    }
+    else if(speedShoot!=1){
+        emit spawnPoint(posX,posY,300);
+    }
+    else if(health==1){
+        emit spawnPoint(posX,posY,400);
+    }
+    else{
+        emit spawnPoint(posX,posY,100);
+    }
 }
 
 int Enemy::getX()
@@ -61,6 +73,16 @@ int Enemy::getHealth()
 int Enemy::getId()
 {
     return EnemyId;
+}
+
+int Enemy::getSpeed()
+{
+    return speed;
+}
+
+int Enemy::getSpeedShoot()
+{
+    return speedShoot;
 }
 
 

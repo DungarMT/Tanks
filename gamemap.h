@@ -34,6 +34,7 @@
 #include "healthpanel.h"
 #include "blink.h"
 #include "pause.h"
+#include "points.h"
 
 class GameMap : public QObject
 {
@@ -44,7 +45,9 @@ public:
     void end();
     void showInterface();
     void removeEnemyInterfase();
+    int getPoints();
 private:
+    int points;
     QVector<Enemy *> enemyListObject;
     Pause *pauseMessage;
     bool paused;
@@ -66,6 +69,7 @@ private:
     void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
 signals:
+    void addPoints(int);
     void chengeHealthSignal(int);
     void start();
     void pause();
@@ -75,6 +79,7 @@ signals:
     void moveShideld(char side);
     void motion(char side, bool flag, int id);
 public slots:
+    void spawnPoint(int xPos, int yPos, int count);
     void chengeHealthSlot(int id);
     void enemyListing(QVector<Enemy *> *buff);
     void checkPause();

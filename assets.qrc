@@ -85,6 +85,10 @@
         <file alias="tank_lvl_4/tank2right.png">assets/img/tank_lvl_4/tank2right.png</file>
         <file alias="tank_lvl_4/tank2up.png">assets/img/tank_lvl_4/tank2up.png</file>
         <file alias="tank_lvl_4/tank1left.png">assets/img/tank_lvl_4/tank1left.png</file>
+        <file alias="100point.png">assets/img/100point.png</file>
+        <file alias="200point.png">assets/img/200point.png</file>
+        <file alias="300point.png">assets/img/300point.png</file>
+        <file alias="400point.png">assets/img/400point.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>

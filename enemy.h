@@ -16,6 +16,8 @@ public:
     int getY();
     int getHealth();
     int getId();
+    int getSpeed();
+    int getSpeedShoot();
     void setHealth(int health);
     QTimer *timer;
 private:
@@ -33,6 +35,7 @@ private:
     QTimer *timerAnimation;
     QTimer *timerBullet;
 signals:
+    void spawnPoint(int, int, int);
     void spawnExplosion(int,int,bool);
     void delMapCoord(int,int,bool,char);
     void spawnBullet(int,int,char, int);

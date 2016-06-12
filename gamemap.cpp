@@ -4,6 +4,7 @@
 
 GameMap::GameMap(QGraphicsScene *workScene, QObject *parent) : QObject(parent)
 {
+    points=0;
     pauseMessage = new Pause(168,208,this);
     paused=false;
     countEnemy=0;
@@ -137,6 +138,13 @@ void GameMap::createBlock(int xPos, int yPos, int idBlock)
     }
 }
 
+void GameMap::spawnPoint(int xPos, int yPos, int count)
+{
+    Points *point = new Points(xPos,yPos,count,this);
+    points+=count;
+    workScene->addItem(point);
+}
+
 void GameMap::chengeHealthSlot(int id)
 {
     chengeHealthSignal(id);
@@ -195,6 +203,7 @@ void GameMap::spawnEnemy(int xPos, int yPos)
     connect(en,SIGNAL(spawnBullet(int,int,char, int)),this, SLOT(spawnBullet(int,int,char, int)));
     connect(en,SIGNAL(spawnExplosion(int,int,bool)),this,SLOT(spawnExplosion(int,int,bool)));
     connect(en,SIGNAL(delMapCoord(int,int,bool,char)),this,SLOT(delMapCoord(int,int,bool,char)));
+    connect(en,SIGNAL(spawnPoint(int,int,int)),this,SLOT(spawnPoint(int,int,int)));
     connect(this,SIGNAL(pause()),en,SLOT(pause()));
     connect(this,SIGNAL(start()),en,SLOT(start()));
     connect(this,SIGNAL(chengeHealthSignal(int)),en,SLOT(changeHealth(int)));
@@ -207,6 +216,11 @@ void GameMap::removeEnemyInterfase()
     auto it=enemyList.last();
     delete it;
     enemyList.pop_back();
+}
+
+int GameMap::getPoints()
+{
+    return points;
 }
 
 void GameMap::addHealth()

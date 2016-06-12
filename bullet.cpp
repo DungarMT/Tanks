@@ -142,7 +142,6 @@ void Bullet::move()
                         if(buff->at(j)->getHealth()<=1){
                             if(stars>=0){
                                 delete colliding_items[i];
-
                                 break;
                             }
                         }

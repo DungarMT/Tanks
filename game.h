@@ -11,6 +11,10 @@ class Game : public QObject
     Q_OBJECT
 public:
     Game();
+private:
+    int points;
+public slots:
+    void addPoints(int count);
 };
 
 #endif // GAME_H

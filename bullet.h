@@ -14,6 +14,7 @@
 #include "base.h"
 #include "player.h"
 
+
 class Bullet : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
