@@ -89,6 +89,8 @@
         <file alias="200point.png">assets/img/200point.png</file>
         <file alias="300point.png">assets/img/300point.png</file>
         <file alias="400point.png">assets/img/400point.png</file>
+        <file alias="scoreTemplate.png">assets/img/scoreTemplate.png</file>
+        <file alias="statDisplay.png">assets/img/startDisplay.png</file>
     </qresource>
     <qresource prefix="/maps">
         <file alias="1.txt">assets/maps/1.txt</file>

@@ -55,7 +55,7 @@ void Player::keyPressEvent(QKeyEvent *event)
 }
 void Player::keyReleaseEvent(QKeyEvent *event)
 {
-
+    if( !queue->isEmpty()){
     if(event->isAutoRepeat())
     {
         event->ignore();
@@ -96,6 +96,7 @@ void Player::keyReleaseEvent(QKeyEvent *event)
             }
             break;
         }
+    }
     }
 }
 
@@ -160,7 +161,6 @@ void Player::move()
 
 
     if(direction == 0 and !queue->isEmpty()){
-
         direction = queue->last();
         this->changeView(direction);
         bool tmp;

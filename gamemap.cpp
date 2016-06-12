@@ -68,6 +68,8 @@ void GameMap::createPlayer(int xPos, int yPos)
     map[xPos+1][yPos+1] = 1;
     Player *player = new Player(xPos, yPos, this);
     workScene->addItem(player);
+    player->setFlag(QGraphicsItem::ItemIsFocusable);
+    player->setFocus();
     connect(player, SIGNAL(spawnShield(int,int)),this,SLOT(spawnShield(int,int)));
     connect(player, SIGNAL(changeCoord(int,int)), this, SLOT(changePlayerCoord(int,int)));
     connect(player, SIGNAL(checkCoord(int,int,int,bool&)), this, SLOT(checkPlayerCoord(int,int,int,bool&)));
