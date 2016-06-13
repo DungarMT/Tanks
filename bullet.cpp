@@ -43,7 +43,10 @@ Bullet::Bullet(int xPos, int yPos, char side, int stars, int id ,QObject *parent
     emit move();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this,SLOT(move()));
-    timer->start(10);
+    if(stars==-2)
+        timer->start(5);
+    else
+        timer->start(10);
 }
 
 Bullet::~Bullet()

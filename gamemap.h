@@ -69,6 +69,7 @@ private:
     void createBase(int xPos, int yPos);
     void createBlock(int xPos, int yPos, int idBlock);
 signals:
+    void gameEnd();
     void addPoints(int);
     void chengeHealthSignal(int);
     void start();

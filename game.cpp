@@ -21,11 +21,14 @@ Game::Game()
     field->setBrush(Qt::black);
     gameScene->addItem(field);
     //Create game map
-    GameMap *map = new GameMap(gameScene);
-    points=map->getPoints();
+    map = new GameMap(gameScene);
+
 }
 
-void Game::addPoints(int count)
+void Game::gameEnd()
 {
-    points+=count;
+    points=map->getPoints();
+    delete map;
 }
+
+

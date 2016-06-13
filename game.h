@@ -12,9 +12,10 @@ class Game : public QObject
 public:
     Game();
 private:
+    GameMap *map;
     int points;
 public slots:
-    void addPoints(int count);
+    void gameEnd();
 };
 
 #endif // GAME_H

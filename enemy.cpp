@@ -33,7 +33,7 @@ Enemy::Enemy(int xPos, int yPos, int speedShoot ,int speed, int health, QObject 
     timer->start(20);
     timerBullet = new QTimer(this);
     connect(timerBullet,SIGNAL(timeout()),this,SLOT(spawnBulletEnemy()));
-    timerBullet->start(400/speedShoot);
+    timerBullet->start(400);
 }
 
 Enemy::~Enemy()
@@ -118,7 +118,10 @@ void Enemy::pause()
 
 void Enemy::spawnBulletEnemy()
 {
-    timerBullet->start(400/speedShoot);
+    timerBullet->start(400);
+    if(speedShoot>1)
+    emit spawnBullet(posX,posY,side,-2,EnemyId);
+    else
     emit spawnBullet(posX,posY,side,-1,EnemyId);
 }
 
