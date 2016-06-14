@@ -17,6 +17,17 @@ Shield::Shield(int xPos, int yPos, QObject *parent): QObject(parent)
 
 }
 
+void Shield::start()
+{
+    deleted->start(deletedCount);
+}
+
+void Shield::pause()
+{
+    deletedCount=deleted->remainingTime();
+    deleted->stop();
+}
+
 void Shield::animation()
 {
     if(animate){

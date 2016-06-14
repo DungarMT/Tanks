@@ -156,6 +156,22 @@ void Bullet::move()
                         }
                         else{
                             emit changeHealth(buff->at(j)->getId());
+                            switch (side) {
+                            case 'D':
+                                emit spawnExplosion(xPos,yPos+24,false);
+                                break;
+                            case 'L':
+                                emit spawnExplosion(xPos-24,yPos,false);
+                                break;
+                            case 'U':
+                                emit spawnExplosion(xPos,yPos-24,false);
+                                break;
+                            case 'R':
+                                emit spawnExplosion(xPos+24,yPos,false);
+                                break;
+                            default:
+                                break;
+                            }
                             break;
                         }
                     }

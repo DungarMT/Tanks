@@ -297,6 +297,8 @@ void GameMap::spawnShield(int xPos, int yPos)
 {
     Shield *shield = new Shield(xPos,yPos,this);
     connect(this,SIGNAL(moveShideld(char)),shield,SLOT(move(char)));
+    connect(this,SIGNAL(start()),shield,SLOT(start()));
+    connect(this,SIGNAL(pause()),shield,SLOT(pause()));
     workScene->addItem(shield);
 }
 
